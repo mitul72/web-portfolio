@@ -83,11 +83,7 @@ export default function Home() {
             scale={screenScale}
             rotation={rotation}
           /> */}
-          <PirateIsland
-            position={screenPosition}
-            scale={screenScale}
-            rotation={rotation}
-          />
+          <PirateIsland />
           {/* <CameraTracker /> */}
         </Suspense>
         <OrbitControls enableZoom={true} />
