@@ -4,30 +4,30 @@ Command: npx gltfjsx@6.5.0 captain_ship_island.glb --transform
 Files: captain_ship_island.glb [8.74MB] > C:\Users\mitul\Downloads\captain_ship_island-transformed.glb [1.03MB] (88%)
 */
 
-import React, { useEffect, useRef, useState } from "react";
-import { useFrame, useGraph } from "@react-three/fiber";
-import { useGLTF, useAnimations, useHelper } from "@react-three/drei";
+import React, { useEffect } from "react";
+import { useGraph } from "@react-three/fiber";
+import { useGLTF, useAnimations } from "@react-three/drei";
 import { SkeletonUtils } from "three-stdlib";
 import PirateIsland from "@/assets/captain_ship_island-transformed.glb";
-import { DirectionalLight, DirectionalLightHelper } from "three";
+import { Mesh, SkinnedMesh } from "three";
 
 export default function Model(props: any) {
   // const dir = useRef<DirectionalLight>(null!);
   // useHelper(dir, DirectionalLightHelper, 1, "red");
-  const meshRef = useRef(null!);
-  const [position, setPosition] = useState([0, 0, 0]);
-  const [rotation, setRotation] = useState([0, 0, 0]);
+  // const meshRef = useRef(null!);
+  // const [position, setPosition] = useState([0, 0, 0]);
+  // const [rotation, setRotation] = useState([0, 0, 0]);
 
   // Update the position and rotation every frame
-  useFrame(() => {
-    if (meshRef.current) {
-      const pos = meshRef.current.position;
-      const rot = meshRef.current.rotation;
-      console.log("position: ", pos);
-      // setPosition([pos.x, pos.y, pos.z]);
-      // setRotation([rot.x, rot.y, rot.z]);
-    }
-  });
+  // useFrame(() => {
+  //   if (meshRef.current) {
+  //     const pos = meshRef.current.position;
+  //     const rot = meshRef.current.rotation;
+  //     console.log("position: ", pos);
+  //     // setPosition([pos.x, pos.y, pos.z]);
+  //     // setRotation([rot.x, rot.y, rot.z]);
+  //   }
+  // });
 
   const group = React.useRef();
   const { scene, animations } = useGLTF(PirateIsland);
@@ -55,7 +55,7 @@ export default function Model(props: any) {
         </group>
         <mesh
           name="Ship_Large"
-          geometry={nodes.Ship_Large.geometry}
+          geometry={(nodes.Ship_Large as Mesh).geometry}
           material={materials.Atlas}
           position={[2.278, 2.838, 98.04]}
           rotation={[0, -0.395, 0]}
@@ -63,7 +63,7 @@ export default function Model(props: any) {
         />
         <mesh
           name="barrel_plank009_Building_0"
-          geometry={nodes.barrel_plank009_Building_0.geometry}
+          geometry={(nodes.barrel_plank009_Building_0 as Mesh).geometry}
           material={materials.Building}
           position={[-14.263, 5.015, -18.203]}
           rotation={[2.092, -0.618, 2.351]}
@@ -71,21 +71,21 @@ export default function Model(props: any) {
         />
         <mesh
           name="Box754_environment_0"
-          geometry={nodes.Box754_environment_0.geometry}
+          geometry={(nodes.Box754_environment_0 as Mesh).geometry}
           material={materials.environment}
           position={[-47.034, 1.344, 21.926]}
           rotation={[-1.518, -0.083, 1.222]}
         />
         <mesh
           name="Object022_Material_#61_0"
-          geometry={nodes["Object022_Material_#61_0"].geometry}
+          geometry={(nodes["Object022_Material_#61_0"] as Mesh).geometry}
           material={materials.Material_61}
           position={[-10.326, 0.4, -0.836]}
           rotation={[-Math.PI / 2, 0, 0]}
         />
         <mesh
           name="Sea_sea_0"
-          geometry={nodes.Sea_sea_0.geometry}
+          geometry={(nodes.Sea_sea_0 as Mesh).geometry}
           material={materials.material_3}
           position={[0, 0.264, 0.206]}
           rotation={[-Math.PI / 2, 0, 0]}
@@ -93,24 +93,24 @@ export default function Model(props: any) {
         />
         <mesh
           name="Sky_sky_0"
-          geometry={nodes.Sky_sky_0.geometry}
+          geometry={(nodes.Sky_sky_0 as Mesh).geometry}
           material={materials.material}
           rotation={[-Math.PI / 2, 0, 0]}
           scale={0.055}
         />
         <skinnedMesh
           name="Captain_Barbarossa_"
-          geometry={nodes.Captain_Barbarossa_.geometry}
+          geometry={(nodes.Captain_Barbarossa_ as Mesh).geometry}
           material={materials["Atlas.001"]}
-          skeleton={nodes.Captain_Barbarossa_.skeleton}
+          skeleton={(nodes.Captain_Barbarossa_ as SkinnedMesh).skeleton}
           position={[21.745, 12.545, 105.041]}
           scale={3.733}
         />
         <skinnedMesh
           name="Ernest"
-          geometry={nodes.Ernest.geometry}
+          geometry={(nodes.Ernest as Mesh).geometry}
           material={materials["Atlas.001"]}
-          skeleton={nodes.Ernest.skeleton}
+          skeleton={(nodes.Ernest as SkinnedMesh).skeleton}
           position={[21.745, 12.545, 105.041]}
           scale={3.733}
         />
