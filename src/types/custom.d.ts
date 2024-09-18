@@ -3,3 +3,9 @@ declare module '*.glb' {
     export default value;
   }
   
+  declare module "*.mp3" {
+    const src: any;
+    export default src;
+  }
+  
+  

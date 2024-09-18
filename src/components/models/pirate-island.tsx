@@ -5,13 +5,16 @@ Files: captain_ship_island.glb [8.74MB] > C:\Users\mitul\Downloads\captain_ship_
 */
 
 import React, { useEffect } from "react";
-import { useGraph } from "@react-three/fiber";
-import { useGLTF, useAnimations } from "@react-three/drei";
+import { useGraph, useThree } from "@react-three/fiber";
+import { useGLTF, useAnimations, Html } from "@react-three/drei";
 import { SkeletonUtils } from "three-stdlib";
 import PirateIsland from "@/assets/captain_ship_island-transformed.glb";
-import { Mesh, SkinnedMesh } from "three";
+import { Mesh, SkinnedMesh, Vector3 } from "three";
+import gsap from "gsap";
 
 export default function Model(props: any) {
+  const { camera } = useThree(); // Access to the camera
+
   // const dir = useRef<DirectionalLight>(null!);
   // useHelper(dir, DirectionalLightHelper, 1, "red");
   // const meshRef = useRef(null!);
@@ -28,6 +31,59 @@ export default function Model(props: any) {
   //     // setRotation([rot.x, rot.y, rot.z]);
   //   }
   // });
+
+  const focusOnObject = (objectPosition: Vector3) => {
+    gsap.to(camera.position, {
+      x: objectPosition.x + 10, // Offset slightly for a better view
+      y: objectPosition.y + 5,
+      z: objectPosition.z + 15,
+      duration: 2,
+      ease: "power2.inOut",
+    });
+
+    gsap.to(camera.rotation, {
+      x: 0, // Set rotation for a better angle if necessary
+      y: 0,
+      z: 0,
+      duration: 2,
+      ease: "power2.inOut",
+    });
+  };
+
+  useEffect(() => {
+    gsap.fromTo(
+      camera.position,
+      {
+        x: 0, // New X position
+        y: 10, // New Y position
+        z: 50, // New Z position
+        duration: 3, // Animation duration in seconds
+        ease: "power2.inOut", // Easing function
+      },
+      {
+        ...props.cameraPosition,
+        duration: 3, // Animation duration in seconds
+        ease: "power2.inOut", // Easing function
+      }
+    );
+
+    // Optionally, animate the camera's rotation as well
+    gsap.fromTo(
+      camera.rotation,
+      {
+        x: Math.PI / 4, // New X rotation
+        y: Math.PI / 4, // New Y rotation
+        z: 0, // New Z rotation
+        duration: 3,
+        ease: "power2.inOut",
+      },
+      {
+        ...props.cameraRotation,
+        duration: 3,
+        ease: "power2.inOut",
+      }
+    );
+  }, []);
 
   const group = React.useRef();
   const { scene, animations } = useGLTF(PirateIsland);
@@ -106,6 +162,20 @@ export default function Model(props: any) {
           position={[21.745, 12.545, 105.041]}
           scale={3.733}
         />
+        <Html position={[21.745, 12.545, 105.041]} distanceFactor={10} center>
+          <button
+            style={{
+              padding: "8px 16px",
+              background: "orange",
+              border: "none",
+              cursor: "pointer",
+            }}
+            onClick={() => focusOnObject(new Vector3(21.745, 12.545, 105.041))}
+          >
+            Focus on Captain
+          </button>
+        </Html>
+
         <skinnedMesh
           name="Ernest"
           geometry={(nodes.Ernest as Mesh).geometry}

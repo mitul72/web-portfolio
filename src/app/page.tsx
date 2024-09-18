@@ -1,14 +1,25 @@
 "use client";
 // import PokeTown from "@/components/models/pokemon-town";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { Suspense, useEffect, useState } from "react";
 import { OrbitControls } from "@react-three/drei";
 import PirateIsland from "@/components/models/pirate-island";
-// s
+import { Euler, Vector3 } from "three";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import BackgroundMusic from "@/components/music";
+
 export default function Home() {
   const [screenScale, setScreenScale] = useState([1, 1, 1]);
   const [screenPosition, setScreenPosition] = useState([0, -6.5, -43]);
   const [rotation, setRotation] = useState([0.1, 4.7, 0]);
+  const [cameraPosition, setCameraPosition] = useState(
+    new Vector3(23.08, 30.52, 150.63)
+  );
+  const [cameraRotation, setCameraRotation] = useState(
+    new Euler(-0.199, 0.149, 0.03)
+  );
+
   // const CameraTracker = () => {
   //   const { camera } = useThree(); // Get access to the camera object
 
@@ -29,6 +40,7 @@ export default function Home() {
 
   // Run the window-related code inside useEffect to ensure it runs on the client side
   useEffect(() => {
+    // animateCamera();
     const adjustTownForScreen = () => {
       let screenScale;
       const screenPosition = [0, -6.5, -43];
@@ -63,8 +75,8 @@ export default function Home() {
       <Canvas
         className="w-full h-screen bg-transparent"
         camera={{
-          position: [23.08, 30.52, 150.63], // Default camera position
-          rotation: [-0.199, 0.149, 0.03],
+          position: cameraPosition, // Default camera position
+          rotation: cameraRotation,
           near: 0.1,
           far: 1000,
         }}
@@ -83,11 +95,15 @@ export default function Home() {
             scale={screenScale}
             rotation={rotation}
           /> */}
-          <PirateIsland />
+          <PirateIsland
+            cameraPosition={cameraPosition}
+            cameraRotation={cameraRotation}
+          />
           {/* <CameraTracker /> */}
         </Suspense>
         <OrbitControls enableZoom={true} />
       </Canvas>
+      <BackgroundMusic />
     </section>
   );
 }
