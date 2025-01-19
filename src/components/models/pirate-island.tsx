@@ -90,7 +90,7 @@ export default function Model(props: any) {
   const { scene, animations } = useGLTF(PirateIsland);
   const clone = React.useMemo(() => SkeletonUtils.clone(scene), [scene]);
   const { nodes, materials } = useGraph(clone);
-  const { nodes: shipNodes, materials: shipMaterials } = useGLTF(Ship);
+  const { materials: shipMaterials } = useGLTF(Ship);
 
   const { actions } = useAnimations(animations, group);
   useEffect(() => {
@@ -113,14 +113,14 @@ export default function Model(props: any) {
         >
           <primitive object={nodes.Root} />
         </group>
-        {/* <mesh
+        <mesh
           name="Ship_Large"
           geometry={(nodes.Ship_Large as Mesh).geometry}
-          material={materials.Atlas}
+          material={shipMaterials["Atlas.003"]}
           position={[2.278, 2.838, 98.04]}
           rotation={[0, -0.395, 0]}
           scale={4.983}
-        /> */}
+        />
         <mesh
           name="barrel_plank009_Building_0"
           geometry={(nodes.barrel_plank009_Building_0 as Mesh).geometry}
@@ -187,14 +187,6 @@ export default function Model(props: any) {
           skeleton={(nodes.Ernest as SkinnedMesh).skeleton}
           position={[21.745, 12.545, 105.041]}
           scale={3.733}
-        />
-        <mesh
-          name="Ship_Large"
-          geometry={(shipNodes.Ship_Large as Mesh).geometry}
-          material={shipMaterials["Atlas.003"]}
-          position={[2.278, 2.838, 98.04]}
-          rotation={[0, -0.395, 0]}
-          scale={4.983}
         />
       </group>
     </group>
