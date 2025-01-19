@@ -9,6 +9,7 @@ import { useGraph, useThree } from "@react-three/fiber";
 import { useGLTF, useAnimations, Html } from "@react-three/drei";
 import { SkeletonUtils } from "three-stdlib";
 import PirateIsland from "@/assets/captain_ship_island-transformed.glb";
+import Ship from "@/assets/ship_custom.glb";
 import { Mesh, SkinnedMesh, Vector3 } from "three";
 import gsap from "gsap";
 
@@ -89,12 +90,15 @@ export default function Model(props: any) {
   const { scene, animations } = useGLTF(PirateIsland);
   const clone = React.useMemo(() => SkeletonUtils.clone(scene), [scene]);
   const { nodes, materials } = useGraph(clone);
+  const { nodes: shipNodes, materials: shipMaterials } = useGLTF(Ship);
+
   const { actions } = useAnimations(animations, group);
   useEffect(() => {
     if (actions) {
-      const animationAction = actions["Wave"]; // Replace with the actual animation name
+      const idleAnimation = actions["Idle"];
+      const animationAction = actions["Wave"];
       if (animationAction) {
-        // animationAction.play();
+        animationAction.play();
       }
     }
   }, [actions]);
@@ -109,14 +113,14 @@ export default function Model(props: any) {
         >
           <primitive object={nodes.Root} />
         </group>
-        <mesh
+        {/* <mesh
           name="Ship_Large"
           geometry={(nodes.Ship_Large as Mesh).geometry}
           material={materials.Atlas}
           position={[2.278, 2.838, 98.04]}
           rotation={[0, -0.395, 0]}
           scale={4.983}
-        />
+        /> */}
         <mesh
           name="barrel_plank009_Building_0"
           geometry={(nodes.barrel_plank009_Building_0 as Mesh).geometry}
@@ -183,6 +187,14 @@ export default function Model(props: any) {
           skeleton={(nodes.Ernest as SkinnedMesh).skeleton}
           position={[21.745, 12.545, 105.041]}
           scale={3.733}
+        />
+        <mesh
+          name="Ship_Large"
+          geometry={(shipNodes.Ship_Large as Mesh).geometry}
+          material={shipMaterials["Atlas.003"]}
+          position={[2.278, 2.838, 98.04]}
+          rotation={[0, -0.395, 0]}
+          scale={4.983}
         />
       </group>
     </group>
