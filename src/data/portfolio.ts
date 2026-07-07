@@ -369,3 +369,48 @@ export const PLANNED_STOPS: (Omit<TourStop, "position" | "camera"> & {
     },
   },
 ];
+
+// -----------------------------------------------------------------------------
+// CONTENT SELECTORS — used by BOTH the 3D scene and the 2D `/lite` page, so the
+// two views never drift out of sync. All read from the data above.
+// -----------------------------------------------------------------------------
+
+const ALL_STOPS = [...STOPS, ...PLANNED_STOPS];
+
+function contentOfKind<K extends StopContent["kind"]>(
+  kind: K
+): Extract<StopContent, { kind: K }> | undefined {
+  for (const s of ALL_STOPS) {
+    if (s.content.kind === kind) return s.content as Extract<StopContent, { kind: K }>;
+    for (const p of s.subPois ?? []) {
+      if (p.content.kind === kind)
+        return p.content as Extract<StopContent, { kind: K }>;
+    }
+  }
+  return undefined;
+}
+
+/** The intro/bio block. */
+export const INTRO = contentOfKind("intro");
+
+/** The resume block (title, blurb, pdfUrl). */
+export const RESUME = contentOfKind("resume");
+
+/** The contact block (title, blurb, links). */
+export const CONTACT = contentOfKind("contact");
+
+/** Every project, flattened from island content + sub-POIs. */
+export const PROJECTS: ProjectContent[] = ALL_STOPS.flatMap((s) => {
+  const own = s.content.kind === "project" ? [s.content] : [];
+  const subs = (s.subPois ?? [])
+    .map((p) => p.content)
+    .filter((c): c is ProjectContent => c.kind === "project");
+  return [...own, ...subs];
+  // Note: a hub island's own "overview" project (empty tech/links) is skipped
+  // by the lite page via the hasDetail() check there.
+});
+
+/** Every experience entry. */
+export const EXPERIENCES: ExperienceContent[] = ALL_STOPS.map(
+  (s) => s.content
+).filter((c): c is ExperienceContent => c.kind === "experience");

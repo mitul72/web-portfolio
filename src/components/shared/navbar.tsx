@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import soundOn from "@/assets/images/soundon.png";
 import soundOff from "@/assets/images/soundoff.png";
 import { useTour } from "@/components/tour/useTour";
@@ -25,21 +26,30 @@ export default function Navbar() {
       >
         ⚓ Mitul Dhawan
       </button>
-      {/* Mobile-only: on sm+ the toggle sits bottom-left (BackgroundMusic). */}
-      <button
-        onClick={toggle}
-        aria-label={muted ? "Unmute sound" : "Mute sound"}
-        className="pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-slate-900/50 shadow backdrop-blur transition hover:bg-white/10 sm:hidden"
-      >
-        <Image
-          src={muted ? soundOff : soundOn}
-          width={22}
-          height={22}
-          alt=""
-          priority
-          className="object-contain"
-        />
-      </button>
+      <div className="flex items-center gap-2">
+        {/* Escape hatch to the fast 2D version. */}
+        <Link
+          href="/lite"
+          className="pointer-events-auto rounded-full border border-white/20 bg-slate-900/50 px-3 py-1.5 text-xs text-white/80 shadow backdrop-blur transition hover:bg-white/10 hover:text-white sm:text-sm"
+        >
+          Simple view
+        </Link>
+        {/* Mobile-only: on sm+ the toggle sits bottom-left (BackgroundMusic). */}
+        <button
+          onClick={toggle}
+          aria-label={muted ? "Unmute sound" : "Mute sound"}
+          className="pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-slate-900/50 shadow backdrop-blur transition hover:bg-white/10 sm:hidden"
+        >
+          <Image
+            src={muted ? soundOff : soundOn}
+            width={22}
+            height={22}
+            alt=""
+            priority
+            className="object-contain"
+          />
+        </button>
+      </div>
     </header>
   );
 }
