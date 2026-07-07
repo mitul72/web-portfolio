@@ -34,27 +34,27 @@ export default function TourControls() {
   }
 
   return (
-    <div className="pointer-events-auto absolute bottom-4 left-1/2 z-20 -translate-x-1/2">
-      <nav className="flex items-center gap-1 rounded-full border border-white/15 bg-slate-900/75 px-2 py-1.5 text-white shadow-xl backdrop-blur-xl">
+    <div className="pointer-events-auto absolute bottom-0 left-1/2 z-20 flex max-w-[100vw] -translate-x-1/2 justify-center px-2 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+      <nav className="flex max-w-full items-center gap-1 overflow-x-auto rounded-full border border-white/15 bg-slate-900/75 px-2 py-1.5 text-white shadow-xl backdrop-blur-xl [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {/* Home / free-look reset */}
         <button
           onClick={home}
-          className={`rounded-full px-3 py-1.5 text-sm font-medium transition ${
+          className={`shrink-0 rounded-full px-3 py-1.5 text-sm font-medium transition ${
             activeIndex === null
               ? "bg-white/15 text-white"
               : "text-white/70 hover:bg-white/10 hover:text-white"
           }`}
         >
-          ⚓ Home
+          ⚓<span className="ml-1 hidden sm:inline">Home</span>
         </button>
 
-        <div className="mx-0.5 h-5 w-px bg-white/15" />
+        <div className="mx-0.5 h-5 w-px shrink-0 bg-white/15" />
 
         {STOPS.map((stop, i) => (
           <button
             key={stop.id}
             onClick={() => goTo(i)}
-            className={`rounded-full px-3 py-1.5 text-sm font-medium transition ${
+            className={`shrink-0 rounded-full px-3 py-1.5 text-sm font-medium transition ${
               activeIndex === i
                 ? "bg-amber-400 text-black"
                 : "text-white/70 hover:bg-white/10 hover:text-white"

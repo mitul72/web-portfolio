@@ -23,16 +23,25 @@ export default function SubNav() {
   if (subPois.length === 0 || phase !== "docked") return null;
 
   return (
-    <div className="pointer-events-auto absolute left-4 top-1/2 z-20 -translate-y-1/2">
-      <div className="flex flex-col gap-1 rounded-2xl border border-white/15 bg-slate-900/75 p-2 text-white shadow-xl backdrop-blur-xl">
-        <p className="px-2 pb-1 pt-1 text-[10px] font-semibold uppercase tracking-widest text-white/40">
+    <div
+      className="pointer-events-auto absolute z-20
+        /* mobile: horizontal strip under the header */
+        inset-x-0 top-16 flex justify-center px-3
+        /* sm+: vertical list on the left */
+        sm:inset-x-auto sm:left-4 sm:top-1/2 sm:block sm:-translate-y-1/2 sm:px-0"
+    >
+      <div
+        className="flex max-w-full items-center gap-1 overflow-x-auto rounded-2xl border border-white/15 bg-slate-900/75 p-2 text-white shadow-xl backdrop-blur-xl [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
+          sm:flex-col sm:items-stretch sm:overflow-visible"
+      >
+        <p className="hidden px-2 pb-1 pt-1 text-[10px] font-semibold uppercase tracking-widest text-white/40 sm:block">
           {stop?.navLabel ?? "Explore"}
         </p>
         {subPois.map((poi) => (
           <button
             key={poi.id}
             onClick={() => selectSubPoi(poi.id)}
-            className={`rounded-lg px-3 py-1.5 text-left text-sm font-medium transition ${
+            className={`shrink-0 rounded-lg px-3 py-1.5 text-left text-sm font-medium transition ${
               activeSubPoiId === poi.id
                 ? "bg-cyan-400/90 text-black"
                 : "text-white/75 hover:bg-white/10 hover:text-white"

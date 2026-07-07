@@ -20,6 +20,7 @@ import Navbar from "@/components/shared/navbar";
 import ContentPanel from "@/components/ui/ContentPanel";
 import TourControls from "@/components/ui/TourControls";
 import SubNav from "@/components/ui/SubNav";
+import { useIsMobile } from "@/components/env/useIsMobile";
 import LoadingScreen from "@/components/ui/LoadingScreen";
 import IntroTitle from "@/components/ui/IntroTitle";
 import {
@@ -33,13 +34,16 @@ import {
 const SHOW_DEV_COORDS = false;
 
 export default function Home() {
+  const isMobile = useIsMobile();
+
   return (
-    <main className="relative h-screen w-full overflow-hidden bg-slate-950">
+    <main className="relative h-[100dvh] w-full overflow-hidden bg-slate-950">
       <Canvas
-        className="h-screen w-full"
-        shadows
-        dpr={[1, 2]}
-        gl={{ antialias: true }}
+        className="h-[100dvh] w-full"
+        // Mobile: no shadows, cap pixel ratio, skip MSAA — big battery/FPS wins.
+        shadows={!isMobile}
+        dpr={isMobile ? [1, 1.5] : [1, 2]}
+        gl={{ antialias: !isMobile, powerPreference: "high-performance" }}
         camera={{
           position: HOME_CAMERA.position,
           near: 0.1,
@@ -72,7 +76,8 @@ export default function Home() {
 
           {/* Camera + post */}
           <CameraRig />
-          <Effects />
+          {/* Postprocessing (bloom/vignette) is skipped on mobile for perf. */}
+          {!isMobile && <Effects />}
           {SHOW_DEV_COORDS && <DevCoords />}
         </Suspense>
       </Canvas>

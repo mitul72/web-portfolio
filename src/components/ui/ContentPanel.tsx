@@ -123,17 +123,23 @@ export default function ContentPanel() {
 
   return (
     <div
-      className={`pointer-events-none absolute right-0 top-0 z-20 flex h-full items-center p-4 transition-all duration-500 sm:p-8 ${
-        visible ? "translate-x-0 opacity-100" : "translate-x-8 opacity-0"
-      }`}
+      className={`pointer-events-none absolute z-20 flex transition-all duration-500
+        /* mobile: bottom sheet, full width */
+        inset-x-0 bottom-0 justify-center p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]
+        /* sm+: right-side full-height panel */
+        sm:inset-y-0 sm:right-0 sm:left-auto sm:h-full sm:items-center sm:p-8 ${
+          visible
+            ? "translate-y-0 opacity-100 sm:translate-x-0"
+            : "translate-y-8 opacity-0 sm:translate-y-0 sm:translate-x-8"
+        }`}
       aria-hidden={!visible}
     >
       {content && (
-        <div className="pointer-events-auto max-h-[80vh] w-[min(92vw,26rem)] overflow-y-auto rounded-2xl border border-white/15 bg-slate-900/80 p-6 text-white shadow-2xl backdrop-blur-xl sm:p-8">
+        <div className="pointer-events-auto max-h-[65vh] w-full overflow-y-auto rounded-2xl border border-white/15 bg-slate-900/85 p-5 text-white shadow-2xl backdrop-blur-xl sm:max-h-[80vh] sm:w-[min(92vw,26rem)] sm:p-8">
           <button
             onClick={closePanel}
             aria-label="Close"
-            className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border border-white/20 text-white/70 transition hover:bg-white/10 hover:text-white"
+            className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-white/70 transition hover:bg-white/10 hover:text-white sm:right-4 sm:top-4 sm:h-8 sm:w-8"
           >
             ✕
           </button>
