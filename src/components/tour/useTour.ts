@@ -37,10 +37,11 @@ export const useTour = create<TourState>((set, get) => {
     set({ activeIndex: index, panelOpen: false, activeSubPoiId: null });
     const stopId = index === null ? null : STOPS[index].id;
 
-    // The treasure/resume stop plays a 2s chest-opening beat on arrival, so its
-    // download-resume popup waits for the chest to start opening. Other stops
-    // open their panel immediately on arrival.
-    const panelDelay = stopId === "resume" ? 2000 : 0;
+    // The treasure/resume stop plays a short chest-opening beat on arrival, so
+    // its download-resume popup waits for the chest to start opening (kept in
+    // sync with CHEST_OPEN_DELAY in treasure-island.tsx). Other stops open
+    // their panel immediately on arrival.
+    const panelDelay = stopId === "resume" ? 800 : 0;
 
     useVoyage.getState().sailTo(stopId, () => {
       // Only open the panel for real stops (not the home view).

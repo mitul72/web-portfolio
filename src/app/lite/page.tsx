@@ -1,12 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import {
-  INTRO,
-  RESUME,
-  CONTACT,
-  PROJECTS,
-  EXPERIENCES,
-} from "@/data/portfolio";
+import { INTRO, RESUME, CONTACT, PROJECTS, JOBS } from "@/data/portfolio";
 
 export const metadata: Metadata = {
   title: "Mitul Dhawan · Portfolio",
@@ -136,21 +130,21 @@ export default function LitePortfolio() {
         )}
 
         {/* Experience */}
-        {EXPERIENCES.length > 0 && (
+        {JOBS.length > 0 && (
           <section className="mt-14">
             <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-white/40">
               Experience
             </h2>
             <div className="mt-5 space-y-6">
-              {EXPERIENCES.map((e, i) => (
+              {JOBS.map((job, i) => (
                 <div key={i}>
-                  <h3 className="text-lg font-bold">{e.role}</h3>
+                  <h3 className="text-lg font-bold">{job.role}</h3>
                   <p className="text-sm text-emerald-300">
-                    {e.company} ·{" "}
-                    <span className="text-white/50">{e.period}</span>
+                    {job.company} ·{" "}
+                    <span className="text-white/50">{job.period}</span>
                   </p>
                   <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-white/70">
-                    {e.bullets.map((b, j) => (
+                    {job.bullets.map((b, j) => (
                       <li key={j}>{b}</li>
                     ))}
                   </ul>

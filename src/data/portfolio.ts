@@ -37,12 +37,18 @@ export interface ProjectContent {
   links: { label: string; url: string }[];
 }
 
-export interface ExperienceContent {
-  kind: "experience";
+export interface Job {
   role: string;
   company: string;
   period: string;
   bullets: string[];
+}
+
+export interface ExperienceContent {
+  kind: "experience";
+  title: string;
+  /** Career timeline — newest first. Rendered as a list in one panel. */
+  jobs: Job[];
 }
 
 export interface ResumeContent {
@@ -75,7 +81,7 @@ export type StopContent =
   | ContactContent;
 
 /** Prop type used for a sub-POI marker on an island. */
-export type PoiProp = "bottle" | "gem" | "scroll" | "flag";
+export type PoiProp = "bottle" | "gem" | "scroll" | "flag" | "crate" | "wisp";
 
 /**
  * A small point of interest placed ON an island (a "hub"). It only appears
@@ -89,6 +95,12 @@ export interface SubPoi {
   position: Vec3;
   prop: PoiProp;
   content: StopContent;
+  /** Crates: count. Flags: pole height. Wisps: orb size. Encodes tenure/weight. */
+  stack?: number;
+  /** If true, the prop bobs on the water surface. */
+  bob?: boolean;
+  /** Accent color for the prop (e.g. a flag's pennant). Falls back per-prop. */
+  color?: string;
 }
 
 export interface TourStop {
@@ -152,6 +164,26 @@ export const TREASURE_TRANSFORM = {
   position: [280, -2, 160] as Vec3,
   scale: 0.65,
   rotation: [0, -0.8, 0] as Vec3,
+};
+
+// Fantasy island (the "experience" stop) — a lush treed isle on the third
+// corner, away from the volcano and treasure islands. The source model sits on
+// a diorama PEDESTAL: island terrain (radius ~135) starts at model y≈2.6, but
+// below that a wide base rim flares from radius 211 out to 309 down to y≈−39.
+// Position Y=−7 sinks that whole pedestal below the waterline (only rare deep
+// wave troughs graze it), leaving the summit at ~80 world units.
+export const FANTASY_TRANSFORM = {
+  position: [180, -7, -300] as Vec3,
+  scale: 1,
+  rotation: [0, 2.4, 0] as Vec3,
+};
+
+// Toothless — ambient scenery perched near/on the main island. Static model;
+// TODO: tune scale/position/Y with SHOW_DEV_COORDS.
+export const TOOTHLESS_TRANSFORM = {
+  position: [-100, 80, -30] as Vec3,
+  scale: 6,
+  rotation: [0, 1.2, 0] as Vec3,
 };
 
 /** A marker position floating `height` units above an island's center. */
@@ -294,7 +326,7 @@ export const STOPS: TourStop[] = [
           kind: "project",
           title: "Stack.CLI",
           description:
-            "A command-line tool (\"Stacksly\") to search StackOverflow straight " +
+            'A command-line tool ("Stacksly") to search StackOverflow straight ' +
             "from your terminal — no browser needed. Returns relevant answers " +
             "inline with syntax-highlighted code snippets for a smoother dev " +
             "flow.",
@@ -326,6 +358,128 @@ export const STOPS: TourStop[] = [
       pdfUrl: "/resume.pdf", // TODO: drop your PDF at public/resume.pdf
     },
   },
+  {
+    id: "experience",
+    label: "Isle of Voyages",
+    navLabel: "Experience",
+    kind: "experience",
+    // Derived from FANTASY_TRANSFORM so the tag follows the island when moved.
+    // 100 clears the ~80-unit summit at scale 1.
+    position: markerAbove(FANTASY_TRANSFORM, 100),
+    camera: {
+      // Matches the arrival framing in anchors.ts (captured via DevCoords).
+      position: [195.63, 72.58, -183.81],
+      lookAt: [182, 35, -286],
+    },
+    // Island overview. The individual roles are will-o'-wisp sub-POIs below —
+    // glowing lights hovering over existing landmarks (a tree, a rock, the
+    // summit), climbing the island chronologically: a career ascent.
+    content: {
+      kind: "experience",
+      title: "Isle of Voyages",
+      jobs: [], // roles live in subPois; this overview panel just intros them
+    },
+    // The wisp trail, oldest lowest → newest highest (a career ascent). All
+    // four positions are DevCoords-captured hits on existing landmarks (trees,
+    // a rock, the summit); the wisp hovers a few units above each.
+    subPois: [
+      {
+        id: "exp-bitwyre",
+        label: "Bitwyre",
+        position: [140.4, 28.21, -282.12],
+        prop: "wisp",
+        color: "#f4a261", // amber
+        stack: 4, // 18 months, 3 promotions → the tallest pole
+        content: {
+          kind: "experience",
+          title: "Bitwyre",
+          jobs: [
+            {
+              role: "Software → Quantitative → Blockchain Developer",
+              company: "Bitwyre",
+              period: "Dec 2023 — May 2025",
+              bullets: [
+                "Promoted twice in 18 months across three engineering teams.",
+                "Designed and led Canggu, a layer-1 blockchain reaching 50,000+ TPS — a dual-paradigm Rust + CUDA VM, DAG-based mempool, Leader-Verified Tower BFT with Proof of History, and ZK-SNARKs for private transactions.",
+                "Built high-frequency trading and market-making systems (Binance) in C++/Python with KDB+ time-series data and LibTorch predictive models.",
+              ],
+            },
+          ],
+        },
+      },
+      {
+        id: "exp-dexcelerate",
+        label: "DexCelerate",
+        position: [206.85, 41.26, -274.79],
+        prop: "wisp",
+        color: "#e76f51", // coral
+        stack: 2, // short contract
+        content: {
+          kind: "experience",
+          title: "DexCelerate",
+          jobs: [
+            {
+              role: "Backend Engineer (Contract)",
+              company: "DexCelerate",
+              period: "May 2025 — Jul 2025",
+              bullets: [
+                "Improved backend performance and features of a decentralized exchange platform.",
+                "Optimized the scanner ~150% faster and refactored Redis key structures for higher cache hit rates and lower latency.",
+              ],
+            },
+          ],
+        },
+      },
+      {
+        id: "exp-zeroblock",
+        label: "ZeroBlock",
+        position: [99.83, 50.48, -252.13],
+        prop: "wisp",
+        color: "#4cc9f0", // cyan
+        stack: 3,
+        content: {
+          kind: "experience",
+          title: "ZeroBlock",
+          jobs: [
+            {
+              role: "Co-Founder & Backend Developer",
+              company: "ZeroBlock",
+              period: "Apr 2025 — Present",
+              bullets: [
+                "Co-founded and architected ZeroBlock, an ultra-fast trading extension for Axiom.trade for professional traders.",
+                "Built the entire backend from scratch in Rust + Actix Web with a distributed data layer — ScyllaDB for persistence, Valkey/Redis for real-time caching.",
+                "Optimized the critical buy path from 500ms to 7ms (98.6%), handling thousands of concurrent requests.",
+              ],
+            },
+          ],
+        },
+      },
+      {
+        id: "exp-eden",
+        label: "Eden",
+        position: [177.49, 76.45, -292.94], // the summit — newest chapter
+        prop: "wisp",
+        color: "#90be6d", // green (matches the experience kind color)
+        stack: 3, // most recent — planted at the summit
+        content: {
+          kind: "experience",
+          title: "Eden",
+          jobs: [
+            {
+              role: "Senior Software Engineer",
+              company: "Eden",
+              period: "Sept 2025 — May 2026",
+              bullets: [
+                "Co-authored FastTelemetry (open source), a high-performance Rust metrics library that replaced OpenTelemetry on Eden's proxy — thread-local increments in ~2 ns vs ~40–400 ns for contended atomics on 16 cores.",
+                "Architected the platform's OpenTelemetry rollout (94+ metrics) with a suite of Datadog dashboards and alerts powering production monitoring and on-call.",
+                "Built a custom Rust logging framework 3× faster than env_logger, and a Criterion-benchmarked metrics batching system to minimize observability overhead on hot paths.",
+              ],
+            },
+          ],
+        },
+      },
+    ],
+  },
 ];
 
 // -----------------------------------------------------------------------------
@@ -339,20 +493,6 @@ export const PLANNED_STOPS: (Omit<TourStop, "position" | "camera"> & {
   needsAsset: string;
 })[] = [
   {
-    id: "experience-1",
-    label: "The Docks (Experience)",
-    kind: "experience",
-    needsAsset:
-      "A dock/harbor landmark, or reuse the ship as the experience stop.",
-    content: {
-      kind: "experience",
-      role: "Software Engineer", // TODO
-      company: "Company Name", // TODO
-      period: "2023 — Present", // TODO
-      bullets: ["Built / shipped X, resulting in Y."], // TODO
-    },
-  },
-  {
     id: "contact",
     label: "Contact",
     kind: "contact",
@@ -364,7 +504,10 @@ export const PLANNED_STOPS: (Omit<TourStop, "position" | "camera"> & {
       links: [
         { label: "Email", url: "mailto:mituldhawan154@gmail.com" },
         { label: "GitHub", url: "https://github.com/mitul72" },
-        { label: "LinkedIn", url: "https://linkedin.com/in/" }, // TODO
+        {
+          label: "LinkedIn",
+          url: "https://www.linkedin.com/in/mitul-dhawan-b9615b266/",
+        },
       ],
     },
   },
@@ -378,10 +521,11 @@ export const PLANNED_STOPS: (Omit<TourStop, "position" | "camera"> & {
 const ALL_STOPS = [...STOPS, ...PLANNED_STOPS];
 
 function contentOfKind<K extends StopContent["kind"]>(
-  kind: K
+  kind: K,
 ): Extract<StopContent, { kind: K }> | undefined {
   for (const s of ALL_STOPS) {
-    if (s.content.kind === kind) return s.content as Extract<StopContent, { kind: K }>;
+    if (s.content.kind === kind)
+      return s.content as Extract<StopContent, { kind: K }>;
     for (const p of s.subPois ?? []) {
       if (p.content.kind === kind)
         return p.content as Extract<StopContent, { kind: K }>;
@@ -410,7 +554,11 @@ export const PROJECTS: ProjectContent[] = ALL_STOPS.flatMap((s) => {
   // by the lite page via the hasDetail() check there.
 });
 
-/** Every experience entry. */
-export const EXPERIENCES: ExperienceContent[] = ALL_STOPS.map(
-  (s) => s.content
-).filter((c): c is ExperienceContent => c.kind === "experience");
+/** Every job across all experience stops, flattened (newest first). */
+export const JOBS: Job[] = ALL_STOPS.flatMap((s) => {
+  const own = s.content.kind === "experience" ? s.content.jobs : [];
+  const subs = (s.subPois ?? []).flatMap((p) =>
+    p.content.kind === "experience" ? p.content.jobs : [],
+  );
+  return [...own, ...subs];
+});

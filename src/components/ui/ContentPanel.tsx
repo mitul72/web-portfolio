@@ -69,15 +69,31 @@ function Body({ content }: { content: StopContent }) {
     case "experience":
       return (
         <>
-          <h2 className="text-3xl font-bold">{content.role}</h2>
-          <p className="mt-1 text-lg text-emerald-300">
-            {content.company} · <span className="text-white/60">{content.period}</span>
-          </p>
-          <ul className="mt-4 list-inside list-disc space-y-2 text-white/80">
-            {content.bullets.map((b, i) => (
-              <li key={i}>{b}</li>
+          <h2 className="text-3xl font-bold">{content.title}</h2>
+          {/* Island overview (no jobs of its own): point at the wisp trail. */}
+          {content.jobs.length === 0 && (
+            <p className="mt-4 leading-relaxed text-white/70">
+              Follow the wisps — each light marks a chapter of my voyage,
+              rising from the oldest at the shore to the newest at the summit.
+              Click a light to read that expedition&apos;s log.
+            </p>
+          )}
+          <div className="mt-5 space-y-6">
+            {content.jobs.map((job, i) => (
+              <div key={i}>
+                <h3 className="text-lg font-bold leading-snug">{job.role}</h3>
+                <p className="text-sm text-emerald-300">
+                  {job.company} ·{" "}
+                  <span className="text-white/50">{job.period}</span>
+                </p>
+                <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-white/75">
+                  {job.bullets.map((b, j) => (
+                    <li key={j}>{b}</li>
+                  ))}
+                </ul>
+              </div>
             ))}
-          </ul>
+          </div>
         </>
       );
 

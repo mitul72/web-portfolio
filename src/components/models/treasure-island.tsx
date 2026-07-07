@@ -11,6 +11,8 @@ import { useVoyage } from "@/components/tour/useVoyage";
 // again. To keep it open, we play only up to the moment the chest is fully
 // open (2.5s) and FREEZE there.
 const CHEST_OPEN_TIME = 2.5;
+// Delay (ms) after arrival before the chest starts opening.
+const CHEST_OPEN_DELAY = 500;
 
 /**
  * The optimized treasure island (the resume/treasure stop). It carries a baked
@@ -99,7 +101,7 @@ export default function TreasureIsland({
           chest.paused = false;
           openingRef.current = true;
           chest.play();
-        }, 2000);
+        }, CHEST_OPEN_DELAY);
       } else if (leftTreasure) {
         // Sailing away — cancel any pending open and snap the chest shut so it
         // re-opens fresh next visit.

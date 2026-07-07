@@ -30,7 +30,10 @@ export default function Atmosphere() {
       />
 
       <group ref={clouds}>
-        <Clouds material={MeshBasicMaterial} position={[0, 80, -160]}>
+        {/* Cloud deck height must clear the TALLEST island (fantasy isle
+            summit ≈ 80 world units) — the field drifts across the whole scene
+            on X, so anything lower shrouds summits as it passes. */}
+        <Clouds material={MeshBasicMaterial} position={[0, 150, -160]}>
           <Cloud
             seed={1}
             segments={40}

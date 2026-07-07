@@ -5,6 +5,8 @@ import { Suspense } from "react";
 import PirateIsland from "@/components/models/pirate-island";
 import VolcanoIsland from "@/components/models/volcano-island";
 import TreasureIsland from "@/components/models/treasure-island";
+import FantasyIsland from "@/components/models/fantasy-island";
+import Toothless from "@/components/models/toothless";
 import CameraRig from "@/components/tour/CameraRig";
 import DevCoords from "@/components/tour/DevCoords";
 import SubPois from "@/components/tour/SubPois";
@@ -27,6 +29,8 @@ import {
   HOME_CAMERA,
   VOLCANO_TRANSFORM,
   TREASURE_TRANSFORM,
+  FANTASY_TRANSFORM,
+  TOOTHLESS_TRANSFORM,
 } from "@/data/portfolio";
 
 // Flip to true while placing new assets/markers — logs world coords to the
@@ -69,6 +73,16 @@ export default function Home() {
             position={TREASURE_TRANSFORM.position}
             scale={TREASURE_TRANSFORM.scale}
             rotation={TREASURE_TRANSFORM.rotation}
+          />
+          <FantasyIsland
+            position={FANTASY_TRANSFORM.position}
+            scale={FANTASY_TRANSFORM.scale}
+            rotation={FANTASY_TRANSFORM.rotation}
+          />
+          <Toothless
+            position={TOOTHLESS_TRANSFORM.position}
+            scale={TOOTHLESS_TRANSFORM.scale}
+            rotation={TOOTHLESS_TRANSFORM.rotation}
           />
 
           {/* Per-island sub-POIs (project bottles), shown on arrival. */}
