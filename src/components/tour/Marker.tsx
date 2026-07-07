@@ -131,7 +131,9 @@ export default function Marker({
       <Html
         center
         position={[0, 5.2, 0]}
-        zIndexRange={[20, 0]}
+        // Below the DOM overlays (panel/nav are z-20+) so labels never paint
+        // over — or steal taps from — the panel and nav bars.
+        zIndexRange={[10, 0]}
         style={{ pointerEvents: "auto" }}
       >
         <button

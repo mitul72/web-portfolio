@@ -109,6 +109,9 @@ export default function SubPoiMarker({ poi }: { poi: SubPoi }) {
       <Html
         center
         position={[poi.position[0], poi.position[1] + 3, poi.position[2]]}
+        // Keep labels UNDER the DOM overlays (panel/nav are z-20+); drei's
+        // default zIndexRange is ~16M, which paints over the content panel.
+        zIndexRange={[10, 0]}
       >
         <button
           onClick={activate}

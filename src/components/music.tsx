@@ -1,10 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import OceanWaves from "../assets/audio/ocean-waves-compressed.mp3";
 import soundOn from "../assets/images/soundon.png";
 import soundOff from "../assets/images/soundoff.png";
 import Image from "next/image";
 import { useAudio } from "./env/useAudio";
 
+/**
+ * Ambient ocean loop + the desktop mute toggle (bottom-left). On mobile the
+ * toggle is hidden — the bottom corners are covered by the nav bar / panel
+ * there, so the Navbar renders its own header toggle instead.
+ */
 export default function BackgroundMusic() {
   const [isClient, setIsClient] = useState(false); // Track if running in the client
   const sound = useRef<HTMLAudioElement | null>(null); // Reference for the sound
@@ -37,7 +42,7 @@ export default function BackgroundMusic() {
   }, [playing, isClient]);
 
   return (
-    <div className="absolute bottom-2 left-2">
+    <div className="absolute bottom-2 left-2 hidden sm:block">
       <Image
         src={playing ? soundOn : soundOff}
         width={50}

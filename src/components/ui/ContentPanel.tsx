@@ -135,7 +135,14 @@ export default function ContentPanel() {
       aria-hidden={!visible}
     >
       {content && (
-        <div className="pointer-events-auto max-h-[65vh] w-full overflow-y-auto rounded-2xl border border-white/15 bg-slate-900/85 p-5 text-white shadow-2xl backdrop-blur-xl sm:max-h-[80vh] sm:w-[min(92vw,26rem)] sm:p-8">
+        // When hidden, the sheet must NOT take pointer events — it still spans
+        // the bottom of the screen (mobile) and would swallow taps meant for
+        // the nav bar underneath.
+        <div
+          className={`${
+            visible ? "pointer-events-auto" : "pointer-events-none"
+          } max-h-[65vh] w-full overflow-y-auto rounded-2xl border border-white/15 bg-slate-900/85 p-5 text-white shadow-2xl backdrop-blur-xl sm:max-h-[80vh] sm:w-[min(92vw,26rem)] sm:p-8`}
+        >
           <button
             onClick={closePanel}
             aria-label="Close"
