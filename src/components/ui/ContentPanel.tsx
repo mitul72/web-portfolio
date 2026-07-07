@@ -1,0 +1,136 @@
+"use client";
+
+import { StopContent } from "@/data/portfolio";
+import { useTour } from "@/components/tour/useTour";
+
+/** Renders the body of the panel based on the active stop's content kind. */
+function Body({ content }: { content: StopContent }) {
+  switch (content.kind) {
+    case "intro":
+      return (
+        <>
+          <p className="text-sm uppercase tracking-widest text-amber-300">
+            {content.tagline}
+          </p>
+          <h2 className="mt-1 text-3xl font-bold">{content.name}</h2>
+          <p className="mt-4 leading-relaxed text-white/80">{content.blurb}</p>
+        </>
+      );
+
+    case "resume":
+      return (
+        <>
+          <h2 className="text-3xl font-bold">{content.title}</h2>
+          <p className="mt-4 leading-relaxed text-white/80">{content.blurb}</p>
+          <a
+            href={content.pdfUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 inline-block rounded-full bg-amber-400 px-6 py-2 font-semibold text-black transition hover:bg-amber-300"
+          >
+            Open Resume ↗
+          </a>
+        </>
+      );
+
+    case "project":
+      return (
+        <>
+          <h2 className="text-3xl font-bold">{content.title}</h2>
+          <p className="mt-4 leading-relaxed text-white/80">
+            {content.description}
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {content.tech.map((t) => (
+              <span
+                key={t}
+                className="rounded-full border border-cyan-400/40 bg-cyan-400/10 px-3 py-1 text-xs text-cyan-200"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+          <div className="mt-6 flex flex-wrap gap-3">
+            {content.links.map((l) => (
+              <a
+                key={l.url}
+                href={l.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border border-white/30 px-4 py-1.5 text-sm transition hover:bg-white/10"
+              >
+                {l.label} ↗
+              </a>
+            ))}
+          </div>
+        </>
+      );
+
+    case "experience":
+      return (
+        <>
+          <h2 className="text-3xl font-bold">{content.role}</h2>
+          <p className="mt-1 text-lg text-emerald-300">
+            {content.company} · <span className="text-white/60">{content.period}</span>
+          </p>
+          <ul className="mt-4 list-inside list-disc space-y-2 text-white/80">
+            {content.bullets.map((b, i) => (
+              <li key={i}>{b}</li>
+            ))}
+          </ul>
+        </>
+      );
+
+    case "contact":
+      return (
+        <>
+          <h2 className="text-3xl font-bold">{content.title}</h2>
+          <p className="mt-4 leading-relaxed text-white/80">{content.blurb}</p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            {content.links.map((l) => (
+              <a
+                key={l.url}
+                href={l.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border border-pink-400/40 bg-pink-400/10 px-4 py-1.5 text-sm text-pink-200 transition hover:bg-pink-400/20"
+              >
+                {l.label} ↗
+              </a>
+            ))}
+          </div>
+        </>
+      );
+  }
+}
+
+export default function ContentPanel() {
+  const panelOpen = useTour((s) => s.panelOpen);
+  const activeIndex = useTour((s) => s.activeIndex);
+  const activeStop = useTour((s) => s.activeStop());
+  const closePanel = useTour((s) => s.closePanel);
+
+  const visible = panelOpen && activeIndex !== null && activeStop !== null;
+
+  return (
+    <div
+      className={`pointer-events-none absolute right-0 top-0 z-20 flex h-full items-center p-4 transition-all duration-500 sm:p-8 ${
+        visible ? "translate-x-0 opacity-100" : "translate-x-8 opacity-0"
+      }`}
+      aria-hidden={!visible}
+    >
+      {activeStop && (
+        <div className="pointer-events-auto max-h-[80vh] w-[min(92vw,26rem)] overflow-y-auto rounded-2xl border border-white/15 bg-slate-900/80 p-6 text-white shadow-2xl backdrop-blur-xl sm:p-8">
+          <button
+            onClick={closePanel}
+            aria-label="Close"
+            className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border border-white/20 text-white/70 transition hover:bg-white/10 hover:text-white"
+          >
+            ✕
+          </button>
+          <Body content={activeStop.content} />
+        </div>
+      )}
+    </div>
+  );
+}

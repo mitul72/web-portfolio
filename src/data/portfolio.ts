@@ -1,0 +1,244 @@
+// -----------------------------------------------------------------------------
+// PORTFOLIO CONTENT
+// -----------------------------------------------------------------------------
+// Single source of truth for everything shown in the 3D scene.
+//
+// HONEST STATE OF THE WORLD (read this before editing):
+//   The scene currently contains ONE island, a captain character, and a ship.
+//   There is NO treasure chest and NO second/third island yet — those assets
+//   don't exist. So only the `STOPS` below are rendered. Everything that needs
+//   a model we don't have lives in `PLANNED_STOPS`, which is intentionally NOT
+//   rendered. When you source a GLB for one of them, follow README.md, place it
+//   with the dev coordinate logger, and move its entry from PLANNED_STOPS into
+//   STOPS.
+// -----------------------------------------------------------------------------
+
+export type Vec3 = [number, number, number];
+
+export interface CameraFraming {
+  /** Where the camera moves to. */
+  position: Vec3;
+  /** The point in space the camera looks at. */
+  lookAt: Vec3;
+}
+
+export type StopKind =
+  | "intro"
+  | "resume"
+  | "project"
+  | "experience"
+  | "contact";
+
+export interface ProjectContent {
+  kind: "project";
+  title: string;
+  description: string;
+  tech: string[];
+  links: { label: string; url: string }[];
+}
+
+export interface ExperienceContent {
+  kind: "experience";
+  role: string;
+  company: string;
+  period: string;
+  bullets: string[];
+}
+
+export interface ResumeContent {
+  kind: "resume";
+  title: string;
+  blurb: string;
+  /** Put your PDF at /public/resume.pdf (create the public/ folder). */
+  pdfUrl: string;
+}
+
+export interface IntroContent {
+  kind: "intro";
+  name: string;
+  tagline: string;
+  blurb: string;
+}
+
+export interface ContactContent {
+  kind: "contact";
+  title: string;
+  blurb: string;
+  links: { label: string; url: string }[];
+}
+
+export type StopContent =
+  | IntroContent
+  | ResumeContent
+  | ProjectContent
+  | ExperienceContent
+  | ContactContent;
+
+export interface TourStop {
+  id: string;
+  /** Short label shown on the marker and in the tour controls. */
+  label: string;
+  kind: StopKind;
+  /** World position of the floating marker. */
+  position: Vec3;
+  /** Camera framing when this stop is visited. */
+  camera: CameraFraming;
+  content: StopContent;
+  /**
+   * Optional: path to a GLB landmark this stop points at (chest, island, etc.).
+   * Live STOPS don't need one — they point at geometry already in the scene.
+   */
+  asset?: {
+    /** Import the GLB and pass the resolved URL here. */
+    url: string;
+    position: Vec3;
+    scale?: number;
+    rotation?: Vec3;
+  };
+}
+
+// -----------------------------------------------------------------------------
+// Default "home" view — the establishing shot.
+// -----------------------------------------------------------------------------
+export const HOME_CAMERA: CameraFraming = {
+  position: [23.08, 30.52, 150.63],
+  lookAt: [21.7, 12, 105],
+};
+
+// -----------------------------------------------------------------------------
+// ISLAND LANDMASS PLACEMENTS  ← EDIT THESE to move an island.
+// -----------------------------------------------------------------------------
+// Single source of truth for each landmass. The 3D model AND its floating tour
+// marker both derive from these, so an island and its tag move together.
+// (X = left/right, Y = height, Z = forward/back.) Source GLBs are authored
+// huge, so they're scaled way down. Tune with SHOW_DEV_COORDS in page.tsx.
+// -----------------------------------------------------------------------------
+
+// Volcano island (the "project-1" stop). Far out + shrunk so it reads as a
+// distinct island a real sail away.
+export const VOLCANO_TRANSFORM = {
+  position: [-320, 4, -140] as Vec3,
+  scale: 0.009,
+  rotation: [0, 0.6, 0] as Vec3,
+};
+
+// Treasure island (the "resume" stop). Authored huge with a deep-negative Y
+// center, so scaled down + lifted to sit on the water. Opposite the volcano.
+export const TREASURE_TRANSFORM = {
+  position: [280, -2, 160] as Vec3,
+  scale: 0.65,
+  rotation: [0, -0.8, 0] as Vec3,
+};
+
+/** A marker position floating `height` units above an island's center. */
+function markerAbove(t: { position: Vec3 }, height: number): Vec3 {
+  return [t.position[0], t.position[1] + height, t.position[2]];
+}
+
+// -----------------------------------------------------------------------------
+// LIVE STOPS — only things that map to geometry that actually exists today.
+// Right now: just the intro at the captain. Add more as assets arrive.
+// -----------------------------------------------------------------------------
+export const STOPS: TourStop[] = [
+  {
+    id: "intro",
+    label: "Welcome Aboard",
+    kind: "intro",
+    // Sits above the captain character (Captain_Barbarossa @ 21.7, 12.5, 105).
+    position: [21.7, 20, 105],
+    camera: {
+      position: [21.7, 26, 145],
+      lookAt: [21.7, 14, 105],
+    },
+    content: {
+      kind: "intro",
+      name: "Mitul Dhawan", // TODO: confirm
+      tagline: "Software Engineer",
+      blurb:
+        "Ahoy! Welcome to my portfolio. It's still being built — a treasure " +
+        "chest for my resume and islands for my projects and experience are " +
+        "on the way. For now, drag to look around the island and ship.",
+    },
+  },
+  {
+    id: "project-1",
+    label: "Project Island I",
+    kind: "project",
+    // Derived from VOLCANO_TRANSFORM so the tag follows the island when moved.
+    position: markerAbove(VOLCANO_TRANSFORM, 51),
+    camera: {
+      // Unused for arrival (the dock camera in anchors.ts drives that), but
+      // kept sensible for any direct camera use.
+      position: [-180, 60, -30],
+      lookAt: [-320, 30, -140],
+    },
+    content: {
+      kind: "project",
+      title: "Project Name One", // TODO
+      description: "What it does and why it mattered.", // TODO
+      tech: ["TypeScript", "Next.js", "Three.js"], // TODO
+      links: [{ label: "GitHub", url: "https://github.com/mitul72" }], // TODO
+    },
+  },
+  {
+    id: "resume",
+    label: "Treasure Chest (Resume)",
+    kind: "resume",
+    // Derived from TREASURE_TRANSFORM so the tag follows the island when moved.
+    position: markerAbove(TREASURE_TRANSFORM, 35),
+    camera: {
+      position: [180, 45, 250],
+      lookAt: [280, 20, 160],
+    },
+    content: {
+      kind: "resume",
+      title: "The Treasure Chest",
+      blurb:
+        "X marks the spot. Here's the full record of my journey — download " +
+        "my resume for the complete story.",
+      pdfUrl: "/resume.pdf", // TODO: drop your PDF at public/resume.pdf
+    },
+  },
+];
+
+// -----------------------------------------------------------------------------
+// PLANNED STOPS — NOT rendered. Each needs a 3D asset that doesn't exist yet.
+// This is a design doc, not fake content. When you have the model:
+//   1. Add & compress it per README.md, import it in the scene.
+//   2. Fill in real content + real `position`/`camera` (use the dev logger).
+//   3. Move the entry into STOPS above.
+// -----------------------------------------------------------------------------
+export const PLANNED_STOPS: (Omit<TourStop, "position" | "camera"> & {
+  needsAsset: string;
+})[] = [
+  {
+    id: "experience-1",
+    label: "The Docks (Experience)",
+    kind: "experience",
+    needsAsset:
+      "A dock/harbor landmark, or reuse the ship as the experience stop.",
+    content: {
+      kind: "experience",
+      role: "Software Engineer", // TODO
+      company: "Company Name", // TODO
+      period: "2023 — Present", // TODO
+      bullets: ["Built / shipped X, resulting in Y."], // TODO
+    },
+  },
+  {
+    id: "contact",
+    label: "Contact",
+    kind: "contact",
+    needsAsset: "None strictly — can go live as a floating marker any time.",
+    content: {
+      kind: "contact",
+      title: "Send a Message in a Bottle",
+      blurb: "Want to work together or just say hi?",
+      links: [
+        { label: "Email", url: "mailto:mituldhawan154@gmail.com" },
+        { label: "GitHub", url: "https://github.com/mitul72" },
+        { label: "LinkedIn", url: "https://linkedin.com/in/" }, // TODO
+      ],
+    },
+  },
+];

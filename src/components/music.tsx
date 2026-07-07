@@ -3,11 +3,15 @@ import OceanWaves from "../assets/audio/ocean-waves-compressed.mp3";
 import soundOn from "../assets/images/soundon.png";
 import soundOff from "../assets/images/soundoff.png";
 import Image from "next/image";
+import { useAudio } from "./env/useAudio";
 
 export default function BackgroundMusic() {
-  const [isPlaying, setIsPlaying] = useState(false); // Track the play state
   const [isClient, setIsClient] = useState(false); // Track if running in the client
   const sound = useRef<HTMLAudioElement | null>(null); // Reference for the sound
+  // Shared mute flag so this toggle also governs the voyage SFX.
+  const muted = useAudio((s) => s.muted);
+  const toggle = useAudio((s) => s.toggle);
+  const playing = !muted;
 
   useEffect(() => {
     setIsClient(true); // Set this after the component has mounted on the client side
@@ -24,25 +28,23 @@ export default function BackgroundMusic() {
 
   useEffect(() => {
     if (isClient && sound.current) {
-      if (isPlaying) {
-        sound.current.play();
+      if (playing) {
+        sound.current.play().catch(() => {});
       } else {
         sound.current.pause();
       }
     }
-  }, [isPlaying, isClient]);
+  }, [playing, isClient]);
 
   return (
     <div className="absolute bottom-2 left-2">
       <Image
-        src={isPlaying ? soundOn : soundOff}
+        src={playing ? soundOn : soundOff}
         width={50}
         height={50}
         alt="sound"
         priority
-        onClick={() => {
-          setIsPlaying(!isPlaying);
-        }}
+        onClick={toggle}
         className="cursor-pointer object-contain"
       />
     </div>

@@ -1,109 +1,85 @@
 "use client";
-// import PokeTown from "@/components/models/pokemon-town";
-import { Canvas, useThree } from "@react-three/fiber";
-import { Suspense, useEffect, useState } from "react";
-import { OrbitControls } from "@react-three/drei";
+
+import { Canvas } from "@react-three/fiber";
+import { Suspense } from "react";
 import PirateIsland from "@/components/models/pirate-island";
-import { Euler, Vector3 } from "three";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
+import VolcanoIsland from "@/components/models/volcano-island";
+import TreasureIsland from "@/components/models/treasure-island";
+import CameraRig from "@/components/tour/CameraRig";
+import DevCoords from "@/components/tour/DevCoords";
+import Ocean from "@/components/env/Ocean";
+import Atmosphere from "@/components/env/Atmosphere";
+import Lighting from "@/components/env/Lighting";
+import Seagulls from "@/components/env/Seagulls";
+import Wake from "@/components/env/Wake";
+import SailingSfx from "@/components/env/SailingSfx";
+import Effects from "@/components/env/Effects";
 import BackgroundMusic from "@/components/music";
+import Navbar from "@/components/shared/navbar";
+import ContentPanel from "@/components/ui/ContentPanel";
+import TourControls from "@/components/ui/TourControls";
+import LoadingScreen from "@/components/ui/LoadingScreen";
+import IntroTitle from "@/components/ui/IntroTitle";
+import {
+  HOME_CAMERA,
+  VOLCANO_TRANSFORM,
+  TREASURE_TRANSFORM,
+} from "@/data/portfolio";
+
+// Flip to true while placing new assets/markers — logs world coords to the
+// console when you click the scene (press "c" for camera). Turn off to ship.
+const SHOW_DEV_COORDS = false;
 
 export default function Home() {
-  const [screenScale, setScreenScale] = useState([1, 1, 1]);
-  const [screenPosition, setScreenPosition] = useState([0, -6.5, -43]);
-  const [rotation, setRotation] = useState([0.1, 4.7, 0]);
-  const [cameraPosition, setCameraPosition] = useState(
-    new Vector3(23.08, 30.52, 150.63)
-  );
-  const [cameraRotation, setCameraRotation] = useState(
-    new Euler(-0.199, 0.149, 0.03)
-  );
-
-  // const CameraTracker = () => {
-  //   const { camera } = useThree(); // Get access to the camera object
-
-  //   useFrame(() => {
-  //     const { x, y, z } = camera.position;
-  //     console.log(
-  //       "Camera position: ",
-  //       x.toFixed(2),
-  //       y.toFixed(2),
-  //       z.toFixed(2)
-  //     );
-  //     console.log("Camera rotation: ", camera.rotation);
-  //     // setCameraPosition([x.toFixed(2), y.toFixed(2), z.toFixed(2)]); // Update the camera position state
-  //   });
-
-  //   return null;
-  // };
-
-  // Run the window-related code inside useEffect to ensure it runs on the client side
-  useEffect(() => {
-    // animateCamera();
-    const adjustTownForScreen = () => {
-      let screenScale;
-      const screenPosition = [0, -6.5, -43];
-      const rotation = [0.1, 4.7, 0];
-
-      if (window.innerWidth < 768) {
-        screenScale = [0.9, 0.9, 0.9];
-      } else {
-        screenScale = [1, 1, 1];
-      }
-      return { screenScale, screenPosition, rotation };
-    };
-
-    const { screenScale, screenPosition, rotation } = adjustTownForScreen();
-    setScreenScale(screenScale);
-    setScreenPosition(screenPosition);
-    setRotation(rotation);
-
-    // Optional: Add an event listener to update on window resize
-    const handleResize = () => {
-      const { screenScale, screenPosition, rotation } = adjustTownForScreen();
-      setScreenScale(screenScale);
-      setScreenPosition(screenPosition);
-      setRotation(rotation);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
   return (
-    <section className="w-full h-screen relative">
+    <main className="relative h-screen w-full overflow-hidden bg-slate-950">
       <Canvas
-        className="w-full h-screen bg-transparent"
+        className="h-screen w-full"
+        shadows
+        dpr={[1, 2]}
+        gl={{ antialias: true }}
         camera={{
-          position: cameraPosition, // Default camera position
-          rotation: cameraRotation,
+          position: HOME_CAMERA.position,
           near: 0.1,
-          far: 1000,
+          far: 4000,
         }}
       >
         <Suspense fallback={null}>
-          <directionalLight
-            intensity={2.5}
-            scale={30}
-            position={[0, 240, 200]}
+          {/* Environment */}
+          <Atmosphere />
+          <Lighting />
+          <Ocean />
+          <Seagulls />
+          <Wake />
+
+          {/* Content */}
+          <PirateIsland />
+          <VolcanoIsland
+            position={VOLCANO_TRANSFORM.position}
+            scale={VOLCANO_TRANSFORM.scale}
+            rotation={VOLCANO_TRANSFORM.rotation}
+          />
+          <TreasureIsland
+            position={TREASURE_TRANSFORM.position}
+            scale={TREASURE_TRANSFORM.scale}
+            rotation={TREASURE_TRANSFORM.rotation}
           />
 
-          <hemisphereLight intensity={0.4} />
-          <ambientLight intensity={0.3} />
-          {/* <PokeTown
-            position={screenPosition}
-            scale={screenScale}
-            rotation={rotation}
-          /> */}
-          <PirateIsland
-            cameraPosition={cameraPosition}
-            cameraRotation={cameraRotation}
-          />
-          {/* <CameraTracker /> */}
+          {/* Camera + post */}
+          <CameraRig />
+          <Effects />
+          {SHOW_DEV_COORDS && <DevCoords />}
         </Suspense>
-        <OrbitControls enableZoom={true} />
       </Canvas>
+
+      {/* DOM overlays (outside the Canvas). */}
+      <Navbar />
+      <LoadingScreen />
+      <IntroTitle />
+      <TourControls />
+      <ContentPanel />
       <BackgroundMusic />
-    </section>
+      <SailingSfx />
+    </main>
   );
 }
