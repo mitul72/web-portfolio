@@ -74,6 +74,23 @@ export type StopContent =
   | ExperienceContent
   | ContactContent;
 
+/** Prop type used for a sub-POI marker on an island. */
+export type PoiProp = "bottle" | "gem" | "scroll" | "flag";
+
+/**
+ * A small point of interest placed ON an island (a "hub"). It only appears
+ * while its parent stop is active; clicking it opens its own content panel.
+ * This is how one island can surface several projects.
+ */
+export interface SubPoi {
+  id: string;
+  label: string;
+  /** WORLD position of the prop (use SHOW_DEV_COORDS to place it on terrain). */
+  position: Vec3;
+  prop: PoiProp;
+  content: StopContent;
+}
+
 export interface TourStop {
   id: string;
   /** Short label shown on the marker and in the tour controls. */
@@ -84,6 +101,11 @@ export interface TourStop {
   /** Camera framing when this stop is visited. */
   camera: CameraFraming;
   content: StopContent;
+  /**
+   * Optional sub-POIs placed on this island (hub). When present, arriving here
+   * reveals these clickable props; each opens its own panel.
+   */
+  subPois?: SubPoi[];
   /**
    * Optional: path to a GLB landmark this stop points at (chest, island, etc.).
    * Live STOPS don't need one — they point at geometry already in the scene.
@@ -164,7 +186,7 @@ export const STOPS: TourStop[] = [
   },
   {
     id: "project-1",
-    label: "Project Island I",
+    label: "Project Island",
     kind: "project",
     // Derived from VOLCANO_TRANSFORM so the tag follows the island when moved.
     position: markerAbove(VOLCANO_TRANSFORM, 51),
@@ -174,13 +196,111 @@ export const STOPS: TourStop[] = [
       position: [-180, 60, -30],
       lookAt: [-320, 30, -140],
     },
+    // Island-level content: an overview. The individual projects are the
+    // sub-POI gems scattered on the island below.
     content: {
       kind: "project",
-      title: "Project Name One", // TODO
-      description: "What it does and why it mattered.", // TODO
-      tech: ["TypeScript", "Next.js", "Three.js"], // TODO
-      links: [{ label: "GitHub", url: "https://github.com/mitul72" }], // TODO
+      title: "Project Island",
+      description:
+        "Wash ashore and explore — each glowing gem holds one of my projects. " +
+        "Click a gem to read its story.",
+      tech: [],
+      links: [],
     },
+    // Two example project gems on the volcano island (center ~[-320,?,-140]).
+    // Place precisely with SHOW_DEV_COORDS — click the terrain to get coords.
+    subPois: [
+      {
+        id: "fast-telemetry",
+        label: "fast-telemetry",
+        position: [-300, 30, -120],
+        prop: "gem",
+        content: {
+          kind: "project",
+          title: "fast-telemetry",
+          description:
+            "A crate I co-authored at eden.dev that makes OpenTelemetry faster. " +
+            "Instead of locking or atomics on the hot path, it uses simple " +
+            "thread-local counters — cutting contention and overhead in " +
+            "high-throughput telemetry.",
+          tech: ["Rust", "OpenTelemetry", "Observability"],
+          links: [
+            {
+              label: "GitHub",
+              url: "https://github.com/mitul72/fast-telemetry",
+            },
+          ],
+        },
+      },
+      {
+        id: "intel-8080-emulator",
+        label: "8080 Emulator",
+        position: [-340, 30, -155],
+        prop: "gem",
+        content: {
+          kind: "project",
+          title: "Intel 8080 Emulator",
+          description:
+            "A cycle-accurate Intel 8080 CPU emulator written from scratch in " +
+            "Rust — complete enough to boot and play the original Space " +
+            "Invaders, compiled to WebAssembly so you can play it in the " +
+            "browser. Built solo in a few weeks: full instruction set, " +
+            "interrupts, and machine I/O.",
+          tech: ["Rust", "WebAssembly", "Emulation"],
+          links: [
+            {
+              label: "Play it ↗",
+              url: "https://8080-emulator-rust.vercel.app/",
+            },
+            {
+              label: "GitHub",
+              url: "https://github.com/mitul72/8080-emulator-rust",
+            },
+          ],
+        },
+      },
+      {
+        id: "zeroblock",
+        label: "ZeroBlock",
+        // TODO: place with SHOW_DEV_COORDS — rough third spot for now.
+        position: [-320, 30, -100],
+        prop: "gem",
+        content: {
+          kind: "project",
+          title: "ZeroBlock",
+          description:
+            "An ultra-fast trading extension for Axiom.trade, co-founded with " +
+            "four friends. I architected and built the entire backend from " +
+            "scratch in Rust + Actix Web, with a distributed data layer " +
+            "(ScyllaDB for persistence, Valkey/Redis for real-time caching). " +
+            "Optimized the critical buy path from 500ms to 7ms — a 98.6% " +
+            "improvement — handling thousands of concurrent requests for " +
+            "high-frequency trading.",
+          tech: ["Rust", "Actix Web", "ScyllaDB", "Valkey/Redis"],
+          links: [{ label: "Resume ↗", url: "/resume.pdf" }],
+        },
+      },
+      {
+        id: "stack-cli",
+        label: "Stack.CLI",
+        // TODO: place with SHOW_DEV_COORDS — rough fourth spot for now.
+        position: [-345, 30, -125],
+        prop: "gem",
+        content: {
+          kind: "project",
+          title: "Stack.CLI",
+          description:
+            "A command-line tool (\"Stacksly\") to search StackOverflow straight " +
+            "from your terminal — no browser needed. Returns relevant answers " +
+            "inline with syntax-highlighted code snippets for a smoother dev " +
+            "flow.",
+          tech: ["Python", "BeautifulSoup", "Rich", "CLI"],
+          links: [
+            { label: "GitHub", url: "https://github.com/mitul72/Stack.cli" },
+          ],
+        },
+      },
+    ],
   },
   {
     id: "resume",

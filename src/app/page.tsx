@@ -7,6 +7,7 @@ import VolcanoIsland from "@/components/models/volcano-island";
 import TreasureIsland from "@/components/models/treasure-island";
 import CameraRig from "@/components/tour/CameraRig";
 import DevCoords from "@/components/tour/DevCoords";
+import SubPois from "@/components/tour/SubPois";
 import Ocean from "@/components/env/Ocean";
 import Atmosphere from "@/components/env/Atmosphere";
 import Lighting from "@/components/env/Lighting";
@@ -64,6 +65,9 @@ export default function Home() {
             scale={TREASURE_TRANSFORM.scale}
             rotation={TREASURE_TRANSFORM.rotation}
           />
+
+          {/* Per-island sub-POIs (project bottles), shown on arrival. */}
+          <SubPois />
 
           {/* Camera + post */}
           <CameraRig />

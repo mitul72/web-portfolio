@@ -1,6 +1,6 @@
 "use client";
 
-import { StopContent } from "@/data/portfolio";
+import { STOPS, StopContent } from "@/data/portfolio";
 import { useTour } from "@/components/tour/useTour";
 
 /** Renders the body of the panel based on the active stop's content kind. */
@@ -107,10 +107,19 @@ function Body({ content }: { content: StopContent }) {
 export default function ContentPanel() {
   const panelOpen = useTour((s) => s.panelOpen);
   const activeIndex = useTour((s) => s.activeIndex);
-  const activeStop = useTour((s) => s.activeStop());
+  const activeSubPoiId = useTour((s) => s.activeSubPoiId);
   const closePanel = useTour((s) => s.closePanel);
 
-  const visible = panelOpen && activeIndex !== null && activeStop !== null;
+  // Derive content from raw primitives (stable STOPS references) — computing it
+  // inside the zustand selector risks new-reference render loops.
+  const stop = activeIndex === null ? null : STOPS[activeIndex];
+  const content: StopContent | null = stop
+    ? (activeSubPoiId
+        ? stop.subPois?.find((p) => p.id === activeSubPoiId)?.content
+        : null) ?? stop.content
+    : null;
+
+  const visible = panelOpen && activeIndex !== null && content !== null;
 
   return (
     <div
@@ -119,7 +128,7 @@ export default function ContentPanel() {
       }`}
       aria-hidden={!visible}
     >
-      {activeStop && (
+      {content && (
         <div className="pointer-events-auto max-h-[80vh] w-[min(92vw,26rem)] overflow-y-auto rounded-2xl border border-white/15 bg-slate-900/80 p-6 text-white shadow-2xl backdrop-blur-xl sm:p-8">
           <button
             onClick={closePanel}
@@ -128,7 +137,7 @@ export default function ContentPanel() {
           >
             ✕
           </button>
-          <Body content={activeStop.content} />
+          <Body content={content} />
         </div>
       )}
     </div>

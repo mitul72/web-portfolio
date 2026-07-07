@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { STOPS, TourStop } from "@/data/portfolio";
+import { STOPS } from "@/data/portfolio";
 import { useVoyage } from "./useVoyage";
 
 interface TourState {
@@ -7,14 +7,22 @@ interface TourState {
   activeIndex: number | null;
   /** Whether the content panel for the active stop is open. */
   panelOpen: boolean;
+  /** id of the selected sub-POI on the active island (null = island overview). */
+  activeSubPoiId: string | null;
   goTo: (index: number) => void;
   next: () => void;
   prev: () => void;
   /** Return to the home view and close any panel (free look). */
   home: () => void;
   closePanel: () => void;
-  activeStop: () => TourStop | null;
+  /** Select a sub-POI (bottle/gem) on the current island, opening its panel. */
+  selectSubPoi: (id: string) => void;
 }
+
+// NOTE: derived data (active stop, its sub-POIs, the panel's content) is
+// computed in the COMPONENTS from `activeIndex`/`activeSubPoiId` + the static
+// STOPS array — never via a store selector that builds a new object/array each
+// call, which triggers infinite re-render loops in zustand.
 
 /**
  * Central tour state. Navigation sets the active stop and starts the ship on a
@@ -25,8 +33,8 @@ interface TourState {
 export const useTour = create<TourState>((set, get) => {
   /** Sail to a stop (or home) and open its panel on arrival. */
   const navigate = (index: number | null) => {
-    // Close any open panel immediately; it re-opens when we arrive.
-    set({ activeIndex: index, panelOpen: false });
+    // Close any open panel + clear sub-POI selection; re-opens on arrival.
+    set({ activeIndex: index, panelOpen: false, activeSubPoiId: null });
     const stopId = index === null ? null : STOPS[index].id;
 
     // The treasure/resume stop plays a 2s chest-opening beat on arrival, so its
@@ -49,6 +57,7 @@ export const useTour = create<TourState>((set, get) => {
   return {
     activeIndex: null,
     panelOpen: false,
+    activeSubPoiId: null,
 
     goTo: (index) => {
       const clamped = Math.max(0, Math.min(STOPS.length - 1, index));
@@ -71,11 +80,8 @@ export const useTour = create<TourState>((set, get) => {
 
     home: () => navigate(null),
 
-    closePanel: () => set({ panelOpen: false }),
+    closePanel: () => set({ panelOpen: false, activeSubPoiId: null }),
 
-    activeStop: () => {
-      const { activeIndex } = get();
-      return activeIndex === null ? null : STOPS[activeIndex];
-    },
+    selectSubPoi: (id) => set({ activeSubPoiId: id, panelOpen: true }),
   };
 });
