@@ -93,8 +93,10 @@ export interface SubPoi {
 
 export interface TourStop {
   id: string;
-  /** Short label shown on the marker and in the tour controls. */
+  /** Label shown on the 3D marker. */
   label: string;
+  /** Short label for the section nav bar (falls back to `label`). */
+  navLabel?: string;
   kind: StopKind;
   /** World position of the floating marker. */
   position: Vec3;
@@ -165,6 +167,7 @@ export const STOPS: TourStop[] = [
   {
     id: "intro",
     label: "Welcome Aboard",
+    navLabel: "About",
     kind: "intro",
     // Floats above the hut/tavern (building cluster center ~[-6, -9], roof
     // ~Y45) so it anchors to the island landmark, not empty deck space.
@@ -187,6 +190,7 @@ export const STOPS: TourStop[] = [
   {
     id: "project-1",
     label: "Project Island",
+    navLabel: "Projects",
     kind: "project",
     // Derived from VOLCANO_TRANSFORM so the tag follows the island when moved.
     position: markerAbove(VOLCANO_TRANSFORM, 51),
@@ -305,6 +309,7 @@ export const STOPS: TourStop[] = [
   {
     id: "resume",
     label: "Treasure Chest (Resume)",
+    navLabel: "Resume",
     kind: "resume",
     // Derived from TREASURE_TRANSFORM so the tag follows the island when moved.
     position: markerAbove(TREASURE_TRANSFORM, 35),

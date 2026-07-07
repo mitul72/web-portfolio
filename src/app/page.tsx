@@ -19,6 +19,7 @@ import BackgroundMusic from "@/components/music";
 import Navbar from "@/components/shared/navbar";
 import ContentPanel from "@/components/ui/ContentPanel";
 import TourControls from "@/components/ui/TourControls";
+import SubNav from "@/components/ui/SubNav";
 import LoadingScreen from "@/components/ui/LoadingScreen";
 import IntroTitle from "@/components/ui/IntroTitle";
 import {
@@ -81,6 +82,7 @@ export default function Home() {
       <LoadingScreen />
       <IntroTitle />
       <TourControls />
+      <SubNav />
       <ContentPanel />
       <BackgroundMusic />
       <SailingSfx />
