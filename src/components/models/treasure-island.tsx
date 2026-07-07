@@ -1,10 +1,16 @@
 import React, { useEffect, useRef } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
 import { SkeletonUtils } from "three-stdlib";
-import { Group, LoopOnce } from "three";
+import { Group, LoopRepeat } from "three";
 import TreasureGLB from "@/assets/treasure-island-transformed.glb";
 import { Vec3 } from "@/data/portfolio";
 import { useVoyage } from "@/components/tour/useVoyage";
+
+// The baked "Scene" clip is ~6.67s and LOOPS: the chest opens then closes
+// again. To keep it open, we play only up to the moment the chest is fully
+// open (2.5s) and FREEZE there.
+const CHEST_OPEN_TIME = 2.5;
 
 /**
  * The optimized treasure island (the resume/treasure stop). It carries a baked
@@ -38,20 +44,37 @@ export default function TreasureIsland({
     });
   }, [clone]);
 
-  // Hold the chest closed at rest. The FIRST time the ship arrives at the
-  // treasure stop, wait 2s, then play the opening animation exactly once (ever)
-  // and clamp it open. It never resets or replays afterward.
+  // The chest action + whether we're currently rolling toward the open frame.
+  const chestRef = useRef<import("three").AnimationAction | null>(null);
+  const openingRef = useRef(false);
+
+  // Each frame, once the chest animation reaches CHEST_OPEN_TIME, pause it there
+  // so the chest stays fully open instead of continuing into its re-close.
+  useFrame(() => {
+    const chest = chestRef.current;
+    if (chest && openingRef.current && !chest.paused) {
+      if (chest.time >= CHEST_OPEN_TIME) {
+        chest.time = CHEST_OPEN_TIME;
+        chest.paused = true; // freeze open
+        openingRef.current = false;
+      }
+    }
+  });
+
+  // Hold the chest closed at rest. EACH time the ship arrives at the treasure
+  // stop, wait 2s then play the clip up to the OPEN frame (2.5s) and freeze
+  // there. When the ship sails away, snap it closed so it re-opens next visit.
   useEffect(() => {
     const names = Object.keys(actions);
     const chest = names.length ? actions[names[0]] : null; // the "Scene" clip
     if (!chest) return;
+    chestRef.current = chest;
 
     // Freeze on the first frame so the chest starts closed.
     chest.play();
     chest.paused = true;
     chest.time = 0;
 
-    let hasPlayed = false;
     let delayTimer: ReturnType<typeof setTimeout> | null = null;
 
     let prev = useVoyage.getState();
@@ -60,17 +83,31 @@ export default function TreasureIsland({
         prev.phase === "sailing" &&
         s.phase === "docked" &&
         s.targetStopId === "resume";
+      // Only "left" when we start sailing AWAY to a different target.
+      const leftTreasure =
+        s.phase === "sailing" &&
+        prev.targetStopId === "resume" &&
+        s.targetStopId !== "resume";
 
-      if (arrivedAtTreasure && !hasPlayed) {
-        hasPlayed = true;
-        // 2-second beat before the chest springs open.
+      if (arrivedAtTreasure) {
+        // 2-second beat, then roll the clip forward until the useFrame watcher
+        // freezes it at CHEST_OPEN_TIME.
         delayTimer = setTimeout(() => {
           chest.reset();
-          chest.setLoop(LoopOnce, 1);
-          chest.clampWhenFinished = true;
+          chest.setLoop(LoopRepeat, Infinity); // free-running; we pause manually
+          chest.time = 0;
           chest.paused = false;
+          openingRef.current = true;
           chest.play();
         }, 2000);
+      } else if (leftTreasure) {
+        // Sailing away — cancel any pending open and snap the chest shut so it
+        // re-opens fresh next visit.
+        if (delayTimer) clearTimeout(delayTimer);
+        openingRef.current = false;
+        chest.reset();
+        chest.paused = true;
+        chest.time = 0;
       }
       prev = s;
     });

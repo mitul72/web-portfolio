@@ -144,11 +144,13 @@ export const STOPS: TourStop[] = [
     id: "intro",
     label: "Welcome Aboard",
     kind: "intro",
-    // Sits above the captain character (Captain_Barbarossa @ 21.7, 12.5, 105).
-    position: [21.7, 20, 105],
+    // Floats above the hut/tavern (building cluster center ~[-6, -9], roof
+    // ~Y45) so it anchors to the island landmark, not empty deck space.
+    // Fine-tune with SHOW_DEV_COORDS if the roof peak differs.
+    position: [-6, 52, -9],
     camera: {
-      position: [21.7, 26, 145],
-      lookAt: [21.7, 14, 105],
+      position: [40, 45, 60],
+      lookAt: [-6, 30, -9],
     },
     content: {
       kind: "intro",
