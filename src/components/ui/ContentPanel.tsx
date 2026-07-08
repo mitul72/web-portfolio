@@ -2,6 +2,7 @@
 
 import { STOPS, StopContent } from "@/data/portfolio";
 import { useTour } from "@/components/tour/useTour";
+import TreasureMap from "./TreasureMap";
 
 /** Renders the body of the panel based on the active stop's content kind. */
 function Body({ content }: { content: StopContent }) {
@@ -98,25 +99,8 @@ function Body({ content }: { content: StopContent }) {
       );
 
     case "contact":
-      return (
-        <>
-          <h2 className="text-3xl font-bold">{content.title}</h2>
-          <p className="mt-4 leading-relaxed text-white/80">{content.blurb}</p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            {content.links.map((l) => (
-              <a
-                key={l.url}
-                href={l.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-full border border-pink-400/40 bg-pink-400/10 px-4 py-1.5 text-sm text-pink-200 transition hover:bg-pink-400/20"
-              >
-                {l.label} ↗
-              </a>
-            ))}
-          </div>
-        </>
-      );
+      // Contact never reaches Body — ContentPanel routes it to <TreasureMap/>.
+      return null;
   }
 }
 
@@ -136,6 +120,11 @@ export default function ContentPanel() {
     : null;
 
   const visible = panelOpen && activeIndex !== null && content !== null;
+
+  // Contact opens as the near-fullscreen pirate map, not the side sheet.
+  if (content?.kind === "contact") {
+    return <TreasureMap content={content} open={visible} onClose={closePanel} />;
+  }
 
   return (
     <div

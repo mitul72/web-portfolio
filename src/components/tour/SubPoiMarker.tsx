@@ -1,7 +1,9 @@
 import { useMemo, useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
-import { Billboard, Html } from "@react-three/drei";
+import { Billboard, Html, useGLTF } from "@react-three/drei";
 import { DoubleSide, Group, Mesh, MeshBasicMaterial, Shape } from "three";
+import { SkeletonUtils } from "three-stdlib";
+import BottleGLB from "@/assets/bottle-with-scroll-transformed.glb";
 import { SubPoi } from "@/data/portfolio";
 import { waveHeight } from "@/components/env/waves";
 import { useTour } from "./useTour";
@@ -284,6 +286,31 @@ function Wisp({
 }
 
 /**
+ * A message-in-a-bottle (real GLB) — the socials/contact prop. The model is
+ * ~3.1 units tall with its origin at the middle, so it's lifted by half its
+ * height to stand on the terrain. No halo — a glow disc reads as fog behind a
+ * realistic glass model; the hover scale-up + label are the affordance.
+ */
+function Bottle() {
+  const { scene } = useGLTF(BottleGLB);
+  const clone = useMemo(() => SkeletonUtils.clone(scene), [scene]);
+
+  return (
+    <group>
+      {/* Stand on the ground: origin is mid-bottle (bbox Y −1.5…1.63). */}
+      <primitive object={clone} position={[0, 1.5, 0]} />
+      {/* Generous invisible hit target. */}
+      <mesh position={[0, 1.6, 0]}>
+        <sphereGeometry args={[2.2, 8, 8]} />
+        <meshBasicMaterial transparent opacity={0} depthWrite={false} />
+      </mesh>
+    </group>
+  );
+}
+
+useGLTF.preload(BottleGLB);
+
+/**
  * A clickable sub-POI on an island — renders a glowing faceted gem. Bobs,
  * spins, and glows; clicking opens its project panel. Rendered only while its
  * island is the active stop (the parent controls that).
@@ -298,6 +325,7 @@ export default function SubPoiMarker({ poi }: { poi: SubPoi }) {
   const isCrate = poi.prop === "crate";
   const isFlag = poi.prop === "flag";
   const isWisp = poi.prop === "wisp";
+  const isBottle = poi.prop === "bottle";
   // Deterministic per-poi animation phase so flags/wisps don't move in lockstep.
   const windPhase = useMemo(
     () => (poi.position[0] * 7.13 + poi.position[2] * 3.71) % (Math.PI * 2),
@@ -316,6 +344,16 @@ export default function SubPoiMarker({ poi }: { poi: SubPoi }) {
       grp.current.rotation.y = 0;
       const s = 1 + (poi.stack ?? 2) * 0.12; // tenure → slightly bigger orb
       grp.current.scale.setScalar(s * (lit ? 1.15 : 1));
+    } else if (isBottle) {
+      // Rides the waves if bob is set; otherwise grounded where placed.
+      const base = poi.bob
+        ? waveHeight(px, pz, t) * 0.35 + poi.position[1]
+        : poi.position[1];
+      grp.current.position.y = base;
+      grp.current.rotation.y = 0;
+      // Resting lean + a slow tipsy sway, like it lodged on the rocks.
+      grp.current.rotation.z = 0.12 + Math.sin(t * 0.8 + windPhase) * 0.04;
+      grp.current.scale.setScalar((lit ? 1.1 : 1) * 1.8);
     } else if (isFlag) {
       // Planted in the ground: no bob/spin. A whisper of hover feedback.
       grp.current.position.y = poi.position[1];
@@ -358,7 +396,9 @@ export default function SubPoiMarker({ poi }: { poi: SubPoi }) {
           document.body.style.cursor = "auto";
         }}
       >
-        {isWisp ? (
+        {isBottle ? (
+          <Bottle />
+        ) : isWisp ? (
           <Wisp color={poi.color ?? FLAG_FALLBACK} phase={windPhase} lit={lit} />
         ) : isFlag ? (
           <Flag
@@ -389,7 +429,9 @@ export default function SubPoiMarker({ poi }: { poi: SubPoi }) {
         )}
       </group>
 
-      {/* Fixed-size label above the prop (clears tall poles/stacks). */}
+      {/* Fixed-size label above the prop (clears tall poles/stacks). An empty
+          label means "no pill" — the prop itself is the invitation. */}
+      {poi.label && (
       <Html
         center
         position={[
@@ -397,11 +439,13 @@ export default function SubPoiMarker({ poi }: { poi: SubPoi }) {
           poi.position[1] +
             (isWisp
               ? WISP_HOVER + 3
-              : isFlag
-                ? flagPoleHeight(poi.stack ?? 2) + 1.4
-                : isCrate
-                  ? (poi.stack ?? 2) * 0.95 + 1.2
-                  : 3),
+              : isBottle
+                ? 7 // clears the ~5.6-unit bottle at its 1.8 scale
+                : isFlag
+                  ? flagPoleHeight(poi.stack ?? 2) + 1.4
+                  : isCrate
+                    ? (poi.stack ?? 2) * 0.95 + 1.2
+                    : 3),
           poi.position[2],
         ]}
         // Keep labels UNDER the DOM overlays (panel/nav are z-20+); drei's
@@ -426,6 +470,7 @@ export default function SubPoiMarker({ poi }: { poi: SubPoi }) {
           {poi.label}
         </button>
       </Html>
+      )}
     </group>
   );
 }

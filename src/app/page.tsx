@@ -6,6 +6,7 @@ import PirateIsland from "@/components/models/pirate-island";
 import VolcanoIsland from "@/components/models/volcano-island";
 import TreasureIsland from "@/components/models/treasure-island";
 import FantasyIsland from "@/components/models/fantasy-island";
+import LowPolyIsland from "@/components/models/low-poly-island";
 import Toothless from "@/components/models/toothless";
 import CameraRig from "@/components/tour/CameraRig";
 import DevCoords from "@/components/tour/DevCoords";
@@ -30,12 +31,13 @@ import {
   VOLCANO_TRANSFORM,
   TREASURE_TRANSFORM,
   FANTASY_TRANSFORM,
+  SOCIALS_TRANSFORM,
   TOOTHLESS_TRANSFORM,
 } from "@/data/portfolio";
 
 // Flip to true while placing new assets/markers — logs world coords to the
 // console when you click the scene (press "c" for camera). Turn off to ship.
-const SHOW_DEV_COORDS = false;
+const SHOW_DEV_COORDS = true;
 
 export default function Home() {
   const isMobile = useIsMobile();
@@ -78,6 +80,11 @@ export default function Home() {
             position={FANTASY_TRANSFORM.position}
             scale={FANTASY_TRANSFORM.scale}
             rotation={FANTASY_TRANSFORM.rotation}
+          />
+          <LowPolyIsland
+            position={SOCIALS_TRANSFORM.position}
+            scale={SOCIALS_TRANSFORM.scale}
+            rotation={SOCIALS_TRANSFORM.rotation}
           />
           <Toothless
             position={TOOTHLESS_TRANSFORM.position}

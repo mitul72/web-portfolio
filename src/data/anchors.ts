@@ -86,6 +86,21 @@ export const DOCKS: Record<string, Dock> = {
       lookAt: [182, 35, -286],
     },
   },
+  contact: {
+    // Open water off the socials island. Its shoreline is a near-vertical
+    // cliff of radius ~47 (measured from the mesh at waterline heights), so
+    // the dock sits 85 from center [-240,220] — ~20 units of clear water even
+    // at the bow. Approach from the home side.
+    position: [-164, 182],
+    heading: -1.1, // faces from the dock toward the island center
+    via: [-90, 160], // bow the arc south of the main island, over open water
+    camera: {
+      // Captured live with SHOW_DEV_COORDS ("c"): looks across the bottle's
+      // rock toward the island center (which stays the orbit pivot).
+      position: [-136.71, 65.57, 244.57],
+      lookAt: [-240, 40, 220],
+    },
+  },
 };
 
 /** Resolve the dock for a stop id, falling back to HOME. */

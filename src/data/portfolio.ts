@@ -178,6 +178,16 @@ export const FANTASY_TRANSFORM = {
   rotation: [0, 2.4, 0] as Vec3,
 };
 
+// Socials floating island (the "contact" stop) — hovers ABOVE the water on
+// the free SW corner. At scale 0.08 the footprint radius is ~47 and the
+// hanging rock spike reaches ~73 below the origin, so Y=14 leaves the tip
+// hovering ~8 units over the waves (the model bobs ±1.5 around this).
+export const SOCIALS_TRANSFORM = {
+  position: [-240, -10, 220] as Vec3,
+  scale: 0.08,
+  rotation: [0, 0.4, 0] as Vec3,
+};
+
 // Toothless — ambient scenery perched near/on the main island. Static model;
 // TODO: tune scale/position/Y with SHOW_DEV_COORDS.
 export const TOOTHLESS_TRANSFORM = {
@@ -190,6 +200,21 @@ export const TOOTHLESS_TRANSFORM = {
 function markerAbove(t: { position: Vec3 }, height: number): Vec3 {
   return [t.position[0], t.position[1] + height, t.position[2]];
 }
+
+// Shared by the contact stop AND its bottle sub-POI (both open the same map).
+const CONTACT_CONTENT: ContactContent = {
+  kind: "contact",
+  title: "Send a Message in a Bottle",
+  blurb: "Want to work together or just say hi?",
+  links: [
+    { label: "Email", url: "mailto:mituldhawan154@gmail.com" },
+    { label: "GitHub", url: "https://github.com/mitul72" },
+    {
+      label: "LinkedIn",
+      url: "https://www.linkedin.com/in/mitul-dhawan-b9615b266/",
+    },
+  ],
+};
 
 // -----------------------------------------------------------------------------
 // LIVE STOPS — only things that map to geometry that actually exists today.
@@ -480,6 +505,33 @@ export const STOPS: TourStop[] = [
       },
     ],
   },
+  {
+    id: "contact",
+    label: "Contact Island",
+    navLabel: "Contact",
+    kind: "contact",
+    // Floats above the socials island (its summit is ~80 world units high).
+    position: markerAbove(SOCIALS_TRANSFORM, 75),
+    camera: {
+      // Matches the arrival framing in anchors.ts (captured via DevCoords).
+      position: [-136.71, 65.57, 244.57],
+      lookAt: [-240, 40, 220],
+    },
+    content: CONTACT_CONTENT,
+    // The washed-ashore bottle, lodged on a rock (DevCoords hit on
+    // Rock_Rock_1001_0) — clicking it (or arriving) unfurls the pirate-map
+    // overlay with the social links X-marked on it. Label left empty on
+    // purpose: no pill, the bottle speaks for itself.
+    subPois: [
+      {
+        id: "socials-bottle",
+        label: "bottled message",
+        position: [-202.4, 20.05, 228.88],
+        prop: "bottle",
+        content: CONTACT_CONTENT,
+      },
+    ],
+  },
 ];
 
 // -----------------------------------------------------------------------------
@@ -491,27 +543,7 @@ export const STOPS: TourStop[] = [
 // -----------------------------------------------------------------------------
 export const PLANNED_STOPS: (Omit<TourStop, "position" | "camera"> & {
   needsAsset: string;
-})[] = [
-  {
-    id: "contact",
-    label: "Contact",
-    kind: "contact",
-    needsAsset: "None strictly — can go live as a floating marker any time.",
-    content: {
-      kind: "contact",
-      title: "Send a Message in a Bottle",
-      blurb: "Want to work together or just say hi?",
-      links: [
-        { label: "Email", url: "mailto:mituldhawan154@gmail.com" },
-        { label: "GitHub", url: "https://github.com/mitul72" },
-        {
-          label: "LinkedIn",
-          url: "https://www.linkedin.com/in/mitul-dhawan-b9615b266/",
-        },
-      ],
-    },
-  },
-];
+})[] = [];
 
 // -----------------------------------------------------------------------------
 // CONTENT SELECTORS — used by BOTH the 3D scene and the 2D `/lite` page, so the
