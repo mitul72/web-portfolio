@@ -24,11 +24,11 @@ export default function VolcanoIsland({
   const clone = React.useMemo(() => SkeletonUtils.clone(scene), [scene]);
 
   useEffect(() => {
+    // receiveShadow only: this island sits OUTSIDE the shadow camera's ±120
+    // box (see Lighting.tsx), so casting would never show — skipping it keeps
+    // its meshes out of the every-frame shadow depth pass.
     clone.traverse((o: any) => {
-      if (o.isMesh) {
-        o.castShadow = true;
-        o.receiveShadow = true;
-      }
+      if (o.isMesh) o.receiveShadow = true;
     });
   }, [clone]);
 

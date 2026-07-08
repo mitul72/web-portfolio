@@ -25,11 +25,11 @@ export default function FantasyIsland({
   const clone = React.useMemo(() => SkeletonUtils.clone(scene), [scene]);
 
   useEffect(() => {
+    // receiveShadow only: outside the shadow camera's ±120 box (Lighting.tsx),
+    // casting would never show — and this is the heaviest island (~50k tris),
+    // so keeping it out of the per-frame shadow pass matters most here.
     clone.traverse((o: any) => {
-      if (o.isMesh) {
-        o.castShadow = true;
-        o.receiveShadow = true;
-      }
+      if (o.isMesh) o.receiveShadow = true;
     });
   }, [clone]);
 

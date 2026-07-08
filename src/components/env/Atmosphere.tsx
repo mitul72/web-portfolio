@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Sky, Cloud, Clouds } from "@react-three/drei";
 import { Group, MeshBasicMaterial } from "three";
+import { SUN_POSITION } from "./sky";
 
 /**
  * Sky + drifting stylized clouds + warm sun for the "Sea of Thieves" look.
@@ -22,7 +23,7 @@ export default function Atmosphere() {
     <>
       <Sky
         distance={450000}
-        sunPosition={[180, 34, -260]}
+        sunPosition={SUN_POSITION}
         turbidity={3}
         rayleigh={2.2}
         mieCoefficient={0.004}

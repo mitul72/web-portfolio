@@ -9,6 +9,8 @@ const WAVES: { dir: Dir; freq: number; speed: number; amp: number }[] = [
   { dir: [-0.4, 1.0], freq: 0.021, speed: 1.1, amp: 1.9 },
   { dir: [0.7, -0.6], freq: 0.045, speed: 1.6, amp: 0.8 },
   { dir: [0.2, 0.9], freq: 0.09, speed: 2.2, amp: 0.35 },
+  { dir: [-0.85, 0.4], freq: 0.15, speed: 3.1, amp: 0.18 },
+  { dir: [0.55, 0.75], freq: 0.22, speed: 3.8, amp: 0.1 },
 ];
 
 function norm([x, y]: Dir): Dir {

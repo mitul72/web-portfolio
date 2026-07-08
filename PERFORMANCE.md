@@ -1,5 +1,13 @@
 # Performance audit — room for improvement
 
+> **Status (2026-07-08):** implemented — A2 (canvas AA off, composer 2×MSAA),
+> A3 (1024² map + far islands no longer cast), A4 (ocean 160²), B1's ocean
+> mesh removal (+3 orphaned textures), C seagull scratch vectors, adaptive
+> desktop dpr via PerformanceMonitor (2 → 1.25 → 1 under measured load),
+> mobile powerPreference "default". Still open: B2 (ship_custom.glb
+> material-only load), B3 (KTX2), full E1 quality tiers, treasure coin-pile
+> simplification.
+
 Goal: smooth (55–60fps) on **integrated GPUs** (Intel Iris Xe / AMD Vega iGPU
 class), not just discrete cards. Findings ordered by expected impact. iGPUs are
 almost always **fill-rate bound** (pixels × shader cost), so the top section is

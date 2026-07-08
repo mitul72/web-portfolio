@@ -36,13 +36,11 @@ export default function TreasureIsland({
   const clone = React.useMemo(() => SkeletonUtils.clone(scene), [scene]);
   const { actions, mixer } = useAnimations(animations, group);
 
-  // Soft shadows to match the rest of the world.
+  // receiveShadow only: outside the shadow camera's ±120 box (Lighting.tsx),
+  // casting would never show — skips ~62k skinned tris in the shadow pass.
   useEffect(() => {
     clone.traverse((o: any) => {
-      if (o.isMesh) {
-        o.castShadow = true;
-        o.receiveShadow = true;
-      }
+      if (o.isMesh) o.receiveShadow = true;
     });
   }, [clone]);
 

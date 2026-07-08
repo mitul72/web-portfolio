@@ -16,6 +16,9 @@ function Gull({ offset, radius, height, speed }: {
   const group = useRef<Group>(null);
   const left = useRef<Group>(null);
   const right = useRef<Group>(null);
+  // Scratch vectors reused each frame (getPointAt allocates otherwise).
+  const pos = useRef(new Vector3());
+  const ahead = useRef(new Vector3());
 
   const path = useMemo(
     () =>
@@ -35,11 +38,11 @@ function Gull({ offset, radius, height, speed }: {
 
   useFrame((state) => {
     const t = ((state.clock.elapsedTime * speed + offset) % 1 + 1) % 1;
-    const pos = path.getPointAt(t);
-    const ahead = path.getPointAt((t + 0.01) % 1);
+    path.getPointAt(t, pos.current);
+    path.getPointAt((t + 0.01) % 1, ahead.current);
     if (group.current) {
-      group.current.position.copy(pos);
-      group.current.lookAt(ahead);
+      group.current.position.copy(pos.current);
+      group.current.lookAt(ahead.current);
     }
     // Flap.
     const flap = Math.sin(state.clock.elapsedTime * 10 + offset * 20) * 0.6;
