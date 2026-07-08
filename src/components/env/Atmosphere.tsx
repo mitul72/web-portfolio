@@ -21,13 +21,16 @@ export default function Atmosphere() {
 
   return (
     <>
+      {/* Richer gradient: more rayleigh deepens the blue overhead, a bit more
+          turbidity + mie warms the horizon glow around the sun — less washed
+          out without changing the golden-hour mood. */}
       <Sky
         distance={450000}
         sunPosition={SUN_POSITION}
-        turbidity={3}
-        rayleigh={2.2}
-        mieCoefficient={0.004}
-        mieDirectionalG={0.8}
+        turbidity={4.2}
+        rayleigh={3.0}
+        mieCoefficient={0.005}
+        mieDirectionalG={0.82}
       />
 
       <group ref={clouds}>

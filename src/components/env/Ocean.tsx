@@ -24,7 +24,7 @@ export default function Ocean({
   const uniforms = useMemo(
     () => ({
       uTime: { value: 0 },
-      uShallow: { value: new Color("#3fd0d6") }, // vibrant near-shore teal
+      uShallow: { value: new Color("#38bfca") }, // near-shore teal (a touch deeper than candy-mint)
       uDeep: { value: new Color("#155a8a") }, // deep blue, desaturated a touch
       uFoam: { value: new Color("#eafcff") },
       uSun: { value: new Color("#fff4d6") },
@@ -128,10 +128,16 @@ const fragment = /* glsl */ `
   }
 
   void main() {
-    // Depth color: teal near the island, deep blue far out (wide, soft ramp).
+    // Depth color: teal near the island, deep blue far out.
     float distToCenter = length(vWorldPos.xz);
-    float depth = smoothstep(0.0, 420.0, distToCenter);
+    float depth = smoothstep(0.0, 320.0, distToCenter);
     vec3 col = mix(uShallow, uDeep, depth);
+
+    // Large-scale tonal variation: slow drifting "current" patches so the
+    // shallows aren't one flat cyan field (the #1 "toy water" tell). Strongest
+    // near shore where the flat teal dominates, fades out over deep water.
+    float patchN = noise(vWorldPos.xz * 0.004 + uTime * 0.01);
+    col = mix(col, uDeep, (1.0 - depth) * patchN * 0.22);
 
     // --- Surface normal: macro swell (analytic, from the vertex waves) plus
     // fragment-only micro-ripples. The ripples never touch the height field,
