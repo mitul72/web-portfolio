@@ -3,6 +3,7 @@
 import { Canvas } from "@react-three/fiber";
 import { PerformanceMonitor } from "@react-three/drei";
 import { Suspense, useState } from "react";
+import { Mesh } from "three";
 import PirateIsland from "@/components/models/pirate-island";
 import VolcanoIsland from "@/components/models/volcano-island";
 import TreasureIsland from "@/components/models/treasure-island";
@@ -19,6 +20,7 @@ import Seagulls from "@/components/env/Seagulls";
 import Wake from "@/components/env/Wake";
 import SailingSfx from "@/components/env/SailingSfx";
 import Effects from "@/components/env/Effects";
+import Sun from "@/components/env/Sun";
 import BackgroundMusic from "@/components/music";
 import Navbar from "@/components/shared/navbar";
 import ContentPanel from "@/components/ui/ContentPanel";
@@ -38,7 +40,7 @@ import {
 
 // Flip to true while placing new assets/markers — logs world coords to the
 // console when you click the scene (press "c" for camera). Turn off to ship.
-const SHOW_DEV_COORDS = true;
+const SHOW_DEV_COORDS = false;
 
 export default function Home() {
   const isMobile = useIsMobile();
@@ -46,6 +48,9 @@ export default function Home() {
   // when the GPU keeps up, stepped down when it can't — integrated GPUs get a
   // smooth scene instead of a slideshow, fast machines keep the full look.
   const [dprMax, setDprMax] = useState(2);
+  // The sun disc renders on all devices; on desktop its mesh feeds the GodRays
+  // effect. State (not a ref) so Effects re-renders once the mesh mounts.
+  const [sun, setSun] = useState<Mesh | null>(null);
 
   return (
     <main className="relative h-[100dvh] w-full overflow-hidden bg-slate-950">
@@ -82,6 +87,7 @@ export default function Home() {
           <Atmosphere />
           <Lighting />
           <Ocean />
+          {/* <Sun ref={setSun} /> */}
           <Seagulls />
           <Wake />
 
@@ -118,8 +124,9 @@ export default function Home() {
 
           {/* Camera + post */}
           <CameraRig />
-          {/* Postprocessing (bloom/vignette) is skipped on mobile for perf. */}
-          {!isMobile && <Effects />}
+          {/* Postprocessing (god rays/bloom/grade) is desktop-only for perf.
+              The sun disc itself renders on all devices (above). */}
+          {!isMobile && <Effects sun={sun} />}
           {SHOW_DEV_COORDS && <DevCoords />}
         </Suspense>
       </Canvas>

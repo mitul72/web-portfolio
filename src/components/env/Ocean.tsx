@@ -1,7 +1,7 @@
 import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Color, Mesh, ShaderMaterial } from "three";
-import { SUN_DIRECTION, FOG_COLOR, FOG_DENSITY } from "./sky";
+import { SUN_DIRECTION, SUN_COLOR, FOG_COLOR, FOG_DENSITY } from "./sky";
 
 /**
  * Stylized "Sea of Thieves"-flavored ocean: a large plane driven by a custom
@@ -24,10 +24,10 @@ export default function Ocean({
   const uniforms = useMemo(
     () => ({
       uTime: { value: 0 },
-      uShallow: { value: new Color("#38bfca") }, // near-shore teal (a touch deeper than candy-mint)
-      uDeep: { value: new Color("#155a8a") }, // deep blue, desaturated a touch
-      uFoam: { value: new Color("#eafcff") },
-      uSun: { value: new Color("#fff4d6") },
+      uShallow: { value: new Color("#3fb8bf") }, // near-shore teal, warmed slightly toward the sun
+      uDeep: { value: new Color("#134f7e") }, // deep blue, a touch warmer/darker for dusk
+      uFoam: { value: new Color("#fff0dc") }, // foam picks up warm sunset light
+      uSun: { value: new Color(SUN_COLOR) }, // glitter matches the golden sun
       uSunDir: { value: sunDirection },
       // Mirror of the scene fog (see sky.ts) — keep in sync.
       uFogColor: { value: new Color(FOG_COLOR) },

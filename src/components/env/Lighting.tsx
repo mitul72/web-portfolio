@@ -1,7 +1,16 @@
 import { useThree } from "@react-three/fiber";
 import { useEffect } from "react";
 import { Color, FogExp2 } from "three";
-import { KEY_LIGHT_POSITION, FOG_COLOR, FOG_DENSITY } from "./sky";
+import {
+  KEY_LIGHT_POSITION,
+  KEY_LIGHT_COLOR,
+  SUN_POSITION,
+  SUN_COLOR,
+  SKY_FILL_COLOR,
+  WATER_BOUNCE_COLOR,
+  FOG_COLOR,
+  FOG_DENSITY,
+} from "./sky";
 
 /**
  * Warm "Sea of Thieves" lighting rig + horizon fog.
@@ -23,10 +32,10 @@ export default function Lighting() {
 
   return (
     <>
-      {/* Warm key sun. */}
+      {/* Warm golden-hour key sun (shadow caster). */}
       <directionalLight
-        color="#fff1cf"
-        intensity={3.0}
+        color={KEY_LIGHT_COLOR}
+        intensity={3.1}
         position={KEY_LIGHT_POSITION}
         castShadow
         // 1024 is plenty at this art style — the map is redrawn every frame
@@ -40,9 +49,21 @@ export default function Lighting() {
         shadow-camera-far={600}
         shadow-bias={-0.0004}
       />
-      {/* Cool sky fill + warm bounce from the water. */}
-      <hemisphereLight color="#cfe9ff" groundColor="#3f7f8f" intensity={0.7} />
-      <ambientLight intensity={0.25} />
+      {/* Low warm RIM light from the sun's direction (no shadows) — rakes the
+          island edges with golden light so they read against the sky. This is
+          the "photographed at golden hour" cue. */}
+      <directionalLight
+        color={SUN_COLOR}
+        intensity={1.4}
+        position={SUN_POSITION}
+      />
+      {/* Warm sky fill from above + warm bounce from the sunlit water. */}
+      <hemisphereLight
+        color={SKY_FILL_COLOR}
+        groundColor={WATER_BOUNCE_COLOR}
+        intensity={0.65}
+      />
+      <ambientLight intensity={0.22} color="#ffe9d0" />
     </>
   );
 }
