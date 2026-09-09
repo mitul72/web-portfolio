@@ -150,8 +150,8 @@
     "semantic_hash": "ef4c583c8060d9b37b650315acda3c37"
   },
   "src/data/portfolio.ts": {
-    "mtime": 1788983661.6348767,
-    "ast_hash": "f5c5c45087e7f64eeef32e5d5831c3c5",
+    "mtime": 1788982882.593996,
+    "ast_hash": "31b4d2c14852c13de9359cec371b8b5e",
     "semantic_hash": ""
   },
   "src/types/custom.d.ts": {
@@ -170,8 +170,8 @@
     "semantic_hash": "3bd7a3770c6b44dbcaab1d2f175db8bd"
   },
   "CLAUDE.md": {
-    "mtime": 1788983672.4082165,
-    "ast_hash": "01d24c2e35dd8ffd8b1f4f8a0a6067bf",
+    "mtime": 1783536221.3864002,
+    "ast_hash": "d6ef99f0ecc6f91bf6b8fc2125216f04",
     "semantic_hash": ""
   },
   "PERFORMANCE.md": {
@@ -180,9 +180,9 @@
     "semantic_hash": "6b51f10734e1ef3802b715ea064951a9"
   },
   "README.md": {
-    "mtime": 1788983651.139718,
-    "ast_hash": "bdbaa561d6b730ee92aa43671515e800",
-    "semantic_hash": ""
+    "mtime": 1783379039.483896,
+    "ast_hash": "9cd4165787e75f55985c9e08451121b1",
+    "semantic_hash": "9cd4165787e75f55985c9e08451121b1"
   },
   "public/resume.pdf": {
     "mtime": 1781125291.4217257,
@@ -212,16 +212,6 @@
   ".claude/settings.json": {
     "mtime": 1783536221.386613,
     "ast_hash": "e51077b6a7f1f67afc748f1a32a1557d",
-    "semantic_hash": ""
-  },
-  "TODO.md": {
-    "mtime": 1788983628.7344067,
-    "ast_hash": "0781eaed21d01e202bb50da8113d8a9d",
-    "semantic_hash": ""
-  },
-  "docs/reference/README.md": {
-    "mtime": 1788983500.9590359,
-    "ast_hash": "5e0e6cb35052c72a3856d239b36f0d94",
     "semantic_hash": ""
   }
 }

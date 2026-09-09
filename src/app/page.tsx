@@ -87,6 +87,7 @@ export default function Home() {
           <Atmosphere />
           <Lighting />
           <Ocean />
+          {/* TODO Fix sun or remove */}
           {/* <Sun ref={setSun} /> */}
           <Seagulls />
           <Wake />

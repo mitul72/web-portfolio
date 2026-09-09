@@ -1,11 +1,11 @@
 # Graph Report - web-portfolio  (2026-09-09)
 
 ## Corpus Check
-- 40 files · ~22,690 words
+- 38 files · ~20,801 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 305 nodes · 384 edges · 43 communities (15 shown, 28 thin omitted)
+- 293 nodes · 372 edges · 43 communities (16 shown, 27 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 8 edges (avg confidence: 0.81)
 - Token cost: 0 input · 0 output
 
@@ -68,7 +68,7 @@
 7. `Vec3` - 8 edges
 8. `Performance audit — room for improvement` - 7 edges
 9. `Pirate Portfolio 🏴‍☠️` - 7 edges
-10. `Asset overhaul (planned)` - 7 edges
+10. `tailwind` - 6 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `AI Dev Tools (Claude Code, Cursor, Copilot)` --semantically_similar_to--> `Next.js + React Three Fiber Stack`  [INFERRED] [semantically similar]
@@ -77,10 +77,10 @@
   public/resume.pdf → CLAUDE.md
 - `ContentPanel()` --calls--> `useTour`  [EXTRACTED]
   src/components/ui/ContentPanel.tsx → src/components/tour/useTour.ts
+- `CameraRig()` --calls--> `useTour`  [EXTRACTED]
+  src/components/tour/CameraRig.tsx → src/components/tour/useTour.ts
 - `Marker()` --calls--> `useTour`  [EXTRACTED]
   src/components/tour/Marker.tsx → src/components/tour/useTour.ts
-- `SubPoiMarker()` --calls--> `useTour`  [EXTRACTED]
-  src/components/tour/SubPoiMarker.tsx → src/components/tour/useTour.ts
 
 ## Import Cycles
 - None detected.
@@ -90,23 +90,23 @@
 - **End-to-end sailing flow steps** — claude_usetour, claude_usevoyage, claude_floatingvessel, claude_camerarig [EXTRACTED 1.00]
 - **Mitul Dhawan's career timeline** — public_resume_eden, public_resume_zeroblock, public_resume_dexcelerate, public_resume_bitwyre [EXTRACTED 1.00]
 
-## Communities (43 total, 28 thin omitted)
+## Communities (43 total, 27 thin omitted)
 
 ### Community 0 - "2D Lite Page & Island Models"
-Cohesion: 0.06
-Nodes (33): metadata, projects, FantasyIsland(), LowPolyIsland(), TreasureIsland(), VolcanoIsland(), BackgroundMusic(), DevCoords() (+25 more)
+Cohesion: 0.08
+Nodes (23): metadata, projects, ContentPanel(), SPOTS, TreasureMap(), ALL_STOPS, CameraFraming, CONTACT (+15 more)
 
 ### Community 1 - "Scene Roots & Markers"
-Cohesion: 0.13
-Nodes (21): SHIP_TO_CREW, VESSEL, Navbar(), CameraRig(), KIND_COLOR, Marker(), SubPois(), TourState (+13 more)
+Cohesion: 0.14
+Nodes (14): Navbar(), KIND_COLOR, Marker(), flagPoleHeight(), SubPoiMarker(), SubPois(), TourState, useTour (+6 more)
 
 ### Community 3 - "Dev Dependencies & Config"
-Cohesion: 0.17
-Nodes (12): devDependencies, eslint, eslint-config-next, @gltf-transform/cli, postcss, tailwindcss, @types/node, @types/react (+4 more)
+Cohesion: 0.10
+Nodes (20): devDependencies, eslint, eslint-config-next, @gltf-transform/cli, postcss, tailwindcss, @types/node, @types/react (+12 more)
 
 ### Community 4 - "Runtime Dependencies"
-Cohesion: 0.07
-Nodes (28): dependencies, class-variance-authority, clsx, file-loader, gsap, @gsap/react, lucide-react, next (+20 more)
+Cohesion: 0.10
+Nodes (20): dependencies, class-variance-authority, clsx, file-loader, gsap, @gsap/react, lucide-react, next (+12 more)
 
 ### Community 5 - "Portfolio Content & Resume"
 Cohesion: 0.13
@@ -125,12 +125,12 @@ Cohesion: 0.22
 Nodes (13): Pirate treasure map (parchment), Bear / creature marker, Compass rose (N/E/S/W), Dotted trail / route path, Lagoon with star marker, Main island landmass, Mountain ranges, Ocean waves (+5 more)
 
 ### Community 9 - "Sub-POI Props (Gem/Crate/Flag)"
-Cohesion: 0.22
-Nodes (3): flagPoleHeight(), SubPoiMarker(), SubPoi
+Cohesion: 0.11
+Nodes (15): FantasyIsland(), LowPolyIsland(), TreasureIsland(), VolcanoIsland(), BackgroundMusic(), CameraRig(), DevCoords(), IntroTitle() (+7 more)
 
 ### Community 10 - "Content Panel & Treasure Map View"
-Cohesion: 0.29
-Nodes (5): ContentPanel(), SPOTS, TreasureMap(), ContactContent, StopContent
+Cohesion: 0.16
+Nodes (10): SHIP_TO_CREW, VESSEL, VoyagePhase, VoyageState, Dock, dockForIndex(), dockForStop(), DOCKS (+2 more)
 
 ### Community 11 - "App Layout & Fonts"
 Cohesion: 0.33
@@ -145,28 +145,32 @@ Cohesion: 0.12
 Nodes (16): A1. Device pixel ratio up to 2 on desktop, A2. Double antialiasing: canvas MSAA + composer MSAA, A3. Shadow pipeline: 2048² PCFSoft map, redrawn every frame, everything casts, A4. Ocean tessellation, A. Fill rate — the iGPU killers, B1. Treasure island ships its own ocean + a 24k-tri coin pile (`treasure-island-transformed.glb`, 2.7MB), B2. `ship_custom.glb` (941KB) is downloaded for ONE material, B3. Texture GPU memory: WebP decodes to raw RGBA (+8 more)
 
 ### Community 19 - "CLAUDE.md"
-Cohesion: 0.06
-Nodes (28): Adding a 3D asset, Architecture, Asset quality, Commands, Conventions, Data / content (edit these to change the portfolio), graphify, Key components & gotchas (+20 more)
+Cohesion: 0.15
+Nodes (11): Adding a 3D asset, Architecture, Commands, Conventions, Data / content (edit these to change the portfolio), graphify, Key components & gotchas, Rendering layers (`src/app/page.tsx`) (+3 more)
+
+### Community 20 - "Pirate Portfolio 🏴‍☠️"
+Cohesion: 0.22
+Nodes (8): Current state (be honest with yourself), Getting started, How to add a new landmark (chest / island / etc.), Optional sound effects, Pirate Portfolio 🏴‍☠️, Project structure, Resume, Sailing (cinematic auto-sail)
 
 ## Knowledge Gaps
-- **163 isolated node(s):** `extends`, `@typescript-eslint/no-explicit-any`, `@typescript-eslint/no-unused-vars`, `$schema`, `style` (+158 more)
+- **155 isolated node(s):** `extends`, `@typescript-eslint/no-explicit-any`, `@typescript-eslint/no-unused-vars`, `$schema`, `style` (+150 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **28 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **27 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `devDependencies` connect `Dev Dependencies & Config` to `Runtime Dependencies`?**
-  _High betweenness centrality (0.008) - this node is a cross-community bridge._
-- **Why does `useTour` connect `Scene Roots & Markers` to `Sub-POI Props (Gem/Crate/Flag)`, `Content Panel & Treasure Map View`?**
-  _High betweenness centrality (0.005) - this node is a cross-community bridge._
+- **Why does `dependencies` connect `Runtime Dependencies` to `Dev Dependencies & Config`?**
+  _High betweenness centrality (0.013) - this node is a cross-community bridge._
+- **Why does `useTour` connect `Scene Roots & Markers` to `2D Lite Page & Island Models`, `Sub-POI Props (Gem/Crate/Flag)`, `Content Panel & Treasure Map View`?**
+  _High betweenness centrality (0.006) - this node is a cross-community bridge._
 - **What connects `extends`, `@typescript-eslint/no-explicit-any`, `@typescript-eslint/no-unused-vars` to the rest of the system?**
-  _172 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _164 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `2D Lite Page & Island Models` be split into smaller, more focused modules?**
-  _Cohesion score 0.06274509803921569 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.08064516129032258 - nodes in this community are weakly interconnected._
 - **Should `Scene Roots & Markers` be split into smaller, more focused modules?**
-  _Cohesion score 0.13012477718360071 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.1396011396011396 - nodes in this community are weakly interconnected._
+- **Should `Dev Dependencies & Config` be split into smaller, more focused modules?**
+  _Cohesion score 0.09523809523809523 - nodes in this community are weakly interconnected._
 - **Should `Runtime Dependencies` be split into smaller, more focused modules?**
-  _Cohesion score 0.06896551724137931 - nodes in this community are weakly interconnected._
-- **Should `Portfolio Content & Resume` be split into smaller, more focused modules?**
-  _Cohesion score 0.13071895424836602 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.1 - nodes in this community are weakly interconnected._

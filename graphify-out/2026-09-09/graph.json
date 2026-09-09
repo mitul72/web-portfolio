@@ -295,7 +295,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "package",
-      "community": 4,
+      "community": 3,
       "norm_label": "package.json"
     },
     {
@@ -305,7 +305,7 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "package_name",
-      "community": 4,
+      "community": 3,
       "norm_label": "name"
     },
     {
@@ -315,7 +315,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "package_version",
-      "community": 4,
+      "community": 3,
       "norm_label": "version"
     },
     {
@@ -325,7 +325,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "package_private",
-      "community": 4,
+      "community": 3,
       "norm_label": "private"
     },
     {
@@ -335,7 +335,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "package_scripts",
-      "community": 4,
+      "community": 3,
       "norm_label": "scripts"
     },
     {
@@ -345,7 +345,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "package_scripts_dev",
-      "community": 4,
+      "community": 3,
       "norm_label": "dev"
     },
     {
@@ -355,7 +355,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "package_scripts_build",
-      "community": 4,
+      "community": 3,
       "norm_label": "build"
     },
     {
@@ -365,7 +365,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "package_scripts_start",
-      "community": 4,
+      "community": 3,
       "norm_label": "start"
     },
     {
@@ -375,7 +375,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "package_scripts_lint",
-      "community": 4,
+      "community": 3,
       "norm_label": "lint"
     },
     {
@@ -835,7 +835,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_page",
-      "community": 0,
+      "community": 9,
       "norm_label": "page.tsx"
     },
     {
@@ -845,7 +845,7 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "src_app_page_home",
-      "community": 0,
+      "community": 9,
       "norm_label": "home()"
     },
     {
@@ -855,7 +855,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_models_fantasy_island",
-      "community": 0,
+      "community": 9,
       "norm_label": "fantasy-island.tsx"
     },
     {
@@ -865,7 +865,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "src_components_models_fantasy_island_fantasyisland",
-      "community": 0,
+      "community": 9,
       "norm_label": "fantasyisland()"
     },
     {
@@ -875,7 +875,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_models_low_poly_island",
-      "community": 0,
+      "community": 9,
       "norm_label": "low-poly-island.tsx"
     },
     {
@@ -885,7 +885,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "src_components_models_low_poly_island_lowpolyisland",
-      "community": 0,
+      "community": 9,
       "norm_label": "lowpolyisland()"
     },
     {
@@ -895,7 +895,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_models_pirate_island",
-      "community": 1,
+      "community": 10,
       "norm_label": "pirate-island.tsx"
     },
     {
@@ -905,7 +905,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "src_components_models_pirate_island_vessel",
-      "community": 1,
+      "community": 10,
       "norm_label": "vessel"
     },
     {
@@ -915,7 +915,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "src_components_models_pirate_island_ship_to_crew",
-      "community": 1,
+      "community": 10,
       "norm_label": "ship_to_crew"
     },
     {
@@ -925,7 +925,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "src_components_models_pirate_island_model",
-      "community": 1,
+      "community": 10,
       "norm_label": "model()"
     },
     {
@@ -935,7 +935,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_models_toothless",
-      "community": 0,
+      "community": 10,
       "norm_label": "toothless.tsx"
     },
     {
@@ -945,7 +945,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "src_components_models_toothless_toothless",
-      "community": 0,
+      "community": 10,
       "norm_label": "toothless()"
     },
     {
@@ -955,7 +955,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_models_treasure_island",
-      "community": 0,
+      "community": 9,
       "norm_label": "treasure-island.tsx"
     },
     {
@@ -965,7 +965,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "src_components_models_treasure_island_treasureisland",
-      "community": 0,
+      "community": 9,
       "norm_label": "treasureisland()"
     },
     {
@@ -975,7 +975,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_models_volcano_island",
-      "community": 0,
+      "community": 9,
       "norm_label": "volcano-island.tsx"
     },
     {
@@ -985,7 +985,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "src_components_models_volcano_island_volcanoisland",
-      "community": 0,
+      "community": 9,
       "norm_label": "volcanoisland()"
     },
     {
@@ -995,7 +995,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_music",
-      "community": 0,
+      "community": 9,
       "norm_label": "music.tsx"
     },
     {
@@ -1005,7 +1005,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "src_components_music_backgroundmusic",
-      "community": 0,
+      "community": 9,
       "norm_label": "backgroundmusic()"
     },
     {
@@ -1035,7 +1035,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_tour_camerarig",
-      "community": 1,
+      "community": 10,
       "norm_label": "camerarig.tsx"
     },
     {
@@ -1045,7 +1045,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "src_components_tour_camerarig_camerarig",
-      "community": 1,
+      "community": 9,
       "norm_label": "camerarig()"
     },
     {
@@ -1055,7 +1055,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_tour_devcoords",
-      "community": 0,
+      "community": 9,
       "norm_label": "devcoords.tsx"
     },
     {
@@ -1065,7 +1065,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "src_components_tour_devcoords_devcoords",
-      "community": 0,
+      "community": 9,
       "norm_label": "devcoords()"
     },
     {
@@ -1105,7 +1105,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_tour_subpoimarker",
-      "community": 9,
+      "community": 1,
       "norm_label": "subpoimarker.tsx"
     },
     {
@@ -1115,7 +1115,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "src_components_tour_subpoimarker_flagpoleheight",
-      "community": 9,
+      "community": 1,
       "norm_label": "flagpoleheight()"
     },
     {
@@ -1125,7 +1125,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "src_components_tour_subpoimarker_gem",
-      "community": 9,
+      "community": 1,
       "norm_label": "gem()"
     },
     {
@@ -1135,7 +1135,7 @@
       "source_location": "L62",
       "_origin": "ast",
       "id": "src_components_tour_subpoimarker_crate",
-      "community": 9,
+      "community": 1,
       "norm_label": "crate()"
     },
     {
@@ -1145,7 +1145,7 @@
       "source_location": "L91",
       "_origin": "ast",
       "id": "src_components_tour_subpoimarker_cratestack",
-      "community": 9,
+      "community": 1,
       "norm_label": "cratestack()"
     },
     {
@@ -1155,7 +1155,7 @@
       "source_location": "L125",
       "_origin": "ast",
       "id": "src_components_tour_subpoimarker_flag",
-      "community": 9,
+      "community": 1,
       "norm_label": "flag()"
     },
     {
@@ -1165,7 +1165,7 @@
       "source_location": "L212",
       "_origin": "ast",
       "id": "src_components_tour_subpoimarker_wisp",
-      "community": 9,
+      "community": 1,
       "norm_label": "wisp()"
     },
     {
@@ -1175,7 +1175,7 @@
       "source_location": "L294",
       "_origin": "ast",
       "id": "src_components_tour_subpoimarker_bottle",
-      "community": 9,
+      "community": 1,
       "norm_label": "bottle()"
     },
     {
@@ -1185,7 +1185,7 @@
       "source_location": "L318",
       "_origin": "ast",
       "id": "src_components_tour_subpoimarker_subpoimarker",
-      "community": 9,
+      "community": 1,
       "norm_label": "subpoimarker()"
     },
     {
@@ -1245,7 +1245,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_tour_usevoyage",
-      "community": 1,
+      "community": 10,
       "norm_label": "usevoyage.ts"
     },
     {
@@ -1255,7 +1255,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "src_components_tour_usevoyage_voyagephase",
-      "community": 1,
+      "community": 10,
       "norm_label": "voyagephase"
     },
     {
@@ -1265,7 +1265,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "src_components_tour_usevoyage_voyagestate",
-      "community": 1,
+      "community": 10,
       "norm_label": "voyagestate"
     },
     {
@@ -1285,7 +1285,7 @@
       "source_location": "L150",
       "_origin": "ast",
       "id": "src_components_tour_usevoyage_dist",
-      "community": 1,
+      "community": 10,
       "norm_label": "dist()"
     },
     {
@@ -1295,7 +1295,7 @@
       "source_location": "L154",
       "_origin": "ast",
       "id": "src_components_tour_usevoyage_clamp",
-      "community": 1,
+      "community": 10,
       "norm_label": "clamp()"
     },
     {
@@ -1305,7 +1305,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_ui_contentpanel",
-      "community": 10,
+      "community": 0,
       "norm_label": "contentpanel.tsx"
     },
     {
@@ -1315,7 +1315,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "src_components_ui_contentpanel_body",
-      "community": 10,
+      "community": 0,
       "norm_label": "body()"
     },
     {
@@ -1325,7 +1325,7 @@
       "source_location": "L107",
       "_origin": "ast",
       "id": "src_components_ui_contentpanel_contentpanel",
-      "community": 10,
+      "community": 0,
       "norm_label": "contentpanel()"
     },
     {
@@ -1335,7 +1335,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_ui_introtitle",
-      "community": 0,
+      "community": 9,
       "norm_label": "introtitle.tsx"
     },
     {
@@ -1345,7 +1345,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "src_components_ui_introtitle_introtitle",
-      "community": 0,
+      "community": 9,
       "norm_label": "introtitle()"
     },
     {
@@ -1355,7 +1355,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_ui_loadingscreen",
-      "community": 0,
+      "community": 9,
       "norm_label": "loadingscreen.tsx"
     },
     {
@@ -1365,7 +1365,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "src_components_ui_loadingscreen_loadingscreen",
-      "community": 0,
+      "community": 9,
       "norm_label": "loadingscreen()"
     },
     {
@@ -1415,7 +1415,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_ui_treasuremap",
-      "community": 10,
+      "community": 0,
       "norm_label": "treasuremap.tsx"
     },
     {
@@ -1425,7 +1425,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "src_components_ui_treasuremap_spots",
-      "community": 10,
+      "community": 0,
       "norm_label": "spots"
     },
     {
@@ -1435,7 +1435,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "src_components_ui_treasuremap_treasuremap",
-      "community": 10,
+      "community": 0,
       "norm_label": "treasuremap()"
     },
     {
@@ -1445,7 +1445,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_data_anchors",
-      "community": 1,
+      "community": 10,
       "norm_label": "anchors.ts"
     },
     {
@@ -1455,7 +1455,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "src_data_anchors_dock",
-      "community": 1,
+      "community": 10,
       "norm_label": "dock"
     },
     {
@@ -1465,7 +1465,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "src_data_anchors_home_dock",
-      "community": 1,
+      "community": 10,
       "norm_label": "home_dock"
     },
     {
@@ -1475,7 +1475,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "src_data_anchors_docks",
-      "community": 1,
+      "community": 10,
       "norm_label": "docks"
     },
     {
@@ -1485,7 +1485,7 @@
       "source_location": "L107",
       "_origin": "ast",
       "id": "src_data_anchors_dockforstop",
-      "community": 1,
+      "community": 10,
       "norm_label": "dockforstop()"
     },
     {
@@ -1495,7 +1495,7 @@
       "source_location": "L113",
       "_origin": "ast",
       "id": "src_data_anchors_dockforindex",
-      "community": 1,
+      "community": 10,
       "norm_label": "dockforindex()"
     },
     {
@@ -1512,17 +1512,17 @@
       "label": "Vec3",
       "file_type": "code",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L19",
+      "source_location": "L16",
       "_origin": "ast",
       "id": "src_data_portfolio_vec3",
-      "community": 0,
+      "community": 10,
       "norm_label": "vec3"
     },
     {
       "label": "CameraFraming",
       "file_type": "code",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L21",
+      "source_location": "L18",
       "_origin": "ast",
       "id": "src_data_portfolio_cameraframing",
       "community": 0,
@@ -1532,7 +1532,7 @@
       "label": "StopKind",
       "file_type": "code",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L28",
+      "source_location": "L25",
       "_origin": "ast",
       "id": "src_data_portfolio_stopkind",
       "community": 0,
@@ -1542,7 +1542,7 @@
       "label": "ProjectContent",
       "file_type": "code",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L35",
+      "source_location": "L32",
       "_origin": "ast",
       "id": "src_data_portfolio_projectcontent",
       "community": 0,
@@ -1552,7 +1552,7 @@
       "label": "Job",
       "file_type": "code",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L43",
+      "source_location": "L40",
       "_origin": "ast",
       "id": "src_data_portfolio_job",
       "community": 0,
@@ -1562,7 +1562,7 @@
       "label": "ExperienceContent",
       "file_type": "code",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L50",
+      "source_location": "L47",
       "_origin": "ast",
       "id": "src_data_portfolio_experiencecontent",
       "community": 0,
@@ -1572,7 +1572,7 @@
       "label": "ResumeContent",
       "file_type": "code",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L57",
+      "source_location": "L54",
       "_origin": "ast",
       "id": "src_data_portfolio_resumecontent",
       "community": 0,
@@ -1582,7 +1582,7 @@
       "label": "IntroContent",
       "file_type": "code",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L65",
+      "source_location": "L62",
       "_origin": "ast",
       "id": "src_data_portfolio_introcontent",
       "community": 0,
@@ -1592,27 +1592,27 @@
       "label": "ContactContent",
       "file_type": "code",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L72",
+      "source_location": "L69",
       "_origin": "ast",
       "id": "src_data_portfolio_contactcontent",
-      "community": 10,
+      "community": 0,
       "norm_label": "contactcontent"
     },
     {
       "label": "StopContent",
       "file_type": "code",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L79",
+      "source_location": "L76",
       "_origin": "ast",
       "id": "src_data_portfolio_stopcontent",
-      "community": 10,
+      "community": 0,
       "norm_label": "stopcontent"
     },
     {
       "label": "PoiProp",
       "file_type": "code",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L94",
+      "source_location": "L84",
       "_origin": "ast",
       "id": "src_data_portfolio_poiprop",
       "community": 0,
@@ -1622,17 +1622,17 @@
       "label": "SubPoi",
       "file_type": "code",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L101",
+      "source_location": "L91",
       "_origin": "ast",
       "id": "src_data_portfolio_subpoi",
-      "community": 9,
+      "community": 1,
       "norm_label": "subpoi"
     },
     {
       "label": "TourStop",
       "file_type": "code",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L116",
+      "source_location": "L106",
       "_origin": "ast",
       "id": "src_data_portfolio_tourstop",
       "community": 1,
@@ -1642,67 +1642,67 @@
       "label": "HOME_CAMERA",
       "file_type": "code",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L149",
+      "source_location": "L139",
       "_origin": "ast",
       "id": "src_data_portfolio_home_camera",
-      "community": 0,
+      "community": 9,
       "norm_label": "home_camera"
     },
     {
       "label": "VOLCANO_TRANSFORM",
       "file_type": "code",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L165",
+      "source_location": "L155",
       "_origin": "ast",
       "id": "src_data_portfolio_volcano_transform",
-      "community": 0,
+      "community": 9,
       "norm_label": "volcano_transform"
     },
     {
       "label": "TREASURE_TRANSFORM",
       "file_type": "code",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L173",
+      "source_location": "L163",
       "_origin": "ast",
       "id": "src_data_portfolio_treasure_transform",
-      "community": 0,
+      "community": 9,
       "norm_label": "treasure_transform"
     },
     {
       "label": "FANTASY_TRANSFORM",
       "file_type": "code",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L185",
+      "source_location": "L175",
       "_origin": "ast",
       "id": "src_data_portfolio_fantasy_transform",
-      "community": 0,
+      "community": 9,
       "norm_label": "fantasy_transform"
     },
     {
       "label": "SOCIALS_TRANSFORM",
       "file_type": "code",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L195",
+      "source_location": "L185",
       "_origin": "ast",
       "id": "src_data_portfolio_socials_transform",
-      "community": 0,
+      "community": 9,
       "norm_label": "socials_transform"
     },
     {
       "label": "TOOTHLESS_TRANSFORM",
       "file_type": "code",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L203",
+      "source_location": "L193",
       "_origin": "ast",
       "id": "src_data_portfolio_toothless_transform",
-      "community": 0,
+      "community": 9,
       "norm_label": "toothless_transform"
     },
     {
       "label": "markerAbove()",
       "file_type": "code",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L210",
+      "source_location": "L200",
       "_origin": "ast",
       "id": "src_data_portfolio_markerabove",
       "community": 0,
@@ -1712,7 +1712,7 @@
       "label": "CONTACT_CONTENT",
       "file_type": "code",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L215",
+      "source_location": "L205",
       "_origin": "ast",
       "id": "src_data_portfolio_contact_content",
       "community": 0,
@@ -1722,7 +1722,7 @@
       "label": "STOPS",
       "file_type": "code",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L233",
+      "source_location": "L223",
       "_origin": "ast",
       "id": "src_data_portfolio_stops",
       "community": 1,
@@ -1732,7 +1732,7 @@
       "label": "PLANNED_STOPS",
       "file_type": "code",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L554",
+      "source_location": "L544",
       "_origin": "ast",
       "id": "src_data_portfolio_planned_stops",
       "community": 0,
@@ -1742,7 +1742,7 @@
       "label": "ALL_STOPS",
       "file_type": "code",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L563",
+      "source_location": "L553",
       "_origin": "ast",
       "id": "src_data_portfolio_all_stops",
       "community": 0,
@@ -1752,7 +1752,7 @@
       "label": "contentOfKind()",
       "file_type": "code",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L565",
+      "source_location": "L555",
       "_origin": "ast",
       "id": "src_data_portfolio_contentofkind",
       "community": 0,
@@ -1762,7 +1762,7 @@
       "label": "INTRO",
       "file_type": "code",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L580",
+      "source_location": "L570",
       "_origin": "ast",
       "id": "src_data_portfolio_intro",
       "community": 0,
@@ -1772,7 +1772,7 @@
       "label": "RESUME",
       "file_type": "code",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L583",
+      "source_location": "L573",
       "_origin": "ast",
       "id": "src_data_portfolio_resume",
       "community": 0,
@@ -1782,7 +1782,7 @@
       "label": "CONTACT",
       "file_type": "code",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L586",
+      "source_location": "L576",
       "_origin": "ast",
       "id": "src_data_portfolio_contact",
       "community": 0,
@@ -1792,7 +1792,7 @@
       "label": "PROJECTS",
       "file_type": "code",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L589",
+      "source_location": "L579",
       "_origin": "ast",
       "id": "src_data_portfolio_projects",
       "community": 0,
@@ -1802,7 +1802,7 @@
       "label": "JOBS",
       "file_type": "code",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L600",
+      "source_location": "L590",
       "_origin": "ast",
       "id": "src_data_portfolio_jobs",
       "community": 0,
@@ -2129,20 +2129,10 @@
       "norm_label": "key components & gotchas"
     },
     {
-      "label": "Asset quality",
-      "file_type": "document",
-      "source_file": "CLAUDE.md",
-      "source_location": "L54",
-      "_origin": "ast",
-      "id": "claude_asset_quality",
-      "community": 19,
-      "norm_label": "asset quality"
-    },
-    {
       "label": "Adding a 3D asset",
       "file_type": "document",
       "source_file": "CLAUDE.md",
-      "source_location": "L61",
+      "source_location": "L54",
       "_origin": "ast",
       "id": "claude_adding_a_3d_asset",
       "community": 19,
@@ -2152,7 +2142,7 @@
       "label": "Conventions",
       "file_type": "document",
       "source_file": "CLAUDE.md",
-      "source_location": "L72",
+      "source_location": "L65",
       "_origin": "ast",
       "id": "claude_conventions",
       "community": 19,
@@ -2162,7 +2152,7 @@
       "label": "graphify",
       "file_type": "document",
       "source_file": "CLAUDE.md",
-      "source_location": "L77",
+      "source_location": "L70",
       "_origin": "ast",
       "id": "claude_graphify",
       "community": 19,
@@ -2345,7 +2335,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "readme",
-      "community": 19,
+      "community": 20,
       "norm_label": "readme.md"
     },
     {
@@ -2355,7 +2345,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "readme_pirate_portfolio",
-      "community": 19,
+      "community": 20,
       "norm_label": "pirate portfolio \ud83c\udff4\u200d\u2620\ufe0f"
     },
     {
@@ -2365,178 +2355,68 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "readme_getting_started",
-      "community": 19,
+      "community": 20,
       "norm_label": "getting started"
     },
     {
-      "label": "Current state",
+      "label": "Current state (be honest with yourself)",
       "file_type": "document",
       "source_file": "README.md",
       "source_location": "L14",
       "_origin": "ast",
-      "id": "readme_current_state",
-      "community": 19,
-      "norm_label": "current state"
+      "id": "readme_current_state_be_honest_with_yourself",
+      "community": 20,
+      "norm_label": "current state (be honest with yourself)"
     },
     {
       "label": "How to add a new landmark (chest / island / etc.)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L32",
+      "source_location": "L27",
       "_origin": "ast",
       "id": "readme_how_to_add_a_new_landmark_chest_island_etc",
-      "community": 19,
+      "community": 20,
       "norm_label": "how to add a new landmark (chest / island / etc.)"
     },
     {
       "label": "Sailing (cinematic auto-sail)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L58",
+      "source_location": "L53",
       "_origin": "ast",
       "id": "readme_sailing_cinematic_auto_sail",
-      "community": 19,
+      "community": 20,
       "norm_label": "sailing (cinematic auto-sail)"
     },
     {
       "label": "Optional sound effects",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L69",
+      "source_location": "L64",
       "_origin": "ast",
       "id": "readme_optional_sound_effects",
-      "community": 19,
+      "community": 20,
       "norm_label": "optional sound effects"
     },
     {
       "label": "Resume",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L78",
+      "source_location": "L73",
       "_origin": "ast",
       "id": "readme_resume",
-      "community": 19,
+      "community": 20,
       "norm_label": "resume"
     },
     {
       "label": "Project structure",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L82",
+      "source_location": "L77",
       "_origin": "ast",
       "id": "readme_project_structure",
-      "community": 19,
+      "community": 20,
       "norm_label": "project structure"
-    },
-    {
-      "label": "TODO.md",
-      "file_type": "document",
-      "source_file": "TODO.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "todo",
-      "community": 19,
-      "norm_label": "todo.md"
-    },
-    {
-      "label": "TODO",
-      "file_type": "document",
-      "source_file": "TODO.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "todo_todo",
-      "community": 19,
-      "norm_label": "todo"
-    },
-    {
-      "label": "Asset overhaul (planned)",
-      "file_type": "document",
-      "source_file": "TODO.md",
-      "source_location": "L5",
-      "_origin": "ast",
-      "id": "todo_asset_overhaul_planned",
-      "community": 19,
-      "norm_label": "asset overhaul (planned)"
-    },
-    {
-      "label": "Quality bar for new assets \u2014 READ THIS BEFORE GENERATING ANYTHING",
-      "file_type": "document",
-      "source_file": "TODO.md",
-      "source_location": "L35",
-      "_origin": "ast",
-      "id": "todo_quality_bar_for_new_assets_read_this_before_generating_anything",
-      "community": 19,
-      "norm_label": "quality bar for new assets \u2014 read this before generating anything"
-    },
-    {
-      "label": "Reference bar \u2014 Sea of Thieves / Skull and Bones",
-      "file_type": "document",
-      "source_file": "TODO.md",
-      "source_location": "L62",
-      "_origin": "ast",
-      "id": "todo_reference_bar_sea_of_thieves_skull_and_bones",
-      "community": 19,
-      "norm_label": "reference bar \u2014 sea of thieves / skull and bones"
-    },
-    {
-      "label": "Where the scene stands today (the gap to close)",
-      "file_type": "document",
-      "source_file": "TODO.md",
-      "source_location": "L99",
-      "_origin": "ast",
-      "id": "todo_where_the_scene_stands_today_the_gap_to_close",
-      "community": 19,
-      "norm_label": "where the scene stands today (the gap to close)"
-    },
-    {
-      "label": "Importing for reference vs. reusing",
-      "file_type": "document",
-      "source_file": "TODO.md",
-      "source_location": "L135",
-      "_origin": "ast",
-      "id": "todo_importing_for_reference_vs_reusing",
-      "community": 19,
-      "norm_label": "importing for reference vs. reusing"
-    },
-    {
-      "label": "Technical constraints for any new GLB",
-      "file_type": "document",
-      "source_file": "TODO.md",
-      "source_location": "L159",
-      "_origin": "ast",
-      "id": "todo_technical_constraints_for_any_new_glb",
-      "community": 19,
-      "norm_label": "technical constraints for any new glb"
-    },
-    {
-      "label": "Coordinate note (Blender \u2194 three.js)",
-      "file_type": "document",
-      "source_file": "TODO.md",
-      "source_location": "L176",
-      "_origin": "ast",
-      "id": "todo_coordinate_note_blender_three_js",
-      "community": 19,
-      "norm_label": "coordinate note (blender \u2194 three.js)"
-    },
-    {
-      "label": "README.md",
-      "file_type": "document",
-      "source_file": "docs/reference/README.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "docs_reference_readme",
-      "community": 20,
-      "norm_label": "readme.md"
-    },
-    {
-      "label": "Art reference",
-      "file_type": "document",
-      "source_file": "docs/reference/README.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "docs_reference_readme_art_reference",
-      "community": 20,
-      "norm_label": "art reference"
     },
     {
       "label": "State-Store Bridge",
@@ -5896,7 +5776,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L563",
+      "source_location": "L553",
       "weight": 1.0,
       "source": "src_data_portfolio",
       "target": "src_data_portfolio_all_stops",
@@ -5906,7 +5786,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L21",
+      "source_location": "L18",
       "weight": 1.0,
       "source": "src_data_portfolio",
       "target": "src_data_portfolio_cameraframing",
@@ -5916,7 +5796,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L586",
+      "source_location": "L576",
       "weight": 1.0,
       "source": "src_data_portfolio",
       "target": "src_data_portfolio_contact",
@@ -5926,7 +5806,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L215",
+      "source_location": "L205",
       "weight": 1.0,
       "source": "src_data_portfolio",
       "target": "src_data_portfolio_contact_content",
@@ -5936,7 +5816,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L72",
+      "source_location": "L69",
       "weight": 1.0,
       "source": "src_data_portfolio",
       "target": "src_data_portfolio_contactcontent",
@@ -5946,7 +5826,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L565",
+      "source_location": "L555",
       "weight": 1.0,
       "source": "src_data_portfolio",
       "target": "src_data_portfolio_contentofkind",
@@ -5956,7 +5836,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L50",
+      "source_location": "L47",
       "weight": 1.0,
       "source": "src_data_portfolio",
       "target": "src_data_portfolio_experiencecontent",
@@ -5966,7 +5846,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L185",
+      "source_location": "L175",
       "weight": 1.0,
       "source": "src_data_portfolio",
       "target": "src_data_portfolio_fantasy_transform",
@@ -5976,7 +5856,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L149",
+      "source_location": "L139",
       "weight": 1.0,
       "source": "src_data_portfolio",
       "target": "src_data_portfolio_home_camera",
@@ -5986,7 +5866,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L580",
+      "source_location": "L570",
       "weight": 1.0,
       "source": "src_data_portfolio",
       "target": "src_data_portfolio_intro",
@@ -5996,7 +5876,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L65",
+      "source_location": "L62",
       "weight": 1.0,
       "source": "src_data_portfolio",
       "target": "src_data_portfolio_introcontent",
@@ -6006,7 +5886,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L43",
+      "source_location": "L40",
       "weight": 1.0,
       "source": "src_data_portfolio",
       "target": "src_data_portfolio_job",
@@ -6016,7 +5896,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L600",
+      "source_location": "L590",
       "weight": 1.0,
       "source": "src_data_portfolio",
       "target": "src_data_portfolio_jobs",
@@ -6026,7 +5906,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L210",
+      "source_location": "L200",
       "weight": 1.0,
       "source": "src_data_portfolio",
       "target": "src_data_portfolio_markerabove",
@@ -6036,7 +5916,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L554",
+      "source_location": "L544",
       "weight": 1.0,
       "source": "src_data_portfolio",
       "target": "src_data_portfolio_planned_stops",
@@ -6046,7 +5926,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L94",
+      "source_location": "L84",
       "weight": 1.0,
       "source": "src_data_portfolio",
       "target": "src_data_portfolio_poiprop",
@@ -6056,7 +5936,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L35",
+      "source_location": "L32",
       "weight": 1.0,
       "source": "src_data_portfolio",
       "target": "src_data_portfolio_projectcontent",
@@ -6066,7 +5946,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L589",
+      "source_location": "L579",
       "weight": 1.0,
       "source": "src_data_portfolio",
       "target": "src_data_portfolio_projects",
@@ -6076,7 +5956,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L583",
+      "source_location": "L573",
       "weight": 1.0,
       "source": "src_data_portfolio",
       "target": "src_data_portfolio_resume",
@@ -6086,7 +5966,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L57",
+      "source_location": "L54",
       "weight": 1.0,
       "source": "src_data_portfolio",
       "target": "src_data_portfolio_resumecontent",
@@ -6096,7 +5976,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L195",
+      "source_location": "L185",
       "weight": 1.0,
       "source": "src_data_portfolio",
       "target": "src_data_portfolio_socials_transform",
@@ -6106,7 +5986,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L79",
+      "source_location": "L76",
       "weight": 1.0,
       "source": "src_data_portfolio",
       "target": "src_data_portfolio_stopcontent",
@@ -6116,7 +5996,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L28",
+      "source_location": "L25",
       "weight": 1.0,
       "source": "src_data_portfolio",
       "target": "src_data_portfolio_stopkind",
@@ -6126,7 +6006,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L233",
+      "source_location": "L223",
       "weight": 1.0,
       "source": "src_data_portfolio",
       "target": "src_data_portfolio_stops",
@@ -6136,7 +6016,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L101",
+      "source_location": "L91",
       "weight": 1.0,
       "source": "src_data_portfolio",
       "target": "src_data_portfolio_subpoi",
@@ -6146,7 +6026,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L203",
+      "source_location": "L193",
       "weight": 1.0,
       "source": "src_data_portfolio",
       "target": "src_data_portfolio_toothless_transform",
@@ -6156,7 +6036,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L116",
+      "source_location": "L106",
       "weight": 1.0,
       "source": "src_data_portfolio",
       "target": "src_data_portfolio_tourstop",
@@ -6166,7 +6046,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L173",
+      "source_location": "L163",
       "weight": 1.0,
       "source": "src_data_portfolio",
       "target": "src_data_portfolio_treasure_transform",
@@ -6176,7 +6056,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L19",
+      "source_location": "L16",
       "weight": 1.0,
       "source": "src_data_portfolio",
       "target": "src_data_portfolio_vec3",
@@ -6186,7 +6066,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/portfolio.ts",
-      "source_location": "L165",
+      "source_location": "L155",
       "weight": 1.0,
       "source": "src_data_portfolio",
       "target": "src_data_portfolio_volcano_transform",
@@ -6393,20 +6273,10 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "CLAUDE.md",
-      "source_location": "L57",
-      "weight": 1.0,
-      "source": "claude",
-      "target": "todo",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CLAUDE.md",
-      "source_location": "L61",
+      "source_location": "L54",
       "weight": 1.0,
       "source": "claude_claude_md",
       "target": "claude_adding_a_3d_asset",
@@ -6426,16 +6296,6 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CLAUDE.md",
-      "source_location": "L54",
-      "weight": 1.0,
-      "source": "claude_claude_md",
-      "target": "claude_asset_quality",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "CLAUDE.md",
       "source_location": "L9",
       "weight": 1.0,
       "source": "claude_claude_md",
@@ -6446,7 +6306,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CLAUDE.md",
-      "source_location": "L72",
+      "source_location": "L65",
       "weight": 1.0,
       "source": "claude_claude_md",
       "target": "claude_conventions",
@@ -6456,7 +6316,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CLAUDE.md",
-      "source_location": "L77",
+      "source_location": "L70",
       "weight": 1.0,
       "source": "claude_claude_md",
       "target": "claude_graphify",
@@ -6693,23 +6553,13 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L25",
-      "weight": 1.0,
-      "source": "readme",
-      "target": "todo",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
       "source_location": "L14",
       "weight": 1.0,
       "source": "readme_pirate_portfolio",
-      "target": "readme_current_state",
+      "target": "readme_current_state_be_honest_with_yourself",
       "confidence_score": 1.0
     },
     {
@@ -6726,7 +6576,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L32",
+      "source_location": "L27",
       "weight": 1.0,
       "source": "readme_pirate_portfolio",
       "target": "readme_how_to_add_a_new_landmark_chest_island_etc",
@@ -6736,7 +6586,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L82",
+      "source_location": "L77",
       "weight": 1.0,
       "source": "readme_pirate_portfolio",
       "target": "readme_project_structure",
@@ -6746,7 +6596,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L78",
+      "source_location": "L73",
       "weight": 1.0,
       "source": "readme_pirate_portfolio",
       "target": "readme_resume",
@@ -6756,7 +6606,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L58",
+      "source_location": "L53",
       "weight": 1.0,
       "source": "readme_pirate_portfolio",
       "target": "readme_sailing_cinematic_auto_sail",
@@ -6766,100 +6616,10 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L69",
+      "source_location": "L64",
       "weight": 1.0,
       "source": "readme_sailing_cinematic_auto_sail",
       "target": "readme_optional_sound_effects",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "TODO.md",
-      "source_location": "L1",
-      "weight": 1.0,
-      "source": "todo",
-      "target": "todo_todo",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "TODO.md",
-      "source_location": "L5",
-      "weight": 1.0,
-      "source": "todo_todo",
-      "target": "todo_asset_overhaul_planned",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "TODO.md",
-      "source_location": "L176",
-      "weight": 1.0,
-      "source": "todo_asset_overhaul_planned",
-      "target": "todo_coordinate_note_blender_three_js",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "TODO.md",
-      "source_location": "L135",
-      "weight": 1.0,
-      "source": "todo_asset_overhaul_planned",
-      "target": "todo_importing_for_reference_vs_reusing",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "TODO.md",
-      "source_location": "L35",
-      "weight": 1.0,
-      "source": "todo_asset_overhaul_planned",
-      "target": "todo_quality_bar_for_new_assets_read_this_before_generating_anything",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "TODO.md",
-      "source_location": "L62",
-      "weight": 1.0,
-      "source": "todo_asset_overhaul_planned",
-      "target": "todo_reference_bar_sea_of_thieves_skull_and_bones",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "TODO.md",
-      "source_location": "L159",
-      "weight": 1.0,
-      "source": "todo_asset_overhaul_planned",
-      "target": "todo_technical_constraints_for_any_new_glb",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "TODO.md",
-      "source_location": "L99",
-      "weight": 1.0,
-      "source": "todo_asset_overhaul_planned",
-      "target": "todo_where_the_scene_stands_today_the_gap_to_close",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/reference/README.md",
-      "source_location": "L1",
-      "weight": 1.0,
-      "source": "docs_reference_readme",
-      "target": "docs_reference_readme_art_reference",
       "confidence_score": 1.0
     },
     {

@@ -3,14 +3,17 @@
 // -----------------------------------------------------------------------------
 // Single source of truth for everything shown in the 3D scene.
 //
-// HONEST STATE OF THE WORLD (read this before editing):
-//   The scene currently contains ONE island, a captain character, and a ship.
-//   There is NO treasure chest and NO second/third island yet — those assets
-//   don't exist. So only the `STOPS` below are rendered. Everything that needs
-//   a model we don't have lives in `PLANNED_STOPS`, which is intentionally NOT
-//   rendered. When you source a GLB for one of them, follow README.md, place it
-//   with the dev coordinate logger, and move its entry from PLANNED_STOPS into
-//   STOPS.
+// STATE OF THE WORLD (read this before editing):
+//   All five stops below are LIVE and rendering: intro (pirate island), projects
+//   (volcano), resume (treasure island — its GLB contains an animated chest that
+//   opens on arrival), experience (fantasy island), and contact (floating
+//   socials island). `PLANNED_STOPS` is currently EMPTY; it exists for stops
+//   whose 3D asset doesn't exist yet, so they can be designed without faking
+//   markers over empty water. When you source a GLB for one, follow README.md,
+//   place it with the dev coordinate logger, and move its entry into STOPS.
+//
+//   The open gap is QUALITY, not coverage — every asset is placeholder-grade.
+//   See TODO.md before creating or generating any asset.
 // -----------------------------------------------------------------------------
 
 export type Vec3 = [number, number, number];
@@ -79,6 +82,13 @@ export type StopContent =
   | ProjectContent
   | ExperienceContent
   | ContactContent;
+
+// TODO(assets): all sub-POI props are placeholder-grade and planned for a full
+// art overhaul. The gems below are deliberately generic — four projects all
+// share one silhouette, so the marker tells you nothing about which project it
+// is. Replacing them needs PRODUCTION-GRADE models, not primitives glued
+// together (that was tried and rejected). Read TODO.md before generating
+// any asset.
 
 /** Prop type used for a sub-POI marker on an island. */
 export type PoiProp = "bottle" | "gem" | "scroll" | "flag" | "crate" | "wisp";
