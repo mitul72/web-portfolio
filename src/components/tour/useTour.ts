@@ -20,6 +20,8 @@ interface TourState {
   panelOpen: boolean;
   /** id of the selected sub-POI on the active island (null = island overview). */
   activeSubPoiId: string | null;
+  /** Stops the ship has moored at this visit, in order (the captain's log). */
+  visited: string[];
   /** Sail to a stop. `then` replaces the default "open the panel on arrival". */
   goTo: (index: number, then?: () => void) => void;
   next: () => void;
@@ -64,6 +66,9 @@ export const useTour = create<TourState>((set, get) => {
     useVoyage.getState().sailTo(stopId, () => {
       // Only open the panel for real stops (not the home view).
       if (get().activeIndex === null) return;
+      if (stopId && get().activeIndex === index && !get().visited.includes(stopId)) {
+        set({ visited: [...get().visited, stopId] });
+      }
       if (then) {
         // A prop or an NPC asked for this trip: it opens its own content.
         if (get().activeIndex === index) then();
@@ -98,6 +103,7 @@ export const useTour = create<TourState>((set, get) => {
     activeIndex: null,
     panelOpen: false,
     activeSubPoiId: null,
+    visited: [],
 
     goTo: (index, then) => {
       const clamped = Math.max(0, Math.min(STOPS.length - 1, index));

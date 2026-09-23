@@ -31,6 +31,7 @@ function Npc({ id }: { id: string }) {
   const { actions, mixer } = useAnimations(animations, group);
   const hovered = useInteract((s) => s.hovered === npc.key);
   const talking = useInteract((s) => s.dialogue === id);
+  const met = useInteract((s) => s.met.includes(id));
 
   useEffect(() => {
     clone.traverse((o) => {
@@ -105,6 +106,21 @@ function Npc({ id }: { id: string }) {
           <div className="whitespace-nowrap rounded-full border border-amber-200/40 bg-slate-950/80 px-3 py-1 text-sm font-semibold text-amber-100 shadow-lg backdrop-blur">
             {npc.tag}
           </div>
+        </Html>
+      )}
+      {/* Quest marker: a "!" over every host you haven't talked to yet, a
+          fixed size on screen so it reads from across the sea. Click it to
+          sail over and talk. Gone for good once you've met them. */}
+      {!met && !hovered && !talking && (
+        <Html position={[0, 2.9 / place.scale, 0]} center zIndexRange={[10, 0]}>
+          <button
+            onClick={() => activate(npc)}
+            aria-label={`Talk to ${npc.name}, ${npc.role}`}
+            title={`${npc.name} · ${npc.role}`}
+            className="quest-bob flex h-7 w-7 items-center justify-center rounded-full border-2 border-amber-100/80 bg-amber-400 text-base font-black text-slate-950 shadow-[0_0_14px_rgba(251,191,36,0.75)] transition hover:scale-110"
+          >
+            !
+          </button>
         </Html>
       )}
     </group>

@@ -90,3 +90,22 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* The "!" over an island host you haven't met yet (models/npcs.tsx). */
+@keyframes quest-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+.quest-bob {
+  animation: quest-bob 1.6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .quest-bob {
+    animation: none;
+  }
+}

@@ -25,6 +25,7 @@ import TourControls from "@/components/ui/TourControls";
 import { useIsMobile } from "@/components/env/useIsMobile";
 import LoadingScreen from "@/components/ui/LoadingScreen";
 import IntroTitle from "@/components/ui/IntroTitle";
+import CaptainsLog from "@/components/ui/CaptainsLog";
 import { HOME_CAMERA } from "@/data/portfolio";
 
 // Flip to true while placing new assets/markers. It logs world coords to the
@@ -101,6 +102,7 @@ export default function Home() {
 
       {/* DOM overlays (outside the Canvas). */}
       <Navbar />
+      <CaptainsLog />
       <LoadingScreen />
       <IntroTitle />
       <TourControls />
