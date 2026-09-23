@@ -9,7 +9,7 @@ import { hostOf } from "@/data/interact";
  * beat, THEN the camera moves on to the host. Long enough to take the island
  * in, short enough that nobody wonders what to do next.
  */
-const HOST_DELAY_MS = 3000;
+const HOST_DELAY_MS = 2000;
 /** Bumps on every navigation, so a pending greeting from an earlier trip never fires. */
 let arrivalToken = 0;
 
@@ -35,7 +35,7 @@ interface TourState {
 
 // NOTE: derived data (active stop, its sub-POIs, the panel's content) is
 // computed in the COMPONENTS from `activeIndex`/`activeSubPoiId` + the static
-// STOPS array — never via a store selector that builds a new object/array each
+// STOPS array, never via a store selector that builds a new object/array each
 // call, which triggers infinite re-render loops in zustand.
 
 /**

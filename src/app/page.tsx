@@ -27,14 +27,14 @@ import LoadingScreen from "@/components/ui/LoadingScreen";
 import IntroTitle from "@/components/ui/IntroTitle";
 import { HOME_CAMERA } from "@/data/portfolio";
 
-// Flip to true while placing new assets/markers — logs world coords to the
+// Flip to true while placing new assets/markers. It logs world coords to the
 // console when you click the scene (press "c" for camera). Turn off to ship.
 const SHOW_DEV_COORDS = false;
 
 export default function Home() {
   const isMobile = useIsMobile();
   // Desktop dpr adapts to measured fps (PerformanceMonitor below): full crisp
-  // when the GPU keeps up, stepped down when it can't — integrated GPUs get a
+  // when the GPU keeps up, stepped down when it can't, so integrated GPUs get a
   // smooth scene instead of a slideshow, fast machines keep the full look.
   const [dprMax, setDprMax] = useState(2);
 
@@ -42,7 +42,7 @@ export default function Home() {
     <main className="relative h-[100dvh] w-full overflow-hidden bg-slate-950">
       <Canvas
         className="h-[100dvh] w-full"
-        // Mobile: no shadows, cap pixel ratio — big battery/FPS wins.
+        // Mobile: no shadows, cap pixel ratio: big battery/FPS wins.
         shadows={!isMobile}
         dpr={isMobile ? [1, 1.5] : [1, dprMax]}
         // Canvas MSAA is OFF: on desktop the EffectComposer already renders

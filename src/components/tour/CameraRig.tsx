@@ -33,7 +33,7 @@ export default function CameraRig() {
   // Scratch vectors reused each frame (no per-frame allocation).
   const desiredPos = useRef(new Vector3());
   const desiredTarget = useRef(new Vector3());
-  // All camera gsap tweens live here so a starting voyage can cancel them —
+  // All camera gsap tweens live here so a starting voyage can cancel them;
   // otherwise the establishing/reveal tween fights the chase-cam and the ship
   // appears not to move (the "first sail does nothing" bug).
   const camTween = useRef<gsap.core.Tween | gsap.core.Timeline | null>(null);

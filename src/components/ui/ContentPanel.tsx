@@ -75,7 +75,7 @@ function Body({ content }: { content: StopContent }) {
           {/* Island overview (no jobs of its own): point at the wisp trail. */}
           {content.jobs.length === 0 && (
             <p className="mt-4 leading-relaxed text-white/70">
-              Follow the wisps — each light marks a chapter of my voyage,
+              Follow the wisps. Each light marks a chapter of my voyage,
               rising from the oldest at the shore to the newest at the summit.
               Click a light to read that expedition&apos;s log.
             </p>
@@ -100,7 +100,7 @@ function Body({ content }: { content: StopContent }) {
       );
 
     case "contact":
-      // Contact never reaches Body — ContentPanel routes it to <TreasureMap/>.
+      // Contact never reaches Body: ContentPanel routes it to <TreasureMap/>.
       return null;
   }
 }
@@ -112,7 +112,7 @@ export default function ContentPanel() {
   // Closing returns you to the island's host and their choices.
   const closePanel = closeToHost;
 
-  // Derive content from raw primitives (stable STOPS references) — computing it
+  // Derive content from raw primitives (stable STOPS references). Computing it
   // inside the zustand selector risks new-reference render loops.
   const stop = activeIndex === null ? null : STOPS[activeIndex];
   const content: StopContent | null = stop
@@ -142,7 +142,7 @@ export default function ContentPanel() {
       aria-hidden={!visible}
     >
       {content && (
-        // When hidden, the sheet must NOT take pointer events — it still spans
+        // When hidden, the sheet must NOT take pointer events: it still spans
         // the bottom of the screen (mobile) and would swallow taps meant for
         // the nav bar underneath.
         <div

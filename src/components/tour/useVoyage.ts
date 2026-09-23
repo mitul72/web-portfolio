@@ -21,7 +21,7 @@ interface VoyageState {
    * The current leg's route, arc-length parameterized: sample with
    * `getPointAt(progress)` for uniform speed. Runs from the ship's departure
    * spot out through the departure dock's `via` corridor, then in through the
-   * destination's — so island→island legs stay on authored water even though
+   * destination's, so island→island legs stay on authored water even though
    * only the home↔stop arcs were hand-placed. Null until the first voyage.
    */
   curve: CatmullRomCurve3 | null;
@@ -29,7 +29,7 @@ interface VoyageState {
   progress: number;
   /** id of the stop we're sailing to (null = home). */
   targetStopId: string | null;
-  /** Fired once when a voyage completes — used to open the content panel. */
+  /** Fired once when a voyage completes; used to open the content panel. */
   onArrive: (() => void) | null;
 
   /** Live ship XZ + heading, updated by the vessel each frame (for the camera). */

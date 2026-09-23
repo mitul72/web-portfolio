@@ -34,7 +34,7 @@ def three_matrix(pos=(0, 0, 0), rot=(0, 0, 0), scale=1.0):
     return C @ (t @ r @ s) @ C.inverted()
 
 
-# (glb, three position, three rotation, scale) — from src/data/portfolio.ts and
+# (glb, three position, three rotation, scale), from src/data/portfolio.ts and
 # the model components.
 WORLD = [
     ("captain_ship_island-transformed.glb", (0, 0, 0), (0, 0, 0), 1.0),

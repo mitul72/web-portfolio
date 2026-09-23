@@ -5,7 +5,7 @@ import { INTRO, RESUME, CONTACT, PROJECTS, JOBS } from "@/data/portfolio";
 export const metadata: Metadata = {
   title: "Mitul Dhawan · Portfolio",
   description:
-    "Software engineer — projects, experience, and resume. A fast, simple view of my portfolio.",
+    "Software engineer: projects, experience, and resume. A fast, simple view of my portfolio.",
 };
 
 /** Only show projects that actually have detail (skip hub overview stubs). */
@@ -38,7 +38,7 @@ function LinkPill({
 }
 
 /**
- * Static 2D fallback portfolio — no WebGL, instant load, fully responsive.
+ * Static 2D fallback portfolio: no WebGL, instant load, fully responsive.
  * Reads the SAME data as the 3D scene (src/data/portfolio.ts) so the two views
  * stay in sync. Reachable at /lite; the 3D page links here and vice versa.
  */
@@ -56,12 +56,14 @@ export default function LitePortfolio() {
               {name}
             </h1>
           </div>
-          <Link
-            href="/"
+          {/* A plain link, not <Link>: prefetching it would set the view
+              cookie (src/middleware.ts) without a click. */}
+          <a
+            href="/?view=3d"
             className="shrink-0 rounded-full border border-white/20 px-3 py-1.5 text-xs text-white/70 transition hover:bg-white/10 hover:text-white sm:text-sm"
           >
             ⚓ 3D experience
-          </Link>
+          </a>
         </header>
 
         {/* Intro / bio */}

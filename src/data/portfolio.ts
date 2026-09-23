@@ -50,7 +50,7 @@ export interface Job {
 export interface ExperienceContent {
   kind: "experience";
   title: string;
-  /** Career timeline — newest first. Rendered as a list in one panel. */
+  /** Career timeline, newest first. Rendered as a list in one panel. */
   jobs: Job[];
 }
 
@@ -84,7 +84,7 @@ export type StopContent =
   | ContactContent;
 
 // TODO(assets): all sub-POI props are placeholder-grade and planned for a full
-// art overhaul. The gems below are deliberately generic — four projects all
+// art overhaul. The gems below are deliberately generic: four projects all
 // share one silhouette, so the marker tells you nothing about which project it
 // is. Replacing them needs PRODUCTION-GRADE models, not primitives glued
 // together (that was tried and rejected). Read TODO.md before generating
@@ -132,7 +132,7 @@ export interface TourStop {
   subPois?: SubPoi[];
   /**
    * Optional: path to a GLB landmark this stop points at (chest, island, etc.).
-   * Live STOPS don't need one — they point at geometry already in the scene.
+   * Live STOPS don't need one; they point at geometry already in the scene.
    */
   asset?: {
     /** Import the GLB and pass the resolved URL here. */
@@ -144,7 +144,7 @@ export interface TourStop {
 }
 
 // -----------------------------------------------------------------------------
-// Default "home" view — the establishing shot.
+// Default "home" view: the establishing shot.
 // -----------------------------------------------------------------------------
 // Low over the water, looking up at the arch and spires, the docked ship on
 // the right third: the approved "hero" render's framing (CAM_hero in
@@ -190,7 +190,7 @@ const CONTACT_CONTENT: ContactContent = {
 };
 
 // -----------------------------------------------------------------------------
-// LIVE STOPS — only things that map to geometry that actually exists today.
+// LIVE STOPS: only things that map to geometry that actually exists today.
 // Right now: just the intro at the captain. Add more as assets arrive.
 // -----------------------------------------------------------------------------
 export const STOPS: TourStop[] = [
@@ -253,7 +253,7 @@ export const STOPS: TourStop[] = [
           description:
             "A crate I co-authored at eden.dev that makes OpenTelemetry faster. " +
             "Instead of locking or atomics on the hot path, it uses simple " +
-            "thread-local counters — cutting contention and overhead in " +
+            "thread-local counters, cutting contention and overhead in " +
             "high-throughput telemetry.",
           tech: ["Rust", "OpenTelemetry", "Observability"],
           links: [
@@ -274,7 +274,7 @@ export const STOPS: TourStop[] = [
           title: "Intel 8080 Emulator",
           description:
             "A cycle-accurate Intel 8080 CPU emulator written from scratch in " +
-            "Rust — complete enough to boot and play the original Space " +
+            "Rust, complete enough to boot and play the original Space " +
             "Invaders, compiled to WebAssembly so you can play it in the " +
             "browser. Built solo in a few weeks: full instruction set, " +
             "interrupts, and machine I/O.",
@@ -294,7 +294,7 @@ export const STOPS: TourStop[] = [
       {
         id: "zeroblock",
         label: "ZeroBlock",
-        // TODO: place with SHOW_DEV_COORDS — rough third spot for now.
+        // TODO: place with SHOW_DEV_COORDS; rough third spot for now.
         position: [-268, 8.2, -90],
         prop: "gem",
         content: {
@@ -305,8 +305,8 @@ export const STOPS: TourStop[] = [
             "four friends. I architected and built the entire backend from " +
             "scratch in Rust + Actix Web, with a distributed data layer " +
             "(ScyllaDB for persistence, Valkey/Redis for real-time caching). " +
-            "Optimized the critical buy path from 500ms to 7ms — a 98.6% " +
-            "improvement — handling thousands of concurrent requests for " +
+            "Optimized the critical buy path from 500ms to 7ms (a 98.6% " +
+            "improvement), handling thousands of concurrent requests for " +
             "high-frequency trading.",
           tech: ["Rust", "Actix Web", "ScyllaDB", "Valkey/Redis"],
           links: [{ label: "Resume ↗", url: "/resume.pdf" }],
@@ -315,7 +315,7 @@ export const STOPS: TourStop[] = [
       {
         id: "stack-cli",
         label: "Stack.CLI",
-        // TODO: place with SHOW_DEV_COORDS — rough fourth spot for now.
+        // TODO: place with SHOW_DEV_COORDS; rough fourth spot for now.
         position: [-300, 24.4, -100],
         prop: "gem",
         content: {
@@ -323,7 +323,7 @@ export const STOPS: TourStop[] = [
           title: "Stack.CLI",
           description:
             'A command-line tool ("Stacksly") to search StackOverflow straight ' +
-            "from your terminal — no browser needed. Returns relevant answers " +
+            "from your terminal, no browser needed. Returns relevant answers " +
             "inline with syntax-highlighted code snippets for a smoother dev " +
             "flow.",
           tech: ["Python", "BeautifulSoup", "Rich", "CLI"],
@@ -348,7 +348,7 @@ export const STOPS: TourStop[] = [
       kind: "resume",
       title: "The Treasure Chest",
       blurb:
-        "X marks the spot. Here's the full record of my journey — download " +
+        "X marks the spot. Here's the full record of my journey. Download " +
         "my resume for the complete story.",
       pdfUrl: "/resume.pdf", // TODO: drop your PDF at public/resume.pdf
     },
@@ -364,7 +364,7 @@ export const STOPS: TourStop[] = [
       position: [195.63, 72.58, -183.81],
       lookAt: [182, 35, -286],
     },
-    // Island overview. The individual roles are will-o'-wisp sub-POIs below —
+    // Island overview. The individual roles are will-o'-wisp sub-POIs below:
     // glowing lights hovering over existing landmarks (a tree, a rock, the
     // summit), climbing the island chronologically: a career ascent.
     content: {
@@ -390,10 +390,10 @@ export const STOPS: TourStop[] = [
             {
               role: "Software → Quantitative → Blockchain Developer",
               company: "Bitwyre",
-              period: "Dec 2023 — May 2025",
+              period: "Dec 2023 – Jul 2025",
               bullets: [
                 "Promoted twice in 18 months across three engineering teams.",
-                "Designed and led Canggu, a layer-1 blockchain reaching 50,000+ TPS — a dual-paradigm Rust + CUDA VM, DAG-based mempool, Leader-Verified Tower BFT with Proof of History, and ZK-SNARKs for private transactions.",
+                "Designed and led Canggu, a layer-1 blockchain reaching 50,000+ TPS: a dual-paradigm Rust + CUDA VM, DAG-based mempool, Leader-Verified Tower BFT with Proof of History, and ZK-SNARKs for private transactions.",
                 "Built high-frequency trading and market-making systems (Binance) in C++/Python with KDB+ time-series data and LibTorch predictive models.",
               ],
             },
@@ -414,7 +414,7 @@ export const STOPS: TourStop[] = [
             {
               role: "Backend Engineer (Contract)",
               company: "DexCelerate",
-              period: "May 2025 — Jul 2025",
+              period: "May 2025 – Jul 2025",
               bullets: [
                 "Improved backend performance and features of a decentralized exchange platform.",
                 "Optimized the scanner ~150% faster and refactored Redis key structures for higher cache hit rates and lower latency.",
@@ -437,10 +437,10 @@ export const STOPS: TourStop[] = [
             {
               role: "Co-Founder & Backend Developer",
               company: "ZeroBlock",
-              period: "Apr 2025 — Present",
+              period: "Apr 2025 – May 2026",
               bullets: [
                 "Co-founded and architected ZeroBlock, an ultra-fast trading extension for Axiom.trade for professional traders.",
-                "Built the entire backend from scratch in Rust + Actix Web with a distributed data layer — ScyllaDB for persistence, Valkey/Redis for real-time caching.",
+                "Built the entire backend from scratch in Rust + Actix Web with a distributed data layer: ScyllaDB for persistence, Valkey/Redis for real-time caching.",
                 "Optimized the critical buy path from 500ms to 7ms (98.6%), handling thousands of concurrent requests.",
               ],
             },
@@ -453,7 +453,7 @@ export const STOPS: TourStop[] = [
         position: [194, 36.7, -296], // by the lighthouse: newest chapter
         prop: "wisp",
         color: "#90be6d", // green (matches the experience kind color)
-        stack: 3, // most recent — planted at the summit
+        stack: 3, // most recent, planted at the summit
         content: {
           kind: "experience",
           title: "Eden",
@@ -461,9 +461,9 @@ export const STOPS: TourStop[] = [
             {
               role: "Senior Software Engineer",
               company: "Eden",
-              period: "Sept 2025 — May 2026",
+              period: "Sept 2025 – July 2026",
               bullets: [
-                "Co-authored FastTelemetry (open source), a high-performance Rust metrics library that replaced OpenTelemetry on Eden's proxy — thread-local increments in ~2 ns vs ~40–400 ns for contended atomics on 16 cores.",
+                "Co-authored FastTelemetry (open source), a high-performance Rust metrics library that replaced OpenTelemetry on Eden's proxy, with thread-local increments in ~2 ns vs ~40–400 ns for contended atomics on 16 cores.",
                 "Architected the platform's OpenTelemetry rollout (94+ metrics) with a suite of Datadog dashboards and alerts powering production monitoring and on-call.",
                 "Built a custom Rust logging framework 3× faster than env_logger, and a Criterion-benchmarked metrics batching system to minimize observability overhead on hot paths.",
               ],
@@ -487,7 +487,7 @@ export const STOPS: TourStop[] = [
     },
     content: CONTACT_CONTENT,
     // The washed-ashore bottle, lodged on a rock (DevCoords hit on
-    // Rock_Rock_1001_0) — clicking it (or arriving) unfurls the pirate-map
+    // Rock_Rock_1001_0). Clicking it (or arriving) unfurls the pirate-map
     // overlay with the social links X-marked on it. Label left empty on
     // purpose: no pill, the bottle speaks for itself.
     subPois: [
@@ -503,7 +503,7 @@ export const STOPS: TourStop[] = [
 ];
 
 // -----------------------------------------------------------------------------
-// PLANNED STOPS — NOT rendered. Each needs a 3D asset that doesn't exist yet.
+// PLANNED STOPS: NOT rendered. Each needs a 3D asset that doesn't exist yet.
 // This is a design doc, not fake content. When you have the model:
 //   1. Add & compress it per README.md, import it in the scene.
 //   2. Fill in real content + real `position`/`camera` (use the dev logger).
@@ -514,7 +514,7 @@ export const PLANNED_STOPS: (Omit<TourStop, "position" | "camera"> & {
 })[] = [];
 
 // -----------------------------------------------------------------------------
-// CONTENT SELECTORS — used by BOTH the 3D scene and the 2D `/lite` page, so the
+// CONTENT SELECTORS: used by BOTH the 3D scene and the 2D `/lite` page, so the
 // two views never drift out of sync. All read from the data above.
 // -----------------------------------------------------------------------------
 

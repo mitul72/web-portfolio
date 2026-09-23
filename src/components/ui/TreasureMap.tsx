@@ -102,7 +102,7 @@ export default function TreasureMap({
           🧭
         </div>
 
-        {/* Close — a wax-seal button on the map's corner. */}
+        {/* Close: a wax-seal button on the map's corner. */}
         <button
           onClick={onClose}
           aria-label="Close map"

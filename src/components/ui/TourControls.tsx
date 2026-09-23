@@ -5,7 +5,7 @@ import { useTour } from "@/components/tour/useTour";
 import { useVoyage } from "@/components/tour/useVoyage";
 
 /**
- * Bottom section navigation — a clean row of NAMED buttons (Home · Projects ·
+ * Bottom section navigation: a clean row of NAMED buttons (Home · Projects ·
  * Resume · …) so a recruiter can jump straight to any section. Clicking sails
  * there; the active section is highlighted. During a voyage it collapses to a
  * single "Skip" control.

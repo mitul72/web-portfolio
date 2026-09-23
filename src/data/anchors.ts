@@ -4,7 +4,7 @@ import { STOPS, Vec3 } from "./portfolio";
 // SHIP DOCKS (hub-and-spoke sailing)
 // -----------------------------------------------------------------------------
 // Where the ship parks for each stop, and the camera "arrival" framing once it
-// gets there. The main island is HOME — the ship always sails out from home to
+// gets there. The main island is HOME: the ship always sails out from home to
 // a stop's dock and back (hub-and-spoke), so we only author one path per stop.
 //
 // A dock is on the WATER near the stop's island, not on the marker itself.
@@ -41,7 +41,7 @@ export const HOME_DOCK: Dock = {
 };
 
 // Per-stop docks, keyed by stop id. Stops without a dock (e.g. the intro) use
-// HOME_DOCK — the ship just stays home.
+// HOME_DOCK; the ship just stays home.
 // Every dock, route and camera below was checked in Blender against the real
 // terrain with a stand-in of the ship placed exactly as the app places it
 // (blender/dock_check.py): no hull over land, no route leg over land, and each

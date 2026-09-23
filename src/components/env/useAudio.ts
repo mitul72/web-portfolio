@@ -8,7 +8,9 @@ interface AudioState {
 }
 
 export const useAudio = create<AudioState>((set, get) => ({
-  muted: true, // start muted until the user opts in (autoplay policy)
+  // On by default. Browsers block sound until the visitor interacts, so
+  // BackgroundMusic retries on their first click, tap or key.
+  muted: false,
   setMuted: (m) => set({ muted: m }),
   toggle: () => set({ muted: !get().muted }),
 }));
