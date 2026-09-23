@@ -37,8 +37,10 @@ export default function Wake() {
         dropTimer.current = 0.05;
         const { x, y: z } = v.shipPos;
         // Offset slightly behind the ship (opposite heading).
-        const sx = x - Math.sin(v.shipHeading) * 6;
-        const sz = z - Math.cos(v.shipHeading) * 6;
+        // just past the stern (the galleon's stern walk is ~17 m aft of its
+        // mainmast origin)
+        const sx = x - Math.sin(v.shipHeading) * 18;
+        const sz = z - Math.cos(v.shipHeading) * 18;
         positions[head.current] = { x: sx, z: sz };
         ages[head.current] = 0;
         head.current = (head.current + 1) % TRAIL;
@@ -55,10 +57,10 @@ export default function Wake() {
       } else {
         const k = a / life; // 0..1
         const p = positions[i];
-        const y = waveHeight(p.x, p.z, t) * 0.35 + 2.6;
+        const y = waveHeight(p.x, p.z, t) + 0.25;
         dummy.position.set(p.x, y, p.z);
         dummy.rotation.x = -Math.PI / 2;
-        const scale = 4 + k * 10; // expand as it fades
+        const scale = 2 + k * 6; // expand as it fades
         dummy.scale.setScalar(scale);
       }
       dummy.updateMatrix();

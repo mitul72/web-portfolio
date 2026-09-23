@@ -4,16 +4,16 @@
 // Single source of truth for everything shown in the 3D scene.
 //
 // STATE OF THE WORLD (read this before editing):
-//   All five stops below are LIVE and rendering: intro (pirate island), projects
-//   (volcano), resume (treasure island — its GLB contains an animated chest that
-//   opens on arrival), experience (fantasy island), and contact (floating
-//   socials island). `PLANNED_STOPS` is currently EMPTY; it exists for stops
-//   whose 3D asset doesn't exist yet, so they can be designed without faking
-//   markers over empty water. When you source a GLB for one, follow README.md,
-//   place it with the dev coordinate logger, and move its entry into STOPS.
+//   All five stops below are LIVE, on the rebuilt archipelago (one GLB built
+//   in Blender by blender/world.py, exported by blender/export_world.py):
+//   intro (home island + outpost), projects (Ember Isle, the volcano), resume
+//   (Skull Cove), experience (Lighthouse Rock) and contact (the Drifting Isle).
+//   `PLANNED_STOPS` is currently EMPTY; it exists for stops whose 3D asset
+//   doesn't exist yet, so they can be designed without faking markers over
+//   empty water.
 //
-//   The open gap is QUALITY, not coverage — every asset is placeholder-grade.
-//   See TODO.md before creating or generating any asset.
+//   Sub-POI positions sit on the real terrain: re-raycast them in Blender if an
+//   island is rebuilt. The ship and crew are still placeholder-grade (TODO.md).
 // -----------------------------------------------------------------------------
 
 export type Vec3 = [number, number, number];
@@ -146,65 +146,28 @@ export interface TourStop {
 // -----------------------------------------------------------------------------
 // Default "home" view — the establishing shot.
 // -----------------------------------------------------------------------------
+// Low over the water, looking up at the arch and spires, the docked ship on
+// the right third: the approved "hero" render's framing (CAM_hero in
+// blender/hero_island.py). The orbit target sits low so the rig can keep it.
 export const HOME_CAMERA: CameraFraming = {
-  position: [23.08, 30.52, 150.63],
-  lookAt: [21.7, 12, 105],
+  position: [-10, 12, 188],
+  lookAt: [0, 22, 10],
 };
 
 // -----------------------------------------------------------------------------
-// ISLAND LANDMASS PLACEMENTS  ← EDIT THESE to move an island.
-// -----------------------------------------------------------------------------
-// Single source of truth for each landmass. The 3D model AND its floating tour
-// marker both derive from these, so an island and its tag move together.
-// (X = left/right, Y = height, Z = forward/back.) Source GLBs are authored
-// huge, so they're scaled way down. Tune with SHOW_DEV_COORDS in page.tsx.
+// ISLAND CENTRES. The whole archipelago is one GLB authored in place
+// (blender/world.py), so these no longer move anything: they anchor each
+// stop's floating tag. Blender (x, y) = three (x, -z).
 // -----------------------------------------------------------------------------
 
-// Volcano island (the "project-1" stop). Far out + shrunk so it reads as a
-// distinct island a real sail away.
-export const VOLCANO_TRANSFORM = {
-  position: [-320, 4, -140] as Vec3,
-  scale: 0.009,
-  rotation: [0, 0.6, 0] as Vec3,
-};
-
-// Treasure island (the "resume" stop). Authored huge with a deep-negative Y
-// center, so scaled down + lifted to sit on the water. Opposite the volcano.
-export const TREASURE_TRANSFORM = {
-  position: [280, -2, 160] as Vec3,
-  scale: 0.65,
-  rotation: [0, -0.8, 0] as Vec3,
-};
-
-// Fantasy island (the "experience" stop) — a lush treed isle on the third
-// corner, away from the volcano and treasure islands. The source model sits on
-// a diorama PEDESTAL: island terrain (radius ~135) starts at model y≈2.6, but
-// below that a wide base rim flares from radius 211 out to 309 down to y≈−39.
-// Position Y=−7 sinks that whole pedestal below the waterline (only rare deep
-// wave troughs graze it), leaving the summit at ~80 world units.
-export const FANTASY_TRANSFORM = {
-  position: [180, -7, -300] as Vec3,
-  scale: 1,
-  rotation: [0, 2.4, 0] as Vec3,
-};
-
-// Socials floating island (the "contact" stop) — hovers ABOVE the water on
-// the free SW corner. At scale 0.08 the footprint radius is ~47 and the
-// hanging rock spike reaches ~73 below the origin, so Y=14 leaves the tip
-// hovering ~8 units over the waves (the model bobs ±1.5 around this).
-export const SOCIALS_TRANSFORM = {
-  position: [-240, -10, 220] as Vec3,
-  scale: 0.08,
-  rotation: [0, 0.4, 0] as Vec3,
-};
-
-// Toothless — ambient scenery perched near/on the main island. Static model;
-// TODO: tune scale/position/Y with SHOW_DEV_COORDS.
-export const TOOTHLESS_TRANSFORM = {
-  position: [-100, 80, -30] as Vec3,
-  scale: 6,
-  rotation: [0, 1.2, 0] as Vec3,
-};
+/** Ember Isle, the volcano (projects). Summit crater ~70 m. */
+export const EMBER_ISLE = { position: [-320, 0, -140] as Vec3 };
+/** Skull Cove (resume). Skull crown ~50 m. */
+export const SKULL_COVE = { position: [280, 0, 160] as Vec3 };
+/** Lighthouse Rock (experience). Lamp room ~60 m. */
+export const LIGHTHOUSE_ROCK = { position: [180, 0, -300] as Vec3 };
+/** Drifting Isle, the floating island (contact). Palm tops ~62 m. */
+export const DRIFTING_ISLE = { position: [-240, 0, 220] as Vec3 };
 
 /** A marker position floating `height` units above an island's center. */
 function markerAbove(t: { position: Vec3 }, height: number): Vec3 {
@@ -236,31 +199,28 @@ export const STOPS: TourStop[] = [
     label: "Welcome Aboard",
     navLabel: "About",
     kind: "intro",
-    // Floats above the hut/tavern (building cluster center ~[-6, -9], roof
-    // ~Y45) so it anchors to the island landmark, not empty deck space.
-    // Fine-tune with SHOW_DEV_COORDS if the roof peak differs.
-    position: [-6, 52, -9],
+    // Floats above the tavern on the rock shelf (roof ridge ~y 24).
+    position: [4, 32, 20],
     camera: {
-      position: [40, 45, 60],
-      lookAt: [-6, 30, -9],
+      position: [40, 30, 80],
+      lookAt: [4, 18, 20],
     },
     content: {
       kind: "intro",
       name: "Mitul Dhawan", // TODO: confirm
       tagline: "Software Engineer",
       blurb:
-        "Ahoy! Welcome to my portfolio. It's still being built — a treasure " +
-        "chest for my resume and islands for my projects and experience are " +
-        "on the way. For now, drag to look around the island and ship.",
+        "Ahoy! Welcome to my portfolio. Set sail to explore: my projects on " +
+        "Ember Isle, my résumé buried at Skull Cove, my voyages kept at " +
+        "Lighthouse Rock, and a message bottle waiting at the Drifting Isle.",
     },
   },
   {
     id: "project-1",
-    label: "Project Island",
+    label: "Ember Isle",
     navLabel: "Projects",
     kind: "project",
-    // Derived from VOLCANO_TRANSFORM so the tag follows the island when moved.
-    position: markerAbove(VOLCANO_TRANSFORM, 51),
+    position: markerAbove(EMBER_ISLE, 88),
     camera: {
       // Unused for arrival (the dock camera in anchors.ts drives that), but
       // kept sensible for any direct camera use.
@@ -271,20 +231,21 @@ export const STOPS: TourStop[] = [
     // sub-POI gems scattered on the island below.
     content: {
       kind: "project",
-      title: "Project Island",
+      title: "Ember Isle",
       description:
-        "Wash ashore and explore — each glowing gem holds one of my projects. " +
+        "Built in the shadow of the volcano: each glowing gem holds one of my " +
+        "projects. " +
         "Click a gem to read its story.",
       tech: [],
       links: [],
     },
-    // Two example project gems on the volcano island (center ~[-320,?,-140]).
-    // Place precisely with SHOW_DEV_COORDS — click the terrain to get coords.
+    // Project gems on Ember Isle's south-east slope, facing the arrival camera and
+    // clear of the lava flow. Heights raycast on the real terrain in Blender.
     subPois: [
       {
         id: "fast-telemetry",
         label: "fast-telemetry",
-        position: [-300, 30, -120],
+        position: [-292, 11.3, -88],
         prop: "gem",
         content: {
           kind: "project",
@@ -306,7 +267,7 @@ export const STOPS: TourStop[] = [
       {
         id: "intel-8080-emulator",
         label: "8080 Emulator",
-        position: [-340, 30, -155],
+        position: [-280, 10.7, -96],
         prop: "gem",
         content: {
           kind: "project",
@@ -334,7 +295,7 @@ export const STOPS: TourStop[] = [
         id: "zeroblock",
         label: "ZeroBlock",
         // TODO: place with SHOW_DEV_COORDS — rough third spot for now.
-        position: [-320, 30, -100],
+        position: [-268, 8.2, -90],
         prop: "gem",
         content: {
           kind: "project",
@@ -355,7 +316,7 @@ export const STOPS: TourStop[] = [
         id: "stack-cli",
         label: "Stack.CLI",
         // TODO: place with SHOW_DEV_COORDS — rough fourth spot for now.
-        position: [-345, 30, -125],
+        position: [-300, 24.4, -100],
         prop: "gem",
         content: {
           kind: "project",
@@ -378,8 +339,7 @@ export const STOPS: TourStop[] = [
     label: "Treasure Chest (Resume)",
     navLabel: "Resume",
     kind: "resume",
-    // Derived from TREASURE_TRANSFORM so the tag follows the island when moved.
-    position: markerAbove(TREASURE_TRANSFORM, 35),
+    position: markerAbove(SKULL_COVE, 62),
     camera: {
       position: [180, 45, 250],
       lookAt: [280, 20, 160],
@@ -395,12 +355,10 @@ export const STOPS: TourStop[] = [
   },
   {
     id: "experience",
-    label: "Isle of Voyages",
+    label: "Lighthouse Rock",
     navLabel: "Experience",
     kind: "experience",
-    // Derived from FANTASY_TRANSFORM so the tag follows the island when moved.
-    // 100 clears the ~80-unit summit at scale 1.
-    position: markerAbove(FANTASY_TRANSFORM, 100),
+    position: markerAbove(LIGHTHOUSE_ROCK, 76),
     camera: {
       // Matches the arrival framing in anchors.ts (captured via DevCoords).
       position: [195.63, 72.58, -183.81],
@@ -411,7 +369,7 @@ export const STOPS: TourStop[] = [
     // summit), climbing the island chronologically: a career ascent.
     content: {
       kind: "experience",
-      title: "Isle of Voyages",
+      title: "Lighthouse Rock",
       jobs: [], // roles live in subPois; this overview panel just intros them
     },
     // The wisp trail, oldest lowest → newest highest (a career ascent). All
@@ -421,7 +379,7 @@ export const STOPS: TourStop[] = [
       {
         id: "exp-bitwyre",
         label: "Bitwyre",
-        position: [140.4, 28.21, -282.12],
+        position: [170, 38.4, -306],
         prop: "wisp",
         color: "#f4a261", // amber
         stack: 4, // 18 months, 3 promotions → the tallest pole
@@ -445,7 +403,7 @@ export const STOPS: TourStop[] = [
       {
         id: "exp-dexcelerate",
         label: "DexCelerate",
-        position: [206.85, 41.26, -274.79],
+        position: [188, 38.2, -310],
         prop: "wisp",
         color: "#e76f51", // coral
         stack: 2, // short contract
@@ -468,7 +426,7 @@ export const STOPS: TourStop[] = [
       {
         id: "exp-zeroblock",
         label: "ZeroBlock",
-        position: [99.83, 50.48, -252.13],
+        position: [176, 38.0, -290],
         prop: "wisp",
         color: "#4cc9f0", // cyan
         stack: 3,
@@ -492,7 +450,7 @@ export const STOPS: TourStop[] = [
       {
         id: "exp-eden",
         label: "Eden",
-        position: [177.49, 76.45, -292.94], // the summit — newest chapter
+        position: [194, 36.7, -296], // by the lighthouse: newest chapter
         prop: "wisp",
         color: "#90be6d", // green (matches the experience kind color)
         stack: 3, // most recent — planted at the summit
@@ -517,11 +475,11 @@ export const STOPS: TourStop[] = [
   },
   {
     id: "contact",
-    label: "Contact Island",
+    label: "Drifting Isle",
     navLabel: "Contact",
     kind: "contact",
     // Floats above the socials island (its summit is ~80 world units high).
-    position: markerAbove(SOCIALS_TRANSFORM, 75),
+    position: markerAbove(DRIFTING_ISLE, 74),
     camera: {
       // Matches the arrival framing in anchors.ts (captured via DevCoords).
       position: [-136.71, 65.57, 244.57],
@@ -536,7 +494,7 @@ export const STOPS: TourStop[] = [
       {
         id: "socials-bottle",
         label: "bottled message",
-        position: [-202.4, 20.05, 228.88],
+        position: [-204, 0, 250],
         prop: "bottle",
         content: CONTACT_CONTENT,
       },

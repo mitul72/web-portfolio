@@ -3,16 +3,13 @@
 import { Canvas } from "@react-three/fiber";
 import { PerformanceMonitor } from "@react-three/drei";
 import { Suspense, useState } from "react";
-import { Mesh } from "three";
-import PirateIsland from "@/components/models/pirate-island";
-import VolcanoIsland from "@/components/models/volcano-island";
-import TreasureIsland from "@/components/models/treasure-island";
-import FantasyIsland from "@/components/models/fantasy-island";
-import LowPolyIsland from "@/components/models/low-poly-island";
-import Toothless from "@/components/models/toothless";
+import { AgXToneMapping, NoToneMapping } from "three";
+import World from "@/components/models/world";
+import Ship from "@/components/models/ship";
+import Npcs from "@/components/models/npcs";
+import NpcDialogue from "@/components/ui/NpcDialogue";
 import CameraRig from "@/components/tour/CameraRig";
 import DevCoords from "@/components/tour/DevCoords";
-import SubPois from "@/components/tour/SubPois";
 import Ocean from "@/components/env/Ocean";
 import Atmosphere from "@/components/env/Atmosphere";
 import Lighting from "@/components/env/Lighting";
@@ -20,7 +17,6 @@ import Seagulls from "@/components/env/Seagulls";
 import Wake from "@/components/env/Wake";
 import SailingSfx from "@/components/env/SailingSfx";
 import Effects from "@/components/env/Effects";
-import Sun from "@/components/env/Sun";
 import BackgroundMusic from "@/components/music";
 import Navbar from "@/components/shared/navbar";
 import ContentPanel from "@/components/ui/ContentPanel";
@@ -29,14 +25,7 @@ import SubNav from "@/components/ui/SubNav";
 import { useIsMobile } from "@/components/env/useIsMobile";
 import LoadingScreen from "@/components/ui/LoadingScreen";
 import IntroTitle from "@/components/ui/IntroTitle";
-import {
-  HOME_CAMERA,
-  VOLCANO_TRANSFORM,
-  TREASURE_TRANSFORM,
-  FANTASY_TRANSFORM,
-  SOCIALS_TRANSFORM,
-  TOOTHLESS_TRANSFORM,
-} from "@/data/portfolio";
+import { HOME_CAMERA } from "@/data/portfolio";
 
 // Flip to true while placing new assets/markers — logs world coords to the
 // console when you click the scene (press "c" for camera). Turn off to ship.
@@ -48,9 +37,6 @@ export default function Home() {
   // when the GPU keeps up, stepped down when it can't — integrated GPUs get a
   // smooth scene instead of a slideshow, fast machines keep the full look.
   const [dprMax, setDprMax] = useState(2);
-  // The sun disc renders on all devices; on desktop its mesh feeds the GodRays
-  // effect. State (not a ref) so Effects re-renders once the mesh mounts.
-  const [sun, setSun] = useState<Mesh | null>(null);
 
   return (
     <main className="relative h-[100dvh] w-full overflow-hidden bg-slate-950">
@@ -66,10 +52,18 @@ export default function Home() {
         gl={{
           antialias: false,
           powerPreference: isMobile ? "default" : "high-performance",
+          // Desktop: the composer's AgX pass owns the HDR -> display curve
+          // (after fog and bloom, as Blender does), so the renderer must not
+          // tone map as well. Mobile has no composer and uses the renderer's.
+          toneMapping: isMobile ? AgXToneMapping : NoToneMapping,
+          toneMappingExposure: 1,
         }}
         camera={{
           position: HOME_CAMERA.position,
-          near: 0.1,
+          // ~ the approved renders' 30 mm lens; the old 75 deg default
+          // flattened everything.
+          fov: 48,
+          near: 0.5,
           far: 4000,
         }}
       >
@@ -85,49 +79,21 @@ export default function Home() {
         <Suspense fallback={null}>
           {/* Environment */}
           <Atmosphere />
-          <Lighting />
+          <Lighting shadows={!isMobile} />
           <Ocean />
-          {/* TODO Fix sun or remove */}
-          {/* <Sun ref={setSun} /> */}
           <Seagulls />
           <Wake />
 
           {/* Content */}
-          <PirateIsland />
-          <VolcanoIsland
-            position={VOLCANO_TRANSFORM.position}
-            scale={VOLCANO_TRANSFORM.scale}
-            rotation={VOLCANO_TRANSFORM.rotation}
-          />
-          <TreasureIsland
-            position={TREASURE_TRANSFORM.position}
-            scale={TREASURE_TRANSFORM.scale}
-            rotation={TREASURE_TRANSFORM.rotation}
-          />
-          <FantasyIsland
-            position={FANTASY_TRANSFORM.position}
-            scale={FANTASY_TRANSFORM.scale}
-            rotation={FANTASY_TRANSFORM.rotation}
-          />
-          <LowPolyIsland
-            position={SOCIALS_TRANSFORM.position}
-            scale={SOCIALS_TRANSFORM.scale}
-            rotation={SOCIALS_TRANSFORM.rotation}
-          />
-          <Toothless
-            position={TOOTHLESS_TRANSFORM.position}
-            scale={TOOTHLESS_TRANSFORM.scale}
-            rotation={TOOTHLESS_TRANSFORM.rotation}
-          />
+          <World />
+          <Ship />
+          <Npcs />
 
-          {/* Per-island sub-POIs (project bottles), shown on arrival. */}
-          <SubPois />
 
           {/* Camera + post */}
           <CameraRig />
-          {/* Postprocessing (god rays/bloom/grade) is desktop-only for perf.
-              The sun disc itself renders on all devices (above). */}
-          {!isMobile && <Effects sun={sun} />}
+          {/* Postprocessing (bloom + AgX grade) is desktop-only for perf. */}
+          {!isMobile && <Effects />}
           {SHOW_DEV_COORDS && <DevCoords />}
         </Suspense>
       </Canvas>
@@ -139,6 +105,7 @@ export default function Home() {
       <TourControls />
       <SubNav />
       <ContentPanel />
+      <NpcDialogue />
       <BackgroundMusic />
       <SailingSfx />
     </main>

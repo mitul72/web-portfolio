@@ -1,0 +1,6 @@
+# Blender working files: rebuilt by the scripts, too big for git.
+*.blend
+*.blend1
+bake/
+renders/
+__pycache__/

@@ -1,16 +1,16 @@
-# Graph Report - web-portfolio  (2026-09-09)
+# Graph Report - web-portfolio-aaa  (2026-09-23)
 
 ## Corpus Check
-- 40 files · ~22,690 words
+- 61 files · ~15,206,893 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 305 nodes · 384 edges · 43 communities (15 shown, 28 thin omitted)
-- Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 8 edges (avg confidence: 0.81)
+- 619 nodes · 1045 edges · 59 communities (28 shown, 31 thin omitted)
+- Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 47 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `6258ee25`
+- Built from commit: `a4ba2541`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -57,18 +57,34 @@
 - [[_COMMUNITY_gltfjsx Compression Pipeline|gltfjsx Compression Pipeline]]
 - [[_COMMUNITY_Landmark Generic GLB Loader|Landmark Generic GLB Loader]]
 - [[_COMMUNITY_Resume Tour Stop|Resume Tour Stop]]
+- [[_COMMUNITY_page.tsx|page.tsx]]
+- [[_COMMUNITY_reference_scene.py|reference_scene.py]]
+- [[_COMMUNITY_rules|rules]]
+- [[_COMMUNITY_world.ts|world.ts]]
+- [[_COMMUNITY_buildlab.py|buildlab.py]]
+- [[_COMMUNITY_Art reference|Art reference]]
+- [[_COMMUNITY_page.tsx|page.tsx]]
+- [[_COMMUNITY_useTour|useTour]]
+- [[_COMMUNITY_dock_check.py|dock_check.py]]
+- [[_COMMUNITY_ContentPanel.tsx|ContentPanel.tsx]]
+- [[_COMMUNITY_Marker.tsx|Marker.tsx]]
+- [[_COMMUNITY_poi.py|poi.py]]
+- [[_COMMUNITY_activate.ts|activate.ts]]
+- [[_COMMUNITY_world.tsx|world.tsx]]
+- [[_COMMUNITY_npc.py|npc.py]]
+- [[_COMMUNITY_ship_lab.py|ship_lab.py]]
 
 ## God Nodes (most connected - your core abstractions)
-1. `useTour` - 17 edges
-2. `compilerOptions` - 15 edges
-3. `Pirate treasure map (parchment)` - 12 edges
-4. `useVoyage` - 11 edges
-5. `Mitul Dhawan` - 11 edges
-6. `STOPS` - 9 edges
-7. `Vec3` - 8 edges
-8. `Performance audit — room for improvement` - 7 edges
-9. `Pirate Portfolio 🏴‍☠️` - 7 edges
-10. `Asset overhaul (planned)` - 7 edges
+1. `material()` - 26 edges
+2. `Graph` - 18 edges
+3. `useTour` - 16 edges
+4. `compilerOptions` - 15 edges
+5. `skull()` - 14 edges
+6. `all_materials()` - 13 edges
+7. `ember()` - 13 edges
+8. `lighthouse_rock()` - 13 edges
+9. `useInteract` - 13 edges
+10. `drifting()` - 12 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `AI Dev Tools (Claude Code, Cursor, Copilot)` --semantically_similar_to--> `Next.js + React Three Fiber Stack`  [INFERRED] [semantically similar]
@@ -77,10 +93,10 @@
   public/resume.pdf → CLAUDE.md
 - `ContentPanel()` --calls--> `useTour`  [EXTRACTED]
   src/components/ui/ContentPanel.tsx → src/components/tour/useTour.ts
-- `Marker()` --calls--> `useTour`  [EXTRACTED]
-  src/components/tour/Marker.tsx → src/components/tour/useTour.ts
-- `SubPoiMarker()` --calls--> `useTour`  [EXTRACTED]
-  src/components/tour/SubPoiMarker.tsx → src/components/tour/useTour.ts
+- `massif()` --calls--> `chunk()`  [INFERRED]
+  blender/hero_island.py → blender/rocklab.py
+- `massif()` --calls--> `finish()`  [INFERRED]
+  blender/hero_island.py → blender/rocklab.py
 
 ## Import Cycles
 - None detected.
@@ -90,83 +106,135 @@
 - **End-to-end sailing flow steps** — claude_usetour, claude_usevoyage, claude_floatingvessel, claude_camerarig [EXTRACTED 1.00]
 - **Mitul Dhawan's career timeline** — public_resume_eden, public_resume_zeroblock, public_resume_dexcelerate, public_resume_bitwyre [EXTRACTED 1.00]
 
-## Communities (43 total, 28 thin omitted)
+## Communities (59 total, 31 thin omitted)
 
 ### Community 0 - "2D Lite Page & Island Models"
-Cohesion: 0.06
-Nodes (33): metadata, projects, FantasyIsland(), LowPolyIsland(), TreasureIsland(), VolcanoIsland(), BackgroundMusic(), DevCoords() (+25 more)
+Cohesion: 0.26
+Nodes (8): VoyagePhase, VoyageState, Dock, dockForIndex(), dockForStop(), DOCKS, HOME_DOCK, Vec3
 
 ### Community 1 - "Scene Roots & Markers"
-Cohesion: 0.13
-Nodes (21): SHIP_TO_CREW, VESSEL, Navbar(), CameraRig(), KIND_COLOR, Marker(), SubPois(), TourState (+13 more)
+Cohesion: 0.08
+Nodes (57): build_home(), clear_of_buildings(), ground(), ground_z(), lantern_lights(), main(), massif(), outpost() (+49 more)
 
 ### Community 3 - "Dev Dependencies & Config"
-Cohesion: 0.17
-Nodes (12): devDependencies, eslint, eslint-config-next, @gltf-transform/cli, postcss, tailwindcss, @types/node, @types/react (+4 more)
+Cohesion: 0.08
+Nodes (47): all_materials(), barrel(), Builder, canvas_material(), cloth_material(), crate(), _finish(), glow_material() (+39 more)
 
 ### Community 4 - "Runtime Dependencies"
-Cohesion: 0.07
-Nodes (28): dependencies, class-variance-authority, clsx, file-loader, gsap, @gsap/react, lucide-react, next (+20 more)
+Cohesion: 0.05
+Nodes (40): dependencies, class-variance-authority, clsx, file-loader, gsap, @gsap/react, lucide-react, next (+32 more)
 
 ### Community 5 - "Portfolio Content & Resume"
 Cohesion: 0.13
 Nodes (18): Next.js + React Three Fiber Stack, portfolio.ts Content Model, AI Dev Tools (Claude Code, Cursor, Copilot), Bitwyre (Software/Quant/Blockchain Developer), Canggu Layer-1 Blockchain, DexCelerate (Backend Engineer, Contract), Distributed Systems & Messaging, Eden (Senior Software Engineer) (+10 more)
 
 ### Community 6 - "TypeScript Config"
-Cohesion: 0.11
-Nodes (18): compilerOptions, allowJs, esModuleInterop, incremental, isolatedModules, jsx, lib, module (+10 more)
+Cohesion: 0.08
+Nodes (34): carve_and_finish(), chain(), crater_rim(), ellipsoid(), lava_channel(), lighthouse(), prism_cutter(), Hero landmarks for the destination islands: a skull rock with carved eye sockets (+26 more)
 
 ### Community 7 - "shadcn/ui Config"
-Cohesion: 0.12
-Nodes (16): aliases, components, hooks, lib, ui, utils, rsc, $schema (+8 more)
+Cohesion: 0.13
+Nodes (10): Graph, stops: [(pos, (r, g, b)), ...], clouds(), Sky, sun, haze, water and cameras shared by every world render., A sea plane: finely gridded near the islands (so the shore field is     smooth),, Direction TO the sun. NOTE Blender's sky texture puts its sun at     (+sin r, co, Painterly cumulus bands low on the horizon: warm-lit on the sun side,     lavend, sky_and_sun() (+2 more)
 
 ### Community 8 - "Pirate Treasure Map"
 Cohesion: 0.22
 Nodes (13): Pirate treasure map (parchment), Bear / creature marker, Compass rose (N/E/S/W), Dotted trail / route path, Lagoon with star marker, Main island landmass, Mountain ranges, Ocean waves (+5 more)
 
 ### Community 9 - "Sub-POI Props (Gem/Crate/Flag)"
-Cohesion: 0.22
-Nodes (3): flagPoleHeight(), SubPoiMarker(), SubPoi
+Cohesion: 0.16
+Nodes (29): balustrade(), bulkhead(), cap_rail(), deck(), fittings(), flag(), galleon(), half_beam() (+21 more)
 
 ### Community 10 - "Content Panel & Treasure Map View"
-Cohesion: 0.29
-Nodes (5): ContentPanel(), SPOTS, TreasureMap(), ContactContent, StopContent
+Cohesion: 0.16
+Nodes (26): Export the approved galleon for the web (it moves, so it's its own GLB).      bl, apply_modifiers(), bake_texture(), bake_vertex_colors(), cut_below(), cycles_gpu(), gold_vc(), log() (+18 more)
 
 ### Community 11 - "App Layout & Fonts"
 Cohesion: 0.33
 Nodes (4): geistMono, geistSans, metadata, viewport
 
 ### Community 12 - "ESLint Config"
-Cohesion: 0.40
-Nodes (4): extends, rules, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+Cohesion: 0.11
+Nodes (18): compilerOptions, allowJs, esModuleInterop, incremental, isolatedModules, jsx, lib, module (+10 more)
 
 ### Community 18 - "Performance audit — room for improvement"
+Cohesion: 0.11
+Nodes (16): Current state, Getting started, How to add a new landmark (chest / island / etc.), Optional sound effects, Pirate Portfolio 🏴‍☠️, Project structure, Resume, Sailing (cinematic auto-sail) (+8 more)
+
+### Community 19 - "CLAUDE.md"
+Cohesion: 0.12
+Nodes (16): aliases, components, hooks, lib, ui, utils, rsc, $schema (+8 more)
+
+### Community 20 - "Pirate Portfolio 🏴‍☠️"
 Cohesion: 0.12
 Nodes (16): A1. Device pixel ratio up to 2 on desktop, A2. Double antialiasing: canvas MSAA + composer MSAA, A3. Shadow pipeline: 2048² PCFSoft map, redrawn every frame, everything casts, A4. Ocean tessellation, A. Fill rate — the iGPU killers, B1. Treasure island ships its own ocean + a 24k-tri coin pile (`treasure-island-transformed.glb`, 2.7MB), B2. `ship_custom.glb` (941KB) is downloaded for ONE material, B3. Texture GPU memory: WebP decodes to raw RGBA (+8 more)
 
-### Community 19 - "CLAUDE.md"
-Cohesion: 0.06
-Nodes (28): Adding a 3D asset, Architecture, Asset quality, Commands, Conventions, Data / content (edit these to change the portfolio), graphify, Key components & gotchas (+20 more)
+### Community 43 - "page.tsx"
+Cohesion: 0.08
+Nodes (23): metadata, projects, ALL_STOPS, CameraFraming, CONTACT, CONTACT_CONTENT, DRIFTING_ISLE, EMBER_ISLE (+15 more)
+
+### Community 44 - "reference_scene.py"
+Cohesion: 0.48
+Nodes (6): add_camera(), import_glb(), main(), Rebuild the CURRENT world in Blender, at its real three.js transforms, with the, three_matrix(), three_vec()
+
+### Community 45 - "rules"
+Cohesion: 0.40
+Nodes (4): extends, rules, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+
+### Community 46 - "world.ts"
+Cohesion: 0.40
+Nodes (4): FOG_COLOR, KEY_COLOR, KEY_DIR, SUN_DISC_DIR
+
+### Community 49 - "page.tsx"
+Cohesion: 0.17
+Nodes (9): BackgroundMusic(), CameraRig(), DevCoords(), IntroTitle(), LoadingScreen(), NPC_PLACEMENTS, Shot, SHOTS (+1 more)
+
+### Community 50 - "useTour"
+Cohesion: 0.25
+Nodes (11): World(), Navbar(), KIND_COLOR, Marker(), TourState, useTour, useVoyage, SubNav() (+3 more)
+
+### Community 51 - "dock_check.py"
+Cohesion: 0.29
+Nodes (10): catmull(), ground_below(), hull_points(), land_objects(), main(), Check docks, routes and arrival cameras for src/data/anchors.ts against the real, Blender matrix for the ship, mirroring the app's scene graph: the     vessel yaw, Highest land surface under a Blender XY point (or -99). (+2 more)
+
+### Community 52 - "ContentPanel.tsx"
+Cohesion: 0.29
+Nodes (5): ContentPanel(), SPOTS, TreasureMap(), ContactContent, StopContent
+
+### Community 53 - "Marker.tsx"
+Cohesion: 0.13
+Nodes (21): bark_material(), bush(), _frame(), _frond(), ground_hit(), leaf_material(), palm(), Vegetation: palms with ring-scarred curved trunks and folded, serrated fronds; l (+13 more)
+
+### Community 54 - "poi.py"
+Cohesion: 0.15
+Nodes (20): bottle_glass(), calc_engine(), chest(), _ink(), message_bottle(), Interactive props: the things on the islands that ARE the navigation, as the cab, fast-telemetry: a weather station. Mast, instrument box with dials,     and a cu, Intel 8080 emulator: a brass calculating engine in a wooden case, its     green (+12 more)
+
+### Community 55 - "activate.ts"
+Cohesion: 0.20
+Nodes (11): FILES, Npc(), Captain(), HELM, activate(), runDialogueAction(), InteractState, useInteract (+3 more)
+
+### Community 56 - "world.tsx"
+Cohesion: 0.19
+Nodes (12): HOVER, LAVA, Prop, SELF_LIT, DialogueAction, Interactable, Npc, propFor() (+4 more)
 
 ## Knowledge Gaps
-- **163 isolated node(s):** `extends`, `@typescript-eslint/no-explicit-any`, `@typescript-eslint/no-unused-vars`, `$schema`, `style` (+158 more)
+- **166 isolated node(s):** `extends`, `@typescript-eslint/no-explicit-any`, `@typescript-eslint/no-unused-vars`, `$schema`, `style` (+161 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **28 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **31 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `devDependencies` connect `Dev Dependencies & Config` to `Runtime Dependencies`?**
-  _High betweenness centrality (0.008) - this node is a cross-community bridge._
-- **Why does `useTour` connect `Scene Roots & Markers` to `Sub-POI Props (Gem/Crate/Flag)`, `Content Panel & Treasure Map View`?**
-  _High betweenness centrality (0.005) - this node is a cross-community bridge._
+- **Why does `material()` connect `Dev Dependencies & Config` to `Marker.tsx`, `poi.py`, `shadcn/ui Config`?**
+  _High betweenness centrality (0.021) - this node is a cross-community bridge._
+- **Why does `Graph` connect `shadcn/ui Config` to `Dev Dependencies & Config`, `TypeScript Config`?**
+  _High betweenness centrality (0.021) - this node is a cross-community bridge._
 - **What connects `extends`, `@typescript-eslint/no-explicit-any`, `@typescript-eslint/no-unused-vars` to the rest of the system?**
-  _172 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `2D Lite Page & Island Models` be split into smaller, more focused modules?**
-  _Cohesion score 0.06274509803921569 - nodes in this community are weakly interconnected._
+  _272 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Scene Roots & Markers` be split into smaller, more focused modules?**
-  _Cohesion score 0.13012477718360071 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.0763888888888889 - nodes in this community are weakly interconnected._
+- **Should `Dev Dependencies & Config` be split into smaller, more focused modules?**
+  _Cohesion score 0.08148148148148149 - nodes in this community are weakly interconnected._
 - **Should `Runtime Dependencies` be split into smaller, more focused modules?**
-  _Cohesion score 0.06896551724137931 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.04878048780487805 - nodes in this community are weakly interconnected._
 - **Should `Portfolio Content & Resume` be split into smaller, more focused modules?**
   _Cohesion score 0.13071895424836602 - nodes in this community are weakly interconnected._
