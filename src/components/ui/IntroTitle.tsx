@@ -5,7 +5,7 @@ import { STOPS } from "@/data/portfolio";
 
 /**
  * Subtle cinematic title card: name + tagline fade in over the establishing
- * shot, hold, then fade out and unmount — handing a clean scene to the user.
+ * shot, hold, then fade out and unmount, handing a clean scene to the user.
  */
 export default function IntroTitle() {
   const [phase, setPhase] = useState<"in" | "hold" | "out" | "done">("in");

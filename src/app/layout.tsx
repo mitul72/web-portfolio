@@ -16,7 +16,7 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "Mitul Dhawan · Pirate Portfolio",
   description:
-    "An interactive 3D pirate-themed portfolio — sail the island to explore projects, experience, and my resume.",
+    "An interactive 3D pirate-themed portfolio. Sail the island to explore projects, experience, and my resume.",
 };
 
 export const viewport: Viewport = {

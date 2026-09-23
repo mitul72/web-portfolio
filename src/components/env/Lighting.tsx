@@ -1,69 +1,78 @@
-import { useThree } from "@react-three/fiber";
-import { useEffect } from "react";
-import { Color, FogExp2 } from "three";
-import {
-  KEY_LIGHT_POSITION,
-  KEY_LIGHT_COLOR,
-  SUN_POSITION,
-  SUN_COLOR,
-  SKY_FILL_COLOR,
-  WATER_BOUNCE_COLOR,
-  FOG_COLOR,
-  FOG_DENSITY,
-} from "./sky";
+import { useFrame, useThree } from "@react-three/fiber";
+import { useEffect, useMemo, useRef } from "react";
+import { DirectionalLight, FogExp2, Object3D, Vector3 } from "three";
+import { FOG_COLOR, FOG_DENSITY, KEY_LIGHT_COLOR, KEY_LIGHT_INTENSITY, SUN_DIRECTION } from "./sky";
+
+/** Half-width of the shadow volume (m): covers an island and its moored ship. */
+const SHADOW_HALF = 180;
+/** How far ahead of the camera the shadow volume is centred. */
+const SHADOW_AHEAD = 140;
+/** Snap the volume to this grid so shadow edges don't crawl as the camera drifts. */
+const SNAP = 8;
+
+const fwd = new Vector3();
 
 /**
- * Warm "Sea of Thieves" lighting rig + horizon fog.
- *  - a warm key sun that casts soft shadows (aligned with the sky's sun via
- *    sky.ts, elevated so shadows stay believable)
- *  - a cool sky fill so shadows aren't muddy
- *  - exponential fog tinted to the sky so the ocean melts into the horizon
+ * Golden-hour key + distance haze. There is deliberately no ambient or
+ * hemisphere fill: the sky panorama (Atmosphere) is the fill, exactly as the
+ * Blender world was in the approved renders, so the warm-lit / cool-shadow
+ * split comes out the same.
+ *
+ * The islands are ~350 m apart, too far for one crisp shadow map, so the
+ * shadow volume follows what the camera is looking at: whichever island
+ * you've sailed to gets full-resolution shadows.
  */
-export default function Lighting() {
-  const { scene } = useThree();
+export default function Lighting({ shadows = true }: { shadows?: boolean }) {
+  const scene = useThree((s) => s.scene);
+  const camera = useThree((s) => s.camera);
+  const light = useRef<DirectionalLight>(null);
+  const target = useMemo(() => new Object3D(), []);
 
   useEffect(() => {
-    // Fog constants live in sky.ts — the Ocean shader mirrors them manually.
-    scene.fog = new FogExp2(new Color(FOG_COLOR).getHex(), FOG_DENSITY);
+    const fog = new FogExp2(0x000000, FOG_DENSITY);
+    fog.color.copy(FOG_COLOR); // linear, like the Blender value
+    scene.fog = fog;
     return () => {
       scene.fog = null;
     };
   }, [scene]);
 
+  useEffect(() => {
+    if (light.current) light.current.target = target;
+  }, [target]);
+
+  useFrame(() => {
+    const l = light.current;
+    if (!l) return;
+    camera.getWorldDirection(fwd);
+    fwd.y = 0;
+    fwd.normalize();
+    const x = Math.round((camera.position.x + fwd.x * SHADOW_AHEAD) / SNAP) * SNAP;
+    const z = Math.round((camera.position.z + fwd.z * SHADOW_AHEAD) / SNAP) * SNAP;
+    if (target.position.x === x && target.position.z === z) return;
+    target.position.set(x, 0, z);
+    target.updateMatrixWorld();
+    l.position.set(x, 0, z).addScaledVector(SUN_DIRECTION, 400);
+  });
+
   return (
     <>
-      {/* Warm golden-hour key sun (shadow caster). */}
+      <primitive object={target} />
       <directionalLight
+        ref={light}
         color={KEY_LIGHT_COLOR}
-        intensity={3.1}
-        position={KEY_LIGHT_POSITION}
-        castShadow
-        // 1024 is plenty at this art style — the map is redrawn every frame
-        // (animated scene), so halving its resolution is a per-frame win.
-        shadow-mapSize={[1024, 1024]}
-        shadow-camera-left={-120}
-        shadow-camera-right={120}
-        shadow-camera-top={120}
-        shadow-camera-bottom={-120}
-        shadow-camera-near={1}
-        shadow-camera-far={600}
+        intensity={KEY_LIGHT_INTENSITY}
+        castShadow={shadows}
+        shadow-mapSize={[4096, 4096]}
+        shadow-camera-left={-SHADOW_HALF}
+        shadow-camera-right={SHADOW_HALF}
+        shadow-camera-top={SHADOW_HALF}
+        shadow-camera-bottom={-SHADOW_HALF}
+        shadow-camera-near={50}
+        shadow-camera-far={900}
         shadow-bias={-0.0004}
+        shadow-normalBias={0.04}
       />
-      {/* Low warm RIM light from the sun's direction (no shadows) — rakes the
-          island edges with golden light so they read against the sky. This is
-          the "photographed at golden hour" cue. */}
-      <directionalLight
-        color={SUN_COLOR}
-        intensity={1.4}
-        position={SUN_POSITION}
-      />
-      {/* Warm sky fill from above + warm bounce from the sunlit water. */}
-      <hemisphereLight
-        color={SKY_FILL_COLOR}
-        groundColor={WATER_BOUNCE_COLOR}
-        intensity={0.65}
-      />
-      <ambientLight intensity={0.22} color="#ffe9d0" />
     </>
   );
 }

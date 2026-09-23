@@ -9,7 +9,7 @@ import { useAudio } from "./useAudio";
  *   - a looping water-rush that fades in while sailing, out when docked
  *   - a one-shot splash/bell on arrival
  *
- * Files are OPTIONAL — drop them in /public/audio/ and they'll play; if absent
+ * Files are OPTIONAL: drop them in /public/audio/ and they'll play; if absent
  * (404) the calls fail silently, so nothing breaks. Honors the global mute.
  *
  *   public/audio/sailing-loop.mp3   (looping water rush)

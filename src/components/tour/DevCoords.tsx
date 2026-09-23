@@ -52,7 +52,7 @@ export default function DevCoords() {
     window.addEventListener("keydown", onKey);
     // eslint-disable-next-line no-console
     console.log(
-      "%c[DevCoords] ON — click scene to log world coords, press 'c' for camera",
+      "%c[DevCoords] ON: click scene to log world coords, press 'c' for camera",
       "color:#ffb703"
     );
     return () => {

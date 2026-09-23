@@ -21,7 +21,7 @@ interface VoyageState {
    * The current leg's route, arc-length parameterized: sample with
    * `getPointAt(progress)` for uniform speed. Runs from the ship's departure
    * spot out through the departure dock's `via` corridor, then in through the
-   * destination's — so island→island legs stay on authored water even though
+   * destination's, so island→island legs stay on authored water even though
    * only the home↔stop arcs were hand-placed. Null until the first voyage.
    */
   curve: CatmullRomCurve3 | null;
@@ -29,7 +29,7 @@ interface VoyageState {
   progress: number;
   /** id of the stop we're sailing to (null = home). */
   targetStopId: string | null;
-  /** Fired once when a voyage completes — used to open the content panel. */
+  /** Fired once when a voyage completes; used to open the content panel. */
   onArrive: (() => void) | null;
 
   /** Live ship XZ + heading, updated by the vessel each frame (for the camera). */
@@ -78,19 +78,10 @@ export const useVoyage = create<VoyageState>((set, get) => ({
     const start: [number, number] = [state.shipPos.x, state.shipPos.y];
     const end = to.position;
 
-    // Route out through the corridor we came in by (the dock we're leaving),
-    // then in through the destination's. Vias that sit on an endpoint (HOME)
-    // or on each other collapse away.
-    const points: [number, number][] = [start];
-    for (const via of [state.to.via, to.via]) {
-      const prev = points[points.length - 1];
-      if (dist(via, prev) > WAYPOINT_EPSILON && dist(via, end) > WAYPOINT_EPSILON)
-        points.push(via);
-    }
-    points.push(end);
-
-    // Same dock (e.g. two stops sharing HOME): settle instantly, no fake sail.
-    if (points.length === 2 && dist(start, end) <= WAYPOINT_EPSILON) {
+    // Already moored at that dock (e.g. home and the intro stop share HOME):
+    // settle instantly. This must come before the route is built, or the
+    // docks' vias would send the ship out to sea and straight back.
+    if (dist(start, end) <= WAYPOINT_EPSILON) {
       set({
         to,
         curve: null,
@@ -103,6 +94,17 @@ export const useVoyage = create<VoyageState>((set, get) => ({
       onArrive?.();
       return;
     }
+
+    // Route out through the corridor we came in by (the dock we're leaving),
+    // then in through the destination's. Vias that sit on an endpoint (HOME)
+    // or on each other collapse away.
+    const points: [number, number][] = [start];
+    for (const via of [state.to.via, to.via]) {
+      const prev = points[points.length - 1];
+      if (dist(via, prev) > WAYPOINT_EPSILON && dist(via, end) > WAYPOINT_EPSILON)
+        points.push(via);
+    }
+    points.push(end);
 
     const curve = new CatmullRomCurve3(
       points.map(([x, z]) => new Vector3(x, 0, z)),

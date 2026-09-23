@@ -7,10 +7,10 @@ import { useVoyage } from "@/components/tour/useVoyage";
 /**
  * The ship + its crew. Two motions compose here:
  *
- *  1. SAILING — reads the voyage store and samples its route curve as
+ *  1. SAILING: reads the voyage store and samples its route curve as
  *     `progress` goes 0→1 (arc-length parameterized → uniform speed), turning
  *     the hull to face its travel direction. No physics.
- *  2. BOBBING — on top of the sail position, it heaves/pitches/rolls with the
+ *  2. BOBBING: on top of the sail position, it heaves/pitches/rolls with the
  *     wave field so it always looks like it's floating, moving or docked.
  *
  * The vessel publishes its live XZ + heading back to the store each frame so
@@ -42,7 +42,7 @@ export default function FloatingVessel({
 
     // --- 1. Sail position along the voyage's route curve ---
     // getPointAt is arc-length parameterized, so equal progress steps cover
-    // equal water — the speed profile is exactly the gsap ease, nothing else.
+    // equal water, so the speed profile is exactly the gsap ease, nothing else.
     let x: number, z: number;
     if (v.curve) {
       const pos = v.curve.getPointAt(v.progress, point.current);
@@ -70,12 +70,13 @@ export default function FloatingVessel({
     v.setShip(x, z, heading.current);
 
     // --- 2. Wave bob on top ---
-    const h = waveHeight(x, z, t) * 0.35 * intensity;
+    // waveHeight is the true (already calm) surface; ride most of it.
+    const h = waveHeight(x, z, t) * intensity;
     ref.current.position.y = baseY + h;
 
     const { slopeX, slopeZ } = waveSlope(x, z, t);
-    ref.current.rotation.x = slopeZ * 0.9 * intensity;
-    ref.current.rotation.z = -slopeX * 0.9 * intensity;
+    ref.current.rotation.x = slopeZ * 1.4 * intensity;
+    ref.current.rotation.z = -slopeX * 1.4 * intensity;
 
     // Heading (yaw) from travel + a tiny idle sway when docked. The ship
     // model's bow is 90° off its local +Z, so offset the yaw a quarter turn

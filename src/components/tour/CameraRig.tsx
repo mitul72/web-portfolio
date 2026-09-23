@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
@@ -8,6 +8,8 @@ import { HOME_CAMERA } from "@/data/portfolio";
 import { dockForIndex } from "@/data/anchors";
 import { useTour } from "./useTour";
 import { useVoyage } from "./useVoyage";
+import { useInteract } from "./useInteract";
+import { SHOTS } from "@/data/interactables";
 
 /**
  * Owns the camera across three regimes:
@@ -26,11 +28,12 @@ export default function CameraRig() {
   const controls = useRef<OrbitControlsImpl>(null);
   const { camera } = useThree();
   const activeIndex = useTour((s) => s.activeIndex);
+  const focus = useInteract((s) => s.focus);
 
   // Scratch vectors reused each frame (no per-frame allocation).
   const desiredPos = useRef(new Vector3());
   const desiredTarget = useRef(new Vector3());
-  // All camera gsap tweens live here so a starting voyage can cancel them —
+  // All camera gsap tweens live here so a starting voyage can cancel them;
   // otherwise the establishing/reveal tween fights the chase-cam and the ship
   // appears not to move (the "first sail does nothing" bug).
   const camTween = useRef<gsap.core.Tween | gsap.core.Timeline | null>(null);
@@ -38,6 +41,40 @@ export default function CameraRig() {
     camTween.current?.kill();
     camTween.current = null;
   };
+
+  /** Ease the camera and the orbit target together to a framing. */
+  const flyTo = useCallback((
+    pos: readonly number[],
+    look: readonly number[],
+    duration = 1.2,
+    ease = "power3.out"
+  ) => {
+    killCamTweens();
+    const tl = gsap.timeline();
+    camTween.current = tl;
+    const update = () => controls.current?.update();
+    tl.to(camera.position, { x: pos[0], y: pos[1], z: pos[2], duration, ease, onUpdate: update }, 0);
+    if (controls.current)
+      tl.to(controls.current.target, { x: look[0], y: look[1], z: look[2], duration, ease, onUpdate: update }, 0);
+    return tl;
+  }, [camera]);
+
+  // Close-ups: clicking a prop or an NPC flies to its authored shot; clearing
+  // the focus flies back to the stop's (or home's) framing. Never while
+  // sailing: the chase-cam owns the camera then.
+  useEffect(() => {
+    return useInteract.subscribe((s, prev) => {
+      if (s.focus === prev.focus || useVoyage.getState().phase === "sailing") return;
+      const shot = s.focus ? SHOTS[s.focus] : null;
+      if (shot) {
+        flyTo(shot.position, shot.target, 1.6, "power2.inOut");
+      } else {
+        const index = useTour.getState().activeIndex;
+        const framing = index === null ? HOME_CAMERA : dockForIndex(index).camera;
+        flyTo(framing.position, framing.lookAt, 1.3, "power2.inOut");
+      }
+    });
+  }, [flyTo]);
 
   // Establishing shot on first mount.
   useEffect(() => {
@@ -78,35 +115,9 @@ export default function CameraRig() {
     // the chase-cam hands off smoothly.
     let tl: gsap.core.Timeline | null = null;
     const revealNow = () => {
-      killCamTweens();
-      tl = gsap.timeline();
-      camTween.current = tl;
-      tl.to(
-        camera.position,
-        {
-          x: px,
-          y: py,
-          z: pz,
-          duration: 1.2,
-          ease: "power3.out",
-          onUpdate: () => controls.current?.update(),
-        },
-        0
-      );
-      if (controls.current) {
-        tl.to(
-          controls.current.target,
-          {
-            x: lx,
-            y: ly,
-            z: lz,
-            duration: 1.2,
-            ease: "power3.out",
-            onUpdate: () => controls.current?.update(),
-          },
-          0
-        );
-      }
+      // A close-up requested on arrival wins over the reveal.
+      if (useInteract.getState().focus) return;
+      tl = flyTo([px, py, pz], [lx, ly, lz]);
     };
 
     // Reveal when the voyage settles to "docked". If we're already docked
@@ -132,7 +143,7 @@ export default function CameraRig() {
     return () => {
       tl?.kill();
     };
-  }, [activeIndex, camera]);
+  }, [activeIndex, camera, flyTo]);
 
   // Per-frame chase-cam while sailing. During sailing this is the SOLE camera
   // authority (auto-rotate is off, no reveal tween runs until docked), so
@@ -171,11 +182,14 @@ export default function CameraRig() {
       ref={controls}
       enableZoom
       enablePan={false}
-      minDistance={15}
+      minDistance={2} // close-ups on props and NPCs come in to a few metres
       maxDistance={320}
-      maxPolarAngle={Math.PI / 2.05}
+      // A hair past horizontal, so the home view can look UP at the spires
+      // from low over the water; at max distance the camera still clears the
+      // sea (target y ~22).
+      maxPolarAngle={Math.PI / 2 + 0.06}
       // Free look only: no auto-rotate while sailing or parked at a stop.
-      autoRotate={activeIndex === null}
+      autoRotate={activeIndex === null && !focus}
       autoRotateSpeed={0.25}
       enableDamping
       dampingFactor={0.06}

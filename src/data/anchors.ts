@@ -4,7 +4,7 @@ import { STOPS, Vec3 } from "./portfolio";
 // SHIP DOCKS (hub-and-spoke sailing)
 // -----------------------------------------------------------------------------
 // Where the ship parks for each stop, and the camera "arrival" framing once it
-// gets there. The main island is HOME — the ship always sails out from home to
+// gets there. The main island is HOME: the ship always sails out from home to
 // a stop's dock and back (hub-and-spoke), so we only author one path per stop.
 //
 // A dock is on the WATER near the stop's island, not on the marker itself.
@@ -28,77 +28,74 @@ export interface Dock {
 
 // HOME: the ship's resting spot beside the main pirate island.
 export const HOME_DOCK: Dock = {
-  position: [2.278, 98.04],
-  heading: -0.395, // matches the ship's authored rotation.y
-  via: [2.278, 98.04],
+  // Alongside the east face of the pier's T-head (the pier runs out from the
+  // beach to z~106, its T-head spans x 2..14), bow in toward the island, so
+  // the ship arrives bow-first and leaves by sailing straight out to sea.
+  position: [21.5, 106],
+  heading: Math.PI,
+  via: [21.5, 150], // straight out past the stern before turning for a leg
   camera: {
-    position: [23.08, 30.52, 150.63],
-    lookAt: [21.7, 12, 105],
+    position: [62, 14, 148],
+    lookAt: [8, 16, 40],
   },
 };
 
 // Per-stop docks, keyed by stop id. Stops without a dock (e.g. the intro) use
-// HOME_DOCK — the ship just stays home.
+// HOME_DOCK; the ship just stays home.
+// Every dock, route and camera below was checked in Blender against the real
+// terrain with a stand-in of the ship placed exactly as the app places it
+// (blender/dock_check.py): no hull over land, no route leg over land, and each
+// camera frames its island's landmark with the moored ship in view.
 export const DOCKS: Record<string, Dock> = {
   intro: HOME_DOCK,
 
   "project-1": {
-    // Open water ~45 units short of the volcano's near shore (island footprint
-    // is X[-412..-229], Z[-210..-45]). The ship parks here facing the island.
-    position: [-210, -59],
-    heading: -2.207, // faces from the dock toward the island center
-    via: [-90, -10], // bow the sailing arc out through open water
+    // Moored off the end of Ember Isle's jetty, bow in toward the camp.
+    position: [-181.2, -109.9],
+    heading: -1.844,
+    via: [-190, 110], // round the home island's west end, clear of its stacks
     camera: {
-      // On arrival, FOCUS on the volcano island itself (center ~[-320,-140]) so
-      // it fills the frame and is easy to look around — the ship is incidental.
-      position: [-210, 55, -30],
-      lookAt: [-320, 25, -140],
+      // Volcano, lava flow, camp and ship in one frame.
+      position: [-150, 16, 0],
+      lookAt: [-270, 26, -120],
     },
   },
 
   resume: {
-    // Open water ~45 units short of the treasure island's shore (center
-    // ~[280,160], radius ~64 at current scale). Ship parks facing the island.
-    position: [174, 136],
-    heading: 1.351,
+    // Anchored just outside Skull Cove's lagoon, broadside to the beach.
+    position: [252.4, 241.6],
+    heading: 0.864,
     via: [88, 117],
     camera: {
-      // Framing captured via SHOW_DEV_COORDS (press "c"): a high 3/4 view that
-      // frames the treasure island + chest. lookAt derived from that camera's
-      // forward ray, landing on the island center.
-      position: [207.5, 81.54, 243.09],
-      lookAt: [285.3, 20.9, 153.8],
+      // Low, square on to the skull's face; the ship on the right third.
+      position: [182.5, 9, 274],
+      lookAt: [280, 16, 160],
     },
   },
 
   experience: {
-    // Open water ~45 short of the fantasy isle's shore (center [180,-300],
-    // footprint radius ~135 at scale 1). Approach from the home/NW side; tune
-    // against the real shoreline via SHOW_DEV_COORDS.
-    position: [106, -136],
-    heading: 2.72, // faces from the dock toward the island center
-    via: [68, -49],
+    // Alongside Lighthouse Rock's jetty, bow short of the rock shelf.
+    position: [166, -222],
+    heading: Math.PI,
+    via: [175, 40], // round the home island's east end
     camera: {
-      // Captured live with SHOW_DEV_COORDS ("c"): high on the NE approach,
-      // looking down the flag-trail slope. lookAt derived from the captured
-      // rotation's forward ray, landing on the island slope.
-      position: [195.63, 72.58, -183.81],
-      lookAt: [182, 35, -286],
+      // From the south-east: lighthouse, cliffs, stacks and the wreck.
+      position: [237, 14, -120],
+      lookAt: [180, 24, -300],
     },
   },
+
   contact: {
-    // Open water off the socials island. Its shoreline is a near-vertical
-    // cliff of radius ~47 (measured from the mesh at waterline heights), so
-    // the dock sits 85 from center [-240,220] — ~20 units of clear water even
-    // at the bow. Approach from the home side.
-    position: [-164, 182],
-    heading: -1.1, // faces from the dock toward the island center
-    via: [-90, 160], // bow the arc south of the main island, over open water
+    // Anchored below the Drifting Isle, well clear of its chains and the
+    // waterfall's plunge pool.
+    position: [-190, 290],
+    heading: Math.PI / 2,
+    via: [-90, 160], // south of the home island, over open water
     camera: {
-      // Captured live with SHOW_DEV_COORDS ("c"): looks across the bottle's
-      // rock toward the island center (which stays the orbit pivot).
-      position: [-136.71, 65.57, 244.57],
-      lookAt: [-240, 40, 220],
+      // From the south-south-east, so the low western sun side-lights the
+      // floating island instead of silhouetting it.
+      position: [-170, 24, 370],
+      lookAt: [-240, 28, 220],
     },
   },
 };

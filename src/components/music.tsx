@@ -7,7 +7,7 @@ import { useAudio } from "./env/useAudio";
 
 /**
  * Ambient ocean loop + the desktop mute toggle (bottom-left). On mobile the
- * toggle is hidden — the bottom corners are covered by the nav bar / panel
+ * toggle is hidden: the bottom corners are covered by the nav bar / panel
  * there, so the Navbar renders its own header toggle instead.
  */
 export default function BackgroundMusic() {
@@ -32,13 +32,23 @@ export default function BackgroundMusic() {
   }, [isClient]);
 
   useEffect(() => {
-    if (isClient && sound.current) {
-      if (playing) {
-        sound.current.play().catch(() => {});
-      } else {
-        sound.current.pause();
-      }
+    const audio = sound.current;
+    if (!isClient || !audio) return;
+    if (!playing) {
+      audio.pause();
+      return;
     }
+    // Autoplay with sound is usually refused before the visitor interacts.
+    // If so, start on their first click, tap or key instead.
+    const events = ["pointerdown", "keydown", "touchstart"] as const;
+    const retry = () => {
+      events.forEach((e) => window.removeEventListener(e, retry));
+      if (!useAudio.getState().muted) audio.play().catch(() => {});
+    };
+    audio.play().catch(() => {
+      events.forEach((e) => window.addEventListener(e, retry, { once: true }));
+    });
+    return () => events.forEach((e) => window.removeEventListener(e, retry));
   }, [playing, isClient]);
 
   return (

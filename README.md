@@ -11,18 +11,23 @@ npm install
 npm run dev   # http://localhost:3000
 ```
 
-## Current state (be honest with yourself)
+## Current state
 
-The scene has **one island, a captain character, and a ship**. That's it.
+All five tour stops are **live and rendering**: intro (pirate island), projects
+(volcano island), resume (treasure island, with an animated chest that opens on
+arrival), experience (fantasy island), and contact (floating socials island).
+Plus the ship, the captain, and Toothless as ambient scenery.
 
-- ✅ Working: the island/ship/captain render, guided-tour + free-look camera
-  system, content panels, loading screen, background sound.
-- ⏳ Not built yet — **needs 3D assets that don't exist**: the treasure chest
-  (resume), extra project/experience islands.
+- ✅ Working: all five islands + ship + crew, the sailing voyage system,
+  guided-tour + free-look camera, sub-POIs per island, content panels, the 2D
+  `/lite` fallback, loading screen, background sound.
+- ⏳ **The gap is quality, not coverage.** Every asset is placeholder-grade, and
+  the lighting/composition need work. See [`TODO.md`](TODO.md) for the full gap
+  analysis and the quality bar any new asset has to clear.
 
-Only stops in `STOPS` (in [`src/data/portfolio.ts`](src/data/portfolio.ts)) are
-rendered. Right now that's just the intro. Everything requiring a missing model
-lives in `PLANNED_STOPS` in the same file — a design doc, not fake content.
+`PLANNED_STOPS` in [`src/data/portfolio.ts`](src/data/portfolio.ts) is currently
+empty — it exists for stops whose 3D asset doesn't exist yet, so they can be
+designed without faking markers over empty water.
 
 ## How to add a new landmark (chest / island / etc.)
 

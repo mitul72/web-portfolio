@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import soundOn from "@/assets/images/soundon.png";
 import soundOff from "@/assets/images/soundoff.png";
 import { useTour } from "@/components/tour/useTour";
@@ -11,7 +10,7 @@ import { useAudio } from "@/components/env/useAudio";
  * Lightweight top overlay: the name/brand doubles as a "return home" button,
  * with the sound toggle on the right (the bottom corners are owned by the nav
  * bar / panel on mobile). Section navigation lives in the bottom TourControls
- * bar, so the header stays minimal — important on small screens.
+ * bar, so the header stays minimal, which matters on small screens.
  */
 export default function Navbar() {
   const home = useTour((s) => s.home);
@@ -27,13 +26,14 @@ export default function Navbar() {
         ⚓ Mitul Dhawan
       </button>
       <div className="flex items-center gap-2">
-        {/* Escape hatch to the fast 2D version. */}
-        <Link
-          href="/lite"
+        {/* Escape hatch to the fast 2D version, remembered (src/middleware.ts).
+            A plain link: prefetching would set the cookie without a click. */}
+        <a
+          href="/?view=simple"
           className="pointer-events-auto rounded-full border border-white/20 bg-slate-900/50 px-3 py-1.5 text-xs text-white/80 shadow backdrop-blur transition hover:bg-white/10 hover:text-white sm:text-sm"
         >
           Simple view
-        </Link>
+        </a>
         {/* Mobile-only: on sm+ the toggle sits bottom-left (BackgroundMusic). */}
         <button
           onClick={toggle}
