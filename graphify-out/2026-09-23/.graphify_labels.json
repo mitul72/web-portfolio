@@ -52,5 +52,10 @@
   "50": "useTour",
   "51": "dock_check.py",
   "52": "ContentPanel.tsx",
-  "53": "Marker.tsx"
+  "53": "Marker.tsx",
+  "54": "poi.py",
+  "55": "activate.ts",
+  "56": "world.tsx",
+  "57": "npc.py",
+  "58": "ship_lab.py"
 }

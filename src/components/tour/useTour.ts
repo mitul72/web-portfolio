@@ -1,7 +1,17 @@
 import { create } from "zustand";
 import { STOPS } from "@/data/portfolio";
 import { useVoyage } from "./useVoyage";
-import { useInteract } from "./useInteract";
+import { greet, useInteract } from "./useInteract";
+import { hostOf } from "@/data/interact";
+
+/**
+ * On arrival the island is shown first (the dock reveal, ~1.2 s), held for a
+ * beat, THEN the camera moves on to the host. Long enough to take the island
+ * in, short enough that nobody wonders what to do next.
+ */
+const HOST_DELAY_MS = 3000;
+/** Bumps on every navigation, so a pending greeting from an earlier trip never fires. */
+let arrivalToken = 0;
 
 interface TourState {
   /** Index of the current stop, or null when at the free-look home view. */
@@ -35,10 +45,11 @@ interface TourState {
  * the R3F canvas children and the DOM overlay can read/drive it.
  */
 export const useTour = create<TourState>((set, get) => {
-  /** Sail to a stop (or home) and open its panel on arrival, or run `then`. */
+  /** Sail to a stop (or home); on arrival run `then`, else the host greets you. */
   const navigate = (index: number | null, then?: () => void) => {
     // Close any open panel + clear sub-POI selection; re-opens on arrival.
     set({ activeIndex: index, panelOpen: false, activeSubPoiId: null });
+    const token = ++arrivalToken;
     // Setting sail drops any close-up or conversation.
     const ui = useInteract.getState();
     ui.clearFocus();
@@ -56,6 +67,22 @@ export const useTour = create<TourState>((set, get) => {
       if (then) {
         // A prop or an NPC asked for this trip: it opens its own content.
         if (get().activeIndex === index) then();
+        return;
+      }
+      // Otherwise: show the island, then its host greets you (NPC close-up
+      // + dialogue); their choices lead to the content. If you've already
+      // clicked something in the meantime, the host doesn't interrupt. Only a
+      // stop without a host opens its panel directly.
+      if (stopId && hostOf(stopId)) {
+        setTimeout(() => {
+          const ui = useInteract.getState();
+          const stillHere =
+            token === arrivalToken &&
+            get().activeIndex === index &&
+            useVoyage.getState().phase === "docked";
+          if (!stillHere || ui.focus || ui.dialogue || get().panelOpen) return;
+          greet(stopId);
+        }, HOST_DELAY_MS);
         return;
       }
       if (panelDelay === 0) set({ panelOpen: true });

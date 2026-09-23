@@ -13,8 +13,10 @@ import { runDialogueAction } from "@/components/tour/activate";
 export default function NpcDialogue() {
   const id = useInteract((s) => s.dialogue);
   const close = useInteract((s) => s.closeDialogue);
+  const returning = useInteract((s) => s.returning);
   const npc = id ? NPCS[id] : null;
-  const text = npc ? npc.lines.join(" ") : "";
+  // First meeting: their full greeting. Coming back: a short line.
+  const text = npc ? (returning ? npc.again : npc.lines.join(" ")) : "";
   const [shown, setShown] = useState(0);
 
   // Typewriter, fast enough not to be a chore; click the box to skip it.

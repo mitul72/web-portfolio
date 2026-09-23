@@ -12,12 +12,8 @@ import {
   Quaternion,
   Vector3,
 } from "three";
-import gsap from "gsap";
 import WorldGLB from "@/assets/world-transformed.glb";
 import { Interactable, propFor } from "@/data/interact";
-import { STOPS } from "@/data/portfolio";
-import { useTour } from "@/components/tour/useTour";
-import { useVoyage } from "@/components/tour/useVoyage";
 import { useInteract } from "@/components/tour/useInteract";
 import { activate } from "@/components/tour/activate";
 
@@ -25,8 +21,6 @@ import { activate } from "@/components/tour/activate";
 const SELF_LIT = new Set(["window_glow", "lantern_glow", "lava_hot", "lava_cool", "void", "bottle_glass"]);
 const LAVA = new Set(["lava_hot", "lava_cool"]);
 const HOVER = new Color("#ffb45a");
-/** Chest lid angle when open (radians about its hinge; negative lifts it back). */
-const LID_OPEN = -1.9;
 
 interface Prop {
   it: Interactable;
@@ -73,8 +67,6 @@ export default function World() {
   const { scene } = useGLTF(WorldGLB);
   const hovered = useInteract((s) => s.hovered);
   const setHovered = useInteract((s) => s.setHovered);
-  const activeIndex = useTour((s) => s.activeIndex);
-  const phase = useVoyage((s) => s.phase);
 
   const { root, lava, props, moving } = useMemo(() => {
     const r = scene.clone(true);
@@ -141,12 +133,10 @@ export default function World() {
     const rest = (o: Object3D | null) => (o ? { o, q: o.quaternion.clone() } : null);
     const moving = {
       rotor: rest(find("POI_projects_0_rotor")),
-      lid: rest(find("POI_resume_lid")),
       flags: [0, 1, 2, 3].map((i) => rest(find(`POI_experience_${i}`))).filter(Boolean) as {
         o: Object3D;
         q: Quaternion;
       }[],
-      lidAngle: { v: 0 },
     };
     return { root: r, lava: lavaMats, props, moving };
   }, [scene]);
@@ -168,19 +158,6 @@ export default function World() {
     });
   }, [hovered, props]);
 
-  // The chest lid swings open while the resume stop is active and moored.
-  const atChest = activeIndex !== null && STOPS[activeIndex]?.id === "resume" && phase === "docked";
-  useEffect(() => {
-    const tw = gsap.to(moving.lidAngle, {
-      v: atChest ? LID_OPEN : 0,
-      duration: atChest ? 1.2 : 0.6,
-      ease: atChest ? "back.out(1.3)" : "power2.in",
-    });
-    return () => {
-      tw.kill();
-    };
-  }, [atChest, moving]);
-
   const q = useMemo(() => new Quaternion(), []);
   const axisX = useMemo(() => new Vector3(1, 0, 0), []);
   const axisY = useMemo(() => new Vector3(0, 1, 0), []);
@@ -192,7 +169,7 @@ export default function World() {
     lava.forEach((base, mat) => {
       mat.emissiveIntensity = base * k;
     });
-    // Anemometer spins; signal flags flap; the chest lid follows its tween.
+    // Anemometer spins; signal flags flap. (The chest is its own component.)
     if (moving.rotor) moving.rotor.o.quaternion.copy(moving.rotor.q).multiply(q.setFromAxisAngle(axisY, t * 2.4));
     moving.flags.forEach((f, i) => {
       const a = Math.sin(t * 2.1 + i * 1.3) * 0.25 + Math.sin(t * 5.3 + i) * 0.06;
@@ -200,7 +177,6 @@ export default function World() {
         q.setFromAxisAngle(axisZ, a * 0.3)
       );
     });
-    if (moving.lid) moving.lid.o.quaternion.copy(moving.lid.q).multiply(q.setFromAxisAngle(axisX, moving.lidAngle.v));
   });
 
   const keyOf = (e: ThreeEvent<PointerEvent | MouseEvent>) =>

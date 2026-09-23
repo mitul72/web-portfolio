@@ -2,7 +2,7 @@ import { STOPS } from "@/data/portfolio";
 import { DialogueAction, Interactable, PROPS, propForSubPoi } from "@/data/interact";
 import { useTour } from "./useTour";
 import { useVoyage } from "./useVoyage";
-import { useInteract } from "./useInteract";
+import { greet, useInteract } from "./useInteract";
 
 /**
  * Clicking a prop or an NPC. If the ship isn't already moored at that island
@@ -67,4 +67,15 @@ export function runDialogueAction(a: DialogueAction) {
     const index = STOPS.findIndex((s) => s.id === a.stopId);
     if (index >= 0) useTour.getState().goTo(index);
   }
+}
+
+/**
+ * Close the content panel and hand back to the island's host, so exploring
+ * an island is a loop: host -> a prop's content -> host -> the next one.
+ */
+export function closeToHost() {
+  const tour = useTour.getState();
+  tour.closePanel();
+  if (tour.activeIndex === null || useVoyage.getState().phase !== "docked") return;
+  greet(STOPS[tour.activeIndex].id);
 }

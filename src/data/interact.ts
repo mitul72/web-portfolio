@@ -58,7 +58,7 @@ export function propFor(nodeNames: string[]): Interactable | null {
   return null;
 }
 
-/** Sub-POI index -> the prop that shows it (for SubNav and NPC buttons). */
+/** Sub-POI index -> the prop that shows it (for the NPCs' choices). */
 export function propForSubPoi(stopId: string, index: number): Interactable | null {
   return Object.values(PROPS).find((p) => p.stopId === stopId && p.subPoi === index) ?? null;
 }
@@ -78,6 +78,8 @@ export interface Npc extends Interactable {
   name: string;
   role: string;
   lines: string[];
+  /** Said instead of `lines` when you come back to them. */
+  again: string;
   options: { label: string; action: DialogueAction }[];
 }
 
@@ -88,7 +90,7 @@ const subOptions = (stopId: string) =>
   }));
 
 const npc = (key: string, stopId: string, name: string, role: string, lines: string[],
-  options: Npc["options"]): Npc => ({
+  options: Npc["options"], again = "Anything else?"): Npc => ({
   key: `npc:${key}`,
   kind: "npc",
   tag: `${name} · ${role}`,
@@ -98,6 +100,7 @@ const npc = (key: string, stopId: string, name: string, role: string, lines: str
   name,
   role,
   lines,
+  again,
   options,
 });
 
@@ -113,7 +116,7 @@ export const NPCS: Record<string, Npc> = {
         action: { type: "sail", stopId: s.id } as DialogueAction,
       })),
       { label: "Home port", action: { type: "home" } },
-    ]),
+    ], "Where to next, then?"),
     shot: "",
   },
   anne: npc("anne", "intro", "Anne", "Harbourmaster", [
@@ -125,25 +128,31 @@ export const NPCS: Record<string, Npc> = {
     { label: "Their voyages (Lighthouse Rock)", action: { type: "sail", stopId: "experience" } },
     { label: "Their résumé (Skull Cove)", action: { type: "sail", stopId: "resume" } },
     { label: "Send word (Drifting Isle)", action: { type: "sail", stopId: "contact" } },
-  ]),
+  ], "Back already? Where to next?"),
   henry: npc("henry", "project-1", "Henry", "Tinkerer", [
     "Mind the lava, it's warm this time of year.",
     "Every contraption in this camp is one of the captain's builds. Pick one and I'll tell you how it ticks.",
-  ], subOptions("project-1")),
+  ], subOptions("project-1"), "Another contraption? Take your pick."),
   skeleton: npc("skeleton", "resume", "Old Bones", "Chest Guard", [
     "Dead men tell no tales...",
     "...but this chest does. The captain's whole record's in there. Help yourself, it's the only treasure I'm allowed to give away.",
   ], [
     { label: "Open the chest", action: { type: "stop", stopId: "resume" } },
-  ]),
+  ], "Still here? So am I. Always."),
   mako: npc("mako", "experience", "Mako", "Lighthouse Keeper", [
     "Each of those flags is a crew the captain sailed with. Oldest on the left, newest on the right.",
     "Pick a flag and I'll tell you what they did aboard.",
-  ], subOptions("experience")),
+  ], subOptions("experience"), "Another flag, then?"),
   sharky: npc("sharky", "contact", "Sharky", "Messenger", [
     "Got something to say to the captain? Put it in a bottle and I'll swim it over.",
     "Fastest fins on the Drifting Isle. Well, only fins.",
   ], [
     { label: "Write a message", action: { type: "stop", stopId: "contact" } },
-  ]),
+  ], "Changed your mind? Fins are still fast."),
 };
+
+/** The NPC who hosts a stop and greets you on arrival (never the captain). */
+export function hostOf(stopId: string): string | null {
+  const hit = Object.entries(NPCS).find(([id, n]) => id !== "captain" && n.stopId === stopId);
+  return hit ? hit[0] : null;
+}

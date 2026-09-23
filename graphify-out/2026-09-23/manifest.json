@@ -35,13 +35,8 @@
     "semantic_hash": "febb32403042746564e5e18acb57a588"
   },
   "src/app/page.tsx": {
-    "mtime": 1790184593.1871386,
-    "ast_hash": "37947e5c42d477c68a6524ebd0e857b1",
-    "semantic_hash": ""
-  },
-  "src/components/models/pirate-island.tsx": {
-    "mtime": 1790182271.3293562,
-    "ast_hash": "108674181b364cf2093a50e436065417",
+    "mtime": 1790198672.5351272,
+    "ast_hash": "045df7661c46d96b98616736913200de",
     "semantic_hash": ""
   },
   "src/components/music.tsx": {
@@ -55,8 +50,8 @@
     "semantic_hash": "e9595161afe3470ddf04d1901143eaba"
   },
   "src/components/tour/CameraRig.tsx": {
-    "mtime": 1790182356.559267,
-    "ast_hash": "56ceaab0776771aa9cf9bd47dfca7c16",
+    "mtime": 1790188338.4287443,
+    "ast_hash": "a0577657ab2f194e245efaa21c0a2478",
     "semantic_hash": ""
   },
   "src/components/tour/DevCoords.tsx": {
@@ -69,30 +64,20 @@
     "ast_hash": "e6935f24a786daee97f8b62996c9820e",
     "semantic_hash": "e6935f24a786daee97f8b62996c9820e"
   },
-  "src/components/tour/SubPoiMarker.tsx": {
-    "mtime": 1790180594.6025155,
-    "ast_hash": "dc8e879972f9a22dc99d57913c684841",
+  "src/components/tour/useTour.ts": {
+    "mtime": 1790199289.3076208,
+    "ast_hash": "495ae8dffd9e50fcafd79ddc2b8d089c",
     "semantic_hash": ""
   },
-  "src/components/tour/SubPois.tsx": {
-    "mtime": 1790180594.6025155,
-    "ast_hash": "54ecb5e7a16b51f23321ef3e36b4adc3",
-    "semantic_hash": "54ecb5e7a16b51f23321ef3e36b4adc3"
-  },
-  "src/components/tour/useTour.ts": {
-    "mtime": 1790180594.6025155,
-    "ast_hash": "0e3a9afdb317a36fd08f0316dffecbca",
-    "semantic_hash": "0e3a9afdb317a36fd08f0316dffecbca"
-  },
   "src/components/tour/useVoyage.ts": {
-    "mtime": 1790180594.6025155,
-    "ast_hash": "385a4b6ae73bd1ea1014e62c565a1b37",
-    "semantic_hash": "385a4b6ae73bd1ea1014e62c565a1b37"
+    "mtime": 1790198081.939686,
+    "ast_hash": "ebf538060f52d53b412631a0dd858713",
+    "semantic_hash": ""
   },
   "src/components/ui/ContentPanel.tsx": {
-    "mtime": 1790180594.6025155,
-    "ast_hash": "67b947594b61b09179ebe51a324eafb2",
-    "semantic_hash": "67b947594b61b09179ebe51a324eafb2"
+    "mtime": 1790199289.3077555,
+    "ast_hash": "fc37cbc77ec13fd6f0e5025a1cd4bf4c",
+    "semantic_hash": ""
   },
   "src/components/ui/IntroTitle.tsx": {
     "mtime": 1790180594.6026335,
@@ -105,9 +90,9 @@
     "semantic_hash": "51fa54f28bc3fb9f70567f3c13fb2dd4"
   },
   "src/components/ui/SubNav.tsx": {
-    "mtime": 1790180594.6026335,
-    "ast_hash": "96331f0d4e2becb8a6ce95cdab098181",
-    "semantic_hash": "96331f0d4e2becb8a6ce95cdab098181"
+    "mtime": 1790199323.646824,
+    "ast_hash": "ff8da0e2b27ae2fe9fac31e5f581555f",
+    "semantic_hash": ""
   },
   "src/components/ui/TourControls.tsx": {
     "mtime": 1790180594.6026335,
@@ -200,8 +185,8 @@
     "semantic_hash": ""
   },
   "blender/export_world.py": {
-    "mtime": 1790183982.8633857,
-    "ast_hash": "8a396b8ede4b150e70cfe9eb7686640e",
+    "mtime": 1790198540.7872887,
+    "ast_hash": "10fa35afbe877627ee15350a4affa9e9",
     "semantic_hash": ""
   },
   "blender/hero_island.py": {
@@ -215,8 +200,8 @@
     "semantic_hash": ""
   },
   "blender/lib/build.py": {
-    "mtime": 1790183096.180243,
-    "ast_hash": "4f9af46fb6d64c68ccb93ec7f700bb2b",
+    "mtime": 1790186260.0950832,
+    "ast_hash": "a4fd80ad963d615942b042d089d67ab1",
     "semantic_hash": ""
   },
   "blender/lib/flora.py": {
@@ -260,23 +245,23 @@
     "semantic_hash": ""
   },
   "src/data/world.ts": {
-    "mtime": 1790184242.9377794,
+    "mtime": 1790198852.594787,
     "ast_hash": "79b292ab22a9252327e234d6ed06dbd9",
     "semantic_hash": ""
   },
   "blender/bake/ISL_home_ground_albedo.png": {
-    "mtime": 1790184086.7730432,
-    "ast_hash": "6d9ea1855515eb9d277546c130f8ad8c",
+    "mtime": 1790198709.9167216,
+    "ast_hash": "d1cc6a3f65efcc9d44fd1eb7d7ec1d71",
     "semantic_hash": ""
   },
   "blender/bake/ISL_home_rock_albedo.png": {
-    "mtime": 1790184048.893414,
-    "ast_hash": "21b7efe9bf052365bc27b6d21e6e0cde",
+    "mtime": 1790198679.2105582,
+    "ast_hash": "52979c3d3cf62c05ed60f1f3682be04a",
     "semantic_hash": ""
   },
   "blender/bake/ISL_home_stacks_albedo.png": {
-    "mtime": 1790184065.9574397,
-    "ast_hash": "ae70f00ac4717af91ed6aed0ade2c4e8",
+    "mtime": 1790198694.1261356,
+    "ast_hash": "f2fe6a6b608ed39317382374307a6e5f",
     "semantic_hash": ""
   },
   "blender/renders/approval_1_hero.png": {
@@ -345,13 +330,13 @@
     "semantic_hash": ""
   },
   "public/world/shore.png": {
-    "mtime": 1790183999.9798958,
+    "mtime": 1790198634.1554937,
     "ast_hash": "cbda9233cc367d1e9eca157c250953a8",
     "semantic_hash": ""
   },
   "blender/dock_check.py": {
-    "mtime": 1790184479.4512973,
-    "ast_hash": "56449451b64804dd80351f4b89cd102c",
+    "mtime": 1790187976.182478,
+    "ast_hash": "b2f8660574c1b96bf613436541e76c24",
     "semantic_hash": ""
   },
   "blender/lib/landmarks.py": {
@@ -360,63 +345,63 @@
     "semantic_hash": ""
   },
   "blender/world.py": {
-    "mtime": 1790183982.8636298,
-    "ast_hash": "baada5d22b0da85b7157da9ee2549c07",
+    "mtime": 1790198591.776125,
+    "ast_hash": "e5ae19663b89016975012c855079f58b",
     "semantic_hash": ""
   },
   "src/components/models/world.tsx": {
-    "mtime": 1790184587.5090525,
-    "ast_hash": "45016a6951b2b14f4e99f1b99acfc3d4",
+    "mtime": 1790198672.5350204,
+    "ast_hash": "6672794a69771ab8211371eeff75b3a7",
     "semantic_hash": ""
   },
   "blender/bake/ISL_drift_cap_albedo.png": {
-    "mtime": 1790184217.1784763,
-    "ast_hash": "bd48eab084cc193b16855b67480eaffa",
+    "mtime": 1790198815.3033426,
+    "ast_hash": "780257a4eedc8e260115954fed2f4f7c",
     "semantic_hash": ""
   },
   "blender/bake/ISL_drift_rock_albedo.png": {
-    "mtime": 1790184213.5220056,
-    "ast_hash": "7918f319a1f0e7f348adec9bab0eaa7d",
+    "mtime": 1790198812.185977,
+    "ast_hash": "7e393d9e2e5119b21617dd0769039847",
     "semantic_hash": ""
   },
   "blender/bake/ISL_ember_ground_albedo.png": {
-    "mtime": 1790184140.9920864,
-    "ast_hash": "60e58edf8b9df9eaf9815064145913eb",
+    "mtime": 1790198756.2938454,
+    "ast_hash": "9be9a28b578a41500526e7bc04089e1a",
     "semantic_hash": ""
   },
   "blender/bake/ISL_ember_rock_albedo.png": {
-    "mtime": 1790184126.6310737,
-    "ast_hash": "e99f36c4d5ee5b1b14e4e66bee63d011",
+    "mtime": 1790198743.3298347,
+    "ast_hash": "53a1cd29ee0d2f5577028b3324dfb271",
     "semantic_hash": ""
   },
   "blender/bake/ISL_light_cap_albedo.png": {
-    "mtime": 1790184200.0316987,
-    "ast_hash": "3727987ed22e39f2a78a10c18acd844b",
+    "mtime": 1790198802.0474818,
+    "ast_hash": "8480dbc5d04c052a8426279317062c16",
     "semantic_hash": ""
   },
   "blender/bake/ISL_light_rock_albedo.png": {
-    "mtime": 1790184196.0220609,
-    "ast_hash": "c91200ab27adcd3cb0c8c66474bef978",
+    "mtime": 1790198798.679217,
+    "ast_hash": "eb9d07379abd730c1657cedd86ef48fa",
     "semantic_hash": ""
   },
   "blender/bake/ISL_skull_ground_albedo.png": {
-    "mtime": 1790184183.0655897,
-    "ast_hash": "8737989fe91ad9399b056785b2bab29c",
+    "mtime": 1790198789.9711535,
+    "ast_hash": "26fc83ab0ad90b845a5c722af1f3331a",
     "semantic_hash": ""
   },
   "blender/bake/ISL_skull_rock_albedo.png": {
-    "mtime": 1790184159.4479501,
-    "ast_hash": "7afa7832569a528317c64da1db80b55a",
+    "mtime": 1790198771.980039,
+    "ast_hash": "5ebba32e3b2c3468494ea0b53e78354d",
     "semantic_hash": ""
   },
   "blender/bake/ISL_skull_rock_teeth_albedo.png": {
-    "mtime": 1790184165.9416637,
-    "ast_hash": "f84b397fa78b39d7fdff773243c77a2a",
+    "mtime": 1790198777.0694005,
+    "ast_hash": "7b0108daea828300617f0e3fca45f64a",
     "semantic_hash": ""
   },
   "blender/bake/ISL_skull_rocks_albedo.png": {
-    "mtime": 1790184171.957866,
-    "ast_hash": "dce67f7b15810c8dad4a876f9770288c",
+    "mtime": 1790198781.5958176,
+    "ast_hash": "2fff4b4bb7de18306c58d634f6e5f0c4",
     "semantic_hash": ""
   },
   "blender/renders/approval_4_archipelago.png": {
@@ -445,28 +430,28 @@
     "semantic_hash": ""
   },
   "blender/renders/dock_contact.png": {
-    "mtime": 1790184450.6445909,
-    "ast_hash": "2f6b3393b37bd7abddf2c20484a5a3a4",
+    "mtime": 1790187997.0535295,
+    "ast_hash": "8a8ff384f03dadbe0922fccdf82d0cf8",
     "semantic_hash": ""
   },
   "blender/renders/dock_experience.png": {
-    "mtime": 1790184447.1592863,
-    "ast_hash": "e644430d9512381ebd6cbee290b11bb1",
+    "mtime": 1790187992.9125106,
+    "ast_hash": "a9fa9be29c24021678fd86f7ef843f33",
     "semantic_hash": ""
   },
   "blender/renders/dock_intro.png": {
-    "mtime": 1790184436.031658,
-    "ast_hash": "763221f347287792888304b6fc737d62",
+    "mtime": 1790187982.4803095,
+    "ast_hash": "229733b44ee716af60626a6f780d1d69",
     "semantic_hash": ""
   },
   "blender/renders/dock_project-1.png": {
-    "mtime": 1790184440.2692688,
-    "ast_hash": "28c29462e984482423d6a00aaa096ab4",
+    "mtime": 1790187986.0302405,
+    "ast_hash": "a917941bc8e3c629c902f40820d39102",
     "semantic_hash": ""
   },
   "blender/renders/dock_resume.png": {
-    "mtime": 1790184443.758978,
-    "ast_hash": "938c8aa80632b6044ab63c5757f0dd31",
+    "mtime": 1790187989.4782271,
+    "ast_hash": "d419d26efeb5378caec438ff4cb90540",
     "semantic_hash": ""
   },
   "blender/renders/world_drifting.png": {
@@ -490,8 +475,273 @@
     "semantic_hash": ""
   },
   "blender/renders/world_world.png": {
-    "mtime": 1790183573.679003,
-    "ast_hash": "9ea3fe47f6e33254d023d2011e2388b5",
+    "mtime": 1790186662.4920096,
+    "ast_hash": "aa9c2f6a9abbac7f2644f5d993698b2a",
+    "semantic_hash": ""
+  },
+  "blender/export_ship.py": {
+    "mtime": 1790187390.3521042,
+    "ast_hash": "4649a4208b1be50ed3fbfd2ea59bee6d",
+    "semantic_hash": ""
+  },
+  "blender/lib/npc.py": {
+    "mtime": 1790187026.286477,
+    "ast_hash": "55260b779cbe52b92dfb8b0ce8271024",
+    "semantic_hash": ""
+  },
+  "blender/lib/poi.py": {
+    "mtime": 1790198540.7756438,
+    "ast_hash": "a32b67b29f5ee59cb0879ddb2cb1b13b",
+    "semantic_hash": ""
+  },
+  "blender/lib/ship.py": {
+    "mtime": 1790186260.095306,
+    "ast_hash": "9556e5eb791b96871eee26de7ea9d53e",
+    "semantic_hash": ""
+  },
+  "blender/ship_lab.py": {
+    "mtime": 1790187399.5844615,
+    "ast_hash": "b543aad139b82ae5bd12ef8b8c94ffad",
+    "semantic_hash": ""
+  },
+  "src/components/models/npcs.tsx": {
+    "mtime": 1790197402.204226,
+    "ast_hash": "2a9b8b50d1d9aaf16f3804d2dd241da5",
+    "semantic_hash": ""
+  },
+  "src/components/models/ship.tsx": {
+    "mtime": 1790197402.204316,
+    "ast_hash": "62312e2f68b8e103284e868708e808d9",
+    "semantic_hash": ""
+  },
+  "src/components/tour/activate.ts": {
+    "mtime": 1790199289.3076892,
+    "ast_hash": "4291be70300ee7924e86296a000990ae",
+    "semantic_hash": ""
+  },
+  "src/components/tour/useInteract.ts": {
+    "mtime": 1790199313.0280755,
+    "ast_hash": "3d63085969c7a5ad518cf531a7792e1d",
+    "semantic_hash": ""
+  },
+  "src/components/ui/NpcDialogue.tsx": {
+    "mtime": 1790199313.028144,
+    "ast_hash": "7f723ec7b5dff81ba7f839d38dbdc9f3",
+    "semantic_hash": ""
+  },
+  "src/data/interact.ts": {
+    "mtime": 1790199313.0279195,
+    "ast_hash": "6acc603086feea68f96b91f614834713",
+    "semantic_hash": ""
+  },
+  "src/data/interactables.ts": {
+    "mtime": 1790198852.5951204,
+    "ast_hash": "7ed31379a73ff8c504cbc58090d90047",
+    "semantic_hash": ""
+  },
+  "blender/sources/pirate_kit/SOURCE.txt": {
+    "mtime": 1790186894.6090004,
+    "ast_hash": "a9b07538079f9aceb902a3356ee00651",
+    "semantic_hash": ""
+  },
+  "blender/renders/approval_09_ship_three_q.png": {
+    "mtime": 1790186667.3087893,
+    "ast_hash": "123244d6d02662bb47a8168e7463aac3",
+    "semantic_hash": ""
+  },
+  "blender/renders/approval_10_ship_side.png": {
+    "mtime": 1790186667.3087893,
+    "ast_hash": "489994c91d6b92e650ced497e32b5173",
+    "semantic_hash": ""
+  },
+  "blender/renders/approval_11_ship_deck.png": {
+    "mtime": 1790186667.3098207,
+    "ast_hash": "87b4a2a45b262dc921bed8fd62bd794a",
+    "semantic_hash": ""
+  },
+  "blender/renders/approval_12_ship_stern.png": {
+    "mtime": 1790186667.3102934,
+    "ast_hash": "f6854171c73af348120373db4b9e7707",
+    "semantic_hash": ""
+  },
+  "blender/renders/approval_13_ship_home.png": {
+    "mtime": 1790186667.310738,
+    "ast_hash": "c111fbd477b7807fdcc4e98812d8df9e",
+    "semantic_hash": ""
+  },
+  "blender/renders/approval_14_poi_intro.png": {
+    "mtime": 1790186667.3111498,
+    "ast_hash": "914645ee387e17e7e2d76eaea1f45551",
+    "semantic_hash": ""
+  },
+  "blender/renders/approval_15_poi_projects_0.png": {
+    "mtime": 1790186667.3115587,
+    "ast_hash": "3938733a5a79e0658828f4ebc047613b",
+    "semantic_hash": ""
+  },
+  "blender/renders/approval_16_poi_projects_1.png": {
+    "mtime": 1790186667.3115587,
+    "ast_hash": "6a9f738d8d26f567c116baecf9fa91e3",
+    "semantic_hash": ""
+  },
+  "blender/renders/approval_17_poi_projects_2.png": {
+    "mtime": 1790186667.3123605,
+    "ast_hash": "8b44f3c05ceebbb94e7d163a02341cae",
+    "semantic_hash": ""
+  },
+  "blender/renders/approval_18_poi_projects_3.png": {
+    "mtime": 1790186667.3127353,
+    "ast_hash": "4bd9a0c767e0280e8c52585c2b071c6b",
+    "semantic_hash": ""
+  },
+  "blender/renders/approval_19_poi_resume.png": {
+    "mtime": 1790186667.3131032,
+    "ast_hash": "2cbd4c5db43a716804f2b4918f7cd66b",
+    "semantic_hash": ""
+  },
+  "blender/renders/approval_20_poi_experience.png": {
+    "mtime": 1790186667.3135567,
+    "ast_hash": "1c81e8cb4d461c06b3c04d781c0435f9",
+    "semantic_hash": ""
+  },
+  "blender/renders/approval_21_poi_contact.png": {
+    "mtime": 1790186667.3139858,
+    "ast_hash": "9b8a423248c33896be9e1e845fb75049",
+    "semantic_hash": ""
+  },
+  "blender/renders/approval_22_npc_anne.png": {
+    "mtime": 1790187081.9055183,
+    "ast_hash": "7e2d272a9b5f99e8b292b8fe025ddc3a",
+    "semantic_hash": ""
+  },
+  "blender/renders/approval_23_npc_henry.png": {
+    "mtime": 1790187081.907491,
+    "ast_hash": "bfa7effe8ed6518a92ad647e9de2e2b1",
+    "semantic_hash": ""
+  },
+  "blender/renders/approval_24_npc_skeleton.png": {
+    "mtime": 1790187081.907998,
+    "ast_hash": "78eefe975a51c5a6a08aa526545ff1cb",
+    "semantic_hash": ""
+  },
+  "blender/renders/approval_25_npc_mako.png": {
+    "mtime": 1790187081.9084454,
+    "ast_hash": "dfaf2ccb78fb0cf22db64a02532d04fd",
+    "semantic_hash": ""
+  },
+  "blender/renders/approval_26_npc_sharky.png": {
+    "mtime": 1790187081.9088333,
+    "ast_hash": "9acefb680c3b77ef7e4761b3b52b0423",
+    "semantic_hash": ""
+  },
+  "blender/renders/ship_deck.png": {
+    "mtime": 1790186666.58631,
+    "ast_hash": "87b4a2a45b262dc921bed8fd62bd794a",
+    "semantic_hash": ""
+  },
+  "blender/renders/ship_side.png": {
+    "mtime": 1790186665.9316287,
+    "ast_hash": "489994c91d6b92e650ced497e32b5173",
+    "semantic_hash": ""
+  },
+  "blender/renders/ship_stern.png": {
+    "mtime": 1790186667.2092113,
+    "ast_hash": "f6854171c73af348120373db4b9e7707",
+    "semantic_hash": ""
+  },
+  "blender/renders/ship_three_q.png": {
+    "mtime": 1790186665.3670788,
+    "ast_hash": "123244d6d02662bb47a8168e7463aac3",
+    "semantic_hash": ""
+  },
+  "blender/renders/world_npc_anne.png": {
+    "mtime": 1790187049.3515487,
+    "ast_hash": "7e2d272a9b5f99e8b292b8fe025ddc3a",
+    "semantic_hash": ""
+  },
+  "blender/renders/world_npc_henry.png": {
+    "mtime": 1790187054.411614,
+    "ast_hash": "bfa7effe8ed6518a92ad647e9de2e2b1",
+    "semantic_hash": ""
+  },
+  "blender/renders/world_npc_mako.png": {
+    "mtime": 1790187062.034431,
+    "ast_hash": "dfaf2ccb78fb0cf22db64a02532d04fd",
+    "semantic_hash": ""
+  },
+  "blender/renders/world_npc_sharky.png": {
+    "mtime": 1790187065.8767793,
+    "ast_hash": "9acefb680c3b77ef7e4761b3b52b0423",
+    "semantic_hash": ""
+  },
+  "blender/renders/world_npc_skeleton.png": {
+    "mtime": 1790198618.228935,
+    "ast_hash": "f7230566e8420b9fd78b2e8a26ca3d71",
+    "semantic_hash": ""
+  },
+  "blender/renders/world_poi_contact.png": {
+    "mtime": 1790186653.9183667,
+    "ast_hash": "9b8a423248c33896be9e1e845fb75049",
+    "semantic_hash": ""
+  },
+  "blender/renders/world_poi_experience.png": {
+    "mtime": 1790186649.9771535,
+    "ast_hash": "1c81e8cb4d461c06b3c04d781c0435f9",
+    "semantic_hash": ""
+  },
+  "blender/renders/world_poi_intro.png": {
+    "mtime": 1790186630.1631665,
+    "ast_hash": "914645ee387e17e7e2d76eaea1f45551",
+    "semantic_hash": ""
+  },
+  "blender/renders/world_poi_projects.png": {
+    "mtime": 1790186453.6900818,
+    "ast_hash": "309436ce880cf0b02c7bd872e74d58c1",
+    "semantic_hash": ""
+  },
+  "blender/renders/world_poi_projects_0.png": {
+    "mtime": 1790186626.4738781,
+    "ast_hash": "3938733a5a79e0658828f4ebc047613b",
+    "semantic_hash": ""
+  },
+  "blender/renders/world_poi_projects_1.png": {
+    "mtime": 1790186633.9919734,
+    "ast_hash": "6a9f738d8d26f567c116baecf9fa91e3",
+    "semantic_hash": ""
+  },
+  "blender/renders/world_poi_projects_2.png": {
+    "mtime": 1790186637.8281736,
+    "ast_hash": "8b44f3c05ceebbb94e7d163a02341cae",
+    "semantic_hash": ""
+  },
+  "blender/renders/world_poi_projects_3.png": {
+    "mtime": 1790186641.6256409,
+    "ast_hash": "4bd9a0c767e0280e8c52585c2b071c6b",
+    "semantic_hash": ""
+  },
+  "blender/renders/world_poi_resume.png": {
+    "mtime": 1790198576.8658013,
+    "ast_hash": "171fe52c065ca6cf5c731584d077d2df",
+    "semantic_hash": ""
+  },
+  "blender/renders/world_ship_home.png": {
+    "mtime": 1790186657.7397165,
+    "ast_hash": "c111fbd477b7807fdcc4e98812d8df9e",
+    "semantic_hash": ""
+  },
+  "blender/sources/pirate_kit/Atlas_Pirate.png": {
+    "mtime": 1790186894.5880005,
+    "ast_hash": "8abe838f07afb0eb277cce2d7849367d",
+    "semantic_hash": ""
+  },
+  "blender/extract_chest.py": {
+    "mtime": 1790198509.1498663,
+    "ast_hash": "bfc71d630bd19a2abd8b4f695f583ad8",
+    "semantic_hash": ""
+  },
+  "src/components/models/treasure-chest.tsx": {
+    "mtime": 1790198672.5348294,
+    "ast_hash": "61c2efbee200dbb760c7580e60931850",
     "semantic_hash": ""
   }
 }

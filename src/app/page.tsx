@@ -7,6 +7,7 @@ import { AgXToneMapping, NoToneMapping } from "three";
 import World from "@/components/models/world";
 import Ship from "@/components/models/ship";
 import Npcs from "@/components/models/npcs";
+import TreasureChest from "@/components/models/treasure-chest";
 import NpcDialogue from "@/components/ui/NpcDialogue";
 import CameraRig from "@/components/tour/CameraRig";
 import DevCoords from "@/components/tour/DevCoords";
@@ -21,7 +22,6 @@ import BackgroundMusic from "@/components/music";
 import Navbar from "@/components/shared/navbar";
 import ContentPanel from "@/components/ui/ContentPanel";
 import TourControls from "@/components/ui/TourControls";
-import SubNav from "@/components/ui/SubNav";
 import { useIsMobile } from "@/components/env/useIsMobile";
 import LoadingScreen from "@/components/ui/LoadingScreen";
 import IntroTitle from "@/components/ui/IntroTitle";
@@ -88,6 +88,7 @@ export default function Home() {
           <World />
           <Ship />
           <Npcs />
+          <TreasureChest />
 
 
           {/* Camera + post */}
@@ -103,7 +104,6 @@ export default function Home() {
       <LoadingScreen />
       <IntroTitle />
       <TourControls />
-      <SubNav />
       <ContentPanel />
       <NpcDialogue />
       <BackgroundMusic />

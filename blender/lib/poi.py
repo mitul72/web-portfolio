@@ -457,3 +457,32 @@ def message_bottle(rnd, at, yaw, key):
         o.parent = body
         o.matrix_parent_inverse = body.matrix_world.inverted()
     return [body, glass, inner]
+
+
+# --------------------------------------------------------------------------
+# Resume, v2: the ORIGINAL portfolio's animated chest (extract_chest.py)
+# --------------------------------------------------------------------------
+
+CHEST_PLACEMENT = {}
+
+
+def original_chest(rnd, at, yaw, key):
+    """Stand the original animated chest here, for renders and for its
+    close-up. It ships as its own GLB (src/assets/treasure-chest.glb) so its
+    skinned open/close clip can play; this only records where it stands."""
+    from pathlib import Path
+    src = Path(__file__).resolve().parent.parent / "sources" / "treasure_chest.glb"
+    before = set(bpy.data.objects)
+    bpy.ops.import_scene.gltf(filepath=str(src))
+    new = [o for o in bpy.data.objects if o not in before]
+    holder = bpy.data.objects.new(f"CHEST_{key}", None)
+    bpy.context.scene.collection.objects.link(holder)
+    for o in new:
+        if o.parent is None:
+            o.parent = holder
+    holder.matrix_world = _xf(at, yaw)
+    CHEST_PLACEMENT[key] = {"position": tuple(at), "yaw": yaw}
+    meshes = [o for o in new if o.type == "MESH" and not o.name.startswith("Icosphere")]
+    for o in [o for o in new if o.name.startswith("Icosphere")]:
+        bpy.data.objects.remove(o, do_unlink=True)
+    return [holder] + meshes

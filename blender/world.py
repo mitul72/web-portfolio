@@ -73,7 +73,8 @@ FOV_Y = math.radians(48)
 
 
 def _bounds(objs):
-    pts = [o.matrix_world @ V(c) for o in objs if o.type == "MESH" for c in o.bound_box]
+    dg = bpy.context.evaluated_depsgraph_get()
+    pts = [o.matrix_world @ V(c) for o in objs if o.type == "MESH" for c in o.evaluated_get(dg).bound_box]
     lo = V((min(p.x for p in pts), min(p.y for p in pts), min(p.z for p in pts)))
     hi = V((max(p.x for p in pts), max(p.y for p in pts), max(p.z for p in pts)))
     return lo, hi
@@ -112,18 +113,20 @@ NPC_SHOTS = {}
 
 def person(scene, key, file, x, y, face_to, pose="Idle", frame=12):
     """Stand an NPC on the ground at (x, y) facing `face_to`; keep plants off
-    them; compute a talking close-up (3/4 view, eye level, ~4.5 m out)."""
+    them; compute their talking shot: 3/4 view, ~8 m out and a little above,
+    wide enough to show where they stand, aimed low so they sit above the
+    dialogue box at the bottom of the screen."""
     z = H.ground_z(scene, x, y, 0.4)
     at = V((x, y, z - 0.02))
     npc.place(scene, key, file, at, face_to, pose=pose, frame=frame)
     H.CLEAR.append((x, y, 2.5))
     d = V((face_to[0] - x, face_to[1] - y, 0)).normalized()
     side = V((-d.y, d.x, 0))
-    cam = at + d * 4.2 + side * 1.6 + V((0, 0, 1.75))
-    NPC_SHOTS[key] = (tuple(cam), tuple(at + V((0, 0, 1.15))))
-    for k in (0.4, 0.8):
+    cam = at + d * 7.2 + side * 2.4 + V((0, 0, 2.6))
+    NPC_SHOTS[key] = (tuple(cam), tuple(at + V((0, 0, 0.7))))
+    for k in (0.3, 0.55, 0.8):
         q = at + (cam - at) * k
-        H.CLEAR.append((q.x, q.y, 1.8))
+        H.CLEAR.append((q.x, q.y, 2.2))
 
 
 def point_light(name, at, energy, color, radius=0.5):
@@ -259,10 +262,11 @@ def skull(scene):
         hit = flora.ground_hit(scene, p.x, p.y)
         return V((p.x, p.y, hit[0].z if hit else 1.0))
     chest_at = gz(-24, -40)
-    plant(scene, poi.chest, chest_at.x, chest_at.y, (182.5, -274), "resume")
+    # the original portfolio's animated chest (its own GLB; see poi.original_chest)
+    plant(scene, poi.original_chest, chest_at.x, chest_at.y, (182.5, -274), "resume")
     sk_at = w(-27.5, -37)  # dry sand beside the chest
     person(scene, "skeleton", "Characters_Skeleton.gltf", sk_at.x, sk_at.y, (182.5, -274), pose="Idle")
-    for dx, dy in ((-2.5, 2.0), (2.6, 1.6)):
+    for dx, dy in ((2.6, 1.6), (3.4, -2.8)):  # clear of Old Bones' close-up
         LM.torch_post(b, gz(-24 + dx, -40 + dy))
     # X marks the spot: two crossed planks in the sand beside the dig.
     xc = gz(-20, -44)
@@ -469,6 +473,7 @@ def main():
     scene["poi_shots"] = json.dumps(POI_SHOTS)
     scene["npc_shots"] = json.dumps(NPC_SHOTS)
     scene["npc_placements"] = json.dumps(npc.NPC_PLACEMENTS)
+    scene["chest_placement"] = json.dumps(poi.CHEST_PLACEMENT)
     for key, (pos, look) in NPC_SHOTS.items():
         ob = stage.camera(scene, f"CAM_npc_{key}", pos, look)
         ob.data.sensor_fit = "VERTICAL"

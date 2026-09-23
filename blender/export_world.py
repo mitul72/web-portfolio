@@ -371,6 +371,8 @@ def write_interactables():
         shots[f"poi:{k}"] = {"position": t3(pos), "target": t3(look)}
     for k, (pos, look) in json.loads(scene["npc_shots"]).items():
         shots[f"npc:{k}"] = {"position": t3(pos), "target": t3(look)}
+    c = json.loads(scene["chest_placement"])["resume"]
+    chest = {"position": t3(c["position"]), "yaw": round(c["yaw"], 4)}
     npcs = {}
     for k, v in json.loads(scene["npc_placements"]).items():
         npcs[k] = {"file": v["file"], "position": t3(v["position"]), "yaw": round(v["yaw"], 4),
@@ -391,6 +393,9 @@ export const SHOTS: Record<string, Shot> = {json.dumps(shots, indent=2)};
 
 /** Where each NPC stands. `yaw` is rotation.y; `scale` makes them 1.8 m tall. */
 export const NPC_PLACEMENTS: Record<string, {{ file: string; position: [number, number, number]; yaw: number; scale: number }}> = {json.dumps(npcs, indent=2)};
+
+/** Where the original animated treasure chest stands (Skull Cove). */
+export const CHEST_PLACEMENT = {json.dumps(chest, indent=2)};
 """
     out = REPO / "src" / "data" / "interactables.ts"
     out.write_text(ts)

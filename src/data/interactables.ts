@@ -73,14 +73,14 @@ export const SHOTS: Record<string, Shot> = {
   },
   "poi:resume": {
     "position": [
-      233.181,
-      2.649,
-      179.654
+      232.962,
+      2.721,
+      180.067
     ],
     "target": [
-      235.772,
-      1.485,
-      174.829
+      235.76,
+      1.464,
+      174.857
     ]
   },
   "poi:experience": {
@@ -109,61 +109,61 @@ export const SHOTS: Record<string, Shot> = {
   },
   "npc:anne": {
     "position": [
-      14.142,
-      3.095,
-      72.134
+      16.456,
+      3.945,
+      74.204
     ],
     "target": [
       10.5,
-      2.495,
+      2.045,
       69.5
     ]
   },
   "npc:henry": {
     "position": [
-      -259.698,
-      9.385,
-      -86.7
+      -256.834,
+      10.235,
+      -85.5
     ],
     "target": [
       -264.0,
-      8.785,
+      8.335,
       -88.0
     ]
   },
   "npc:skeleton": {
     "position": [
-      234.588,
-      2.799,
-      174.745
+      233.946,
+      3.649,
+      177.783
     ],
     "target": [
       235.059,
-      2.199,
+      1.749,
       170.275
     ]
   },
   "npc:mako": {
     "position": [
-      194.683,
-      37.769,
-      -275.394
+      196.27,
+      38.619,
+      -272.726
     ],
     "target": [
       192.0,
-      37.169,
+      36.719,
       -279.0
     ]
   },
   "npc:sharky": {
     "position": [
-      -228.757,
-      51.225,
-      242.112
+      -226.751,
+      52.075,
+      244.481
     ],
     "target": [
       -232.0,
-      50.625,
+      50.175,
       239.0
     ]
   }
@@ -221,4 +221,14 @@ export const NPC_PLACEMENTS: Record<string, { file: string; position: [number, n
     "yaw": 0.442,
     "scale": 1.2413
   }
+};
+
+/** Where the original animated treasure chest stands (Skull Cove). */
+export const CHEST_PLACEMENT = {
+  "position": [
+    235.772,
+    0.5,
+    174.829
+  ],
+  "yaw": -0.4929
 };

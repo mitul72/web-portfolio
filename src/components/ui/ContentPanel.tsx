@@ -2,6 +2,7 @@
 
 import { STOPS, StopContent } from "@/data/portfolio";
 import { useTour } from "@/components/tour/useTour";
+import { closeToHost } from "@/components/tour/activate";
 import TreasureMap from "./TreasureMap";
 
 /** Renders the body of the panel based on the active stop's content kind. */
@@ -108,7 +109,8 @@ export default function ContentPanel() {
   const panelOpen = useTour((s) => s.panelOpen);
   const activeIndex = useTour((s) => s.activeIndex);
   const activeSubPoiId = useTour((s) => s.activeSubPoiId);
-  const closePanel = useTour((s) => s.closePanel);
+  // Closing returns you to the island's host and their choices.
+  const closePanel = closeToHost;
 
   // Derive content from raw primitives (stable STOPS references) — computing it
   // inside the zustand selector risks new-reference render loops.
