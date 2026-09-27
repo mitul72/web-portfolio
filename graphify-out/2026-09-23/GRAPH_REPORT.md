@@ -1,11 +1,11 @@
 # Graph Report - web-portfolio-aaa  (2026-09-23)
 
 ## Corpus Check
-- 63 files · ~15,206,880 words
+- 62 files · ~15,212,194 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 633 nodes · 1077 edges · 59 communities (27 shown, 32 thin omitted)
+- 631 nodes · 1064 edges · 59 communities (27 shown, 32 thin omitted)
 - Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 47 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
@@ -77,10 +77,10 @@
 ## God Nodes (most connected - your core abstractions)
 1. `material()` - 26 edges
 2. `Graph` - 18 edges
-3. `useTour` - 16 edges
-4. `useInteract` - 15 edges
-5. `compilerOptions` - 15 edges
-6. `skull()` - 14 edges
+3. `useInteract` - 15 edges
+4. `compilerOptions` - 15 edges
+5. `skull()` - 14 edges
+6. `useTour` - 14 edges
 7. `all_materials()` - 13 edges
 8. `ember()` - 13 edges
 9. `lighthouse_rock()` - 13 edges
@@ -109,8 +109,8 @@
 ## Communities (59 total, 32 thin omitted)
 
 ### Community 0 - "2D Lite Page & Island Models"
-Cohesion: 0.26
-Nodes (8): VoyagePhase, VoyageState, Dock, dockForIndex(), dockForStop(), DOCKS, HOME_DOCK, Vec3
+Cohesion: 0.19
+Nodes (11): CameraRig(), VoyagePhase, VoyageState, Dock, dockForIndex(), dockForStop(), DOCKS, HOME_DOCK (+3 more)
 
 ### Community 1 - "Scene Roots & Markers"
 Cohesion: 0.08
@@ -185,12 +185,12 @@ Cohesion: 0.40
 Nodes (4): FOG_COLOR, KEY_COLOR, KEY_DIR, SUN_DISC_DIR
 
 ### Community 49 - "page.tsx"
-Cohesion: 0.16
-Nodes (10): BackgroundMusic(), CameraRig(), DevCoords(), IntroTitle(), LoadingScreen(), CHEST_PLACEMENT, NPC_PLACEMENTS, Shot (+2 more)
+Cohesion: 0.25
+Nodes (5): BackgroundMusic(), DevCoords(), IntroTitle(), LoadingScreen(), STOPS
 
 ### Community 50 - "useTour"
-Cohesion: 0.25
-Nodes (10): TreasureChest(), Navbar(), KIND_COLOR, Marker(), TourState, useTour, useVoyage, SubNav() (+2 more)
+Cohesion: 0.21
+Nodes (12): TreasureChest(), Navbar(), KIND_COLOR, Marker(), greet(), InteractState, TourState, useTour (+4 more)
 
 ### Community 51 - "dock_check.py"
 Cohesion: 0.29
@@ -205,12 +205,12 @@ Cohesion: 0.14
 Nodes (22): bottle_glass(), calc_engine(), chest(), _ink(), message_bottle(), original_chest(), Interactive props: the things on the islands that ARE the navigation, as the cab, fast-telemetry: a weather station. Mast, instrument box with dials,     and a cu (+14 more)
 
 ### Community 55 - "activate.ts"
-Cohesion: 0.15
-Nodes (21): FILES, Npc(), Captain(), HELM, HOVER, Phase, activate(), runDialogueAction() (+13 more)
+Cohesion: 0.14
+Nodes (16): FILES, Npc(), Captain(), HELM, HOVER, Phase, activate(), runDialogueAction() (+8 more)
 
 ### Community 56 - "world.tsx"
-Cohesion: 0.20
-Nodes (8): HOVER, LAVA, Prop, SELF_LIT, World(), Interactable, Npc, propFor()
+Cohesion: 0.17
+Nodes (12): HOVER, LAVA, Prop, SELF_LIT, World(), DialogueAction, Interactable, Npc (+4 more)
 
 ## Knowledge Gaps
 - **168 isolated node(s):** `extends`, `@typescript-eslint/no-explicit-any`, `@typescript-eslint/no-unused-vars`, `$schema`, `style` (+163 more)

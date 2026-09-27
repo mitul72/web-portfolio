@@ -57,5 +57,21 @@
   "55": "activate.ts",
   "56": "world.tsx",
   "57": "npc.py",
-  "58": "ship_lab.py"
+  "58": "ship_lab.py",
+  "59": "Three.js Animation",
+  "60": "Three.js Geometry",
+  "61": "Three.js Fundamentals",
+  "62": "Three.js Materials",
+  "63": "poi.py",
+  "64": "flora.py",
+  "65": "rocklab.py",
+  "66": "Three.js Skills for Claude Code",
+  "67": "CLAUDE.md",
+  "68": "cabin_greybox.py",
+  "69": "dock_check.py",
+  "70": "extract_chest.py",
+  "71": "npc.py",
+  "72": "middleware.ts",
+  "73": "buildlab.py",
+  "74": "ship_lab.py"
 }
