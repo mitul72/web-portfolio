@@ -16,10 +16,13 @@ import { ToneMappingMode } from "postprocessing";
  *    "AgX - Medium High Contrast" look adds on top of base AgX.
  *  - A soft vignette.
  * Mobile skips the composer and uses the renderer's own AgX.
+ *
+ * 2x MSAA: the canvas itself has no AA (page.tsx), and bloom's mipmap blur
+ * already softens edges, so 4x was paying twice for the same smoothing.
  */
 export default function Effects() {
   return (
-    <EffectComposer multisampling={4}>
+    <EffectComposer multisampling={2}>
       <Bloom intensity={0.6} luminanceThreshold={1.2} luminanceSmoothing={0.3} mipmapBlur />
       <ToneMapping mode={ToneMappingMode.AGX} />
       <BrightnessContrast contrast={0.1} />

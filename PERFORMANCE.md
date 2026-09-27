@@ -1,12 +1,28 @@
 # Performance audit — room for improvement
 
-> **Status (2026-07-08):** implemented — A2 (canvas AA off, composer 2×MSAA),
-> A3 (1024² map + far islands no longer cast), A4 (ocean 160²), B1's ocean
-> mesh removal (+3 orphaned textures), C seagull scratch vectors, adaptive
-> desktop dpr via PerformanceMonitor (2 → 1.25 → 1 under measured load),
-> mobile powerPreference "default". Still open: B2 (ship_custom.glb
-> material-only load), B3 (KTX2), full E1 quality tiers, treasure coin-pile
-> simplification.
+> **Status (2026-09-26):** re-audited after the AAA rewrite (PR #1), which had
+> quietly undone most of the 2026-07-08 fixes listed below. Now in place; the
+> asset side is reproducible with `npm run assets` (`scripts/optimize-assets.mjs`).
+>
+> | | before | after |
+> |---|---|---|
+> | Hidden second scene render: the chest's gems had `KHR_materials_transmission` 0.1, so three redrew every opaque object each frame as the refraction source (full-res, 4x MSAA, never culled) | every frame | stripped from the GLB; guarded in `treasure-chest.tsx` |
+> | Shadow map (`Lighting.tsx`, `Experience.tsx`) | 4096² PCFSoft | 2048² PCF |
+> | Composer MSAA (`Effects.tsx`) | 4x | 2x |
+> | Ocean (`Ocean.tsx`): grid / ripple gradients | 200² (80k tris) / 8 noise taps per pixel | 160² (51k) / 2 analytic |
+> | World albedos, 13 maps (`world-transformed.glb`) | WebP: ~224 MB GPU, decoded on the main thread | ETC1S KTX2 q160: ~28 MB GPU, transcoded in a worker; GLB 3.1 -> 5.6 MB (ETC1S is ~1 bpp, lossy WebP ~0.5) |
+> | Shore field (`public/world/shore.png`) | 2048² RGB, 871 KB, 16.8 MB GPU | 1024² single channel, 209 KB, 4.2 MB GPU |
+> | NPC GLBs (6) | 2.2 MB, 14 clips each, captain atlas 1024² | 0.84 MB, Idle/Wave/Yes only, atlas 32² (exact per-cell colours) |
+> | Chest | 44.6k tris, 472 KB | 22.2k tris, 385 KB |
+> | Draco / Basis decoders | Google CDN (drei default) | `public/draco`, `public/basis` (`models/loaders.ts`) |
+> | "/" first-load JS | 422 kB, loader waits for three.js | 89 kB shell; the 3D chunk loads behind `LoadingShell` |
+> | Fonts | 2 x WOFF, 130 KB | WOFF2, 110 KB |
+> | Dead weight | 4 unreferenced GLBs (8.7 MB in git), 7 unused npm deps | removed |
+> | `Wake.tsx` | rebuilt 40 instance matrices every frame | skips frames with nothing alive |
+>
+> Still open: full quality tiers (E1 beyond the adaptive dpr), the chest's 16
+> small textures (not flat, so nothing folded; KTX2 would need the loader
+> extension on the chest too), sky.hdr resolution. Original audit follows.
 
 Goal: smooth (55–60fps) on **integrated GPUs** (Intel Iris Xe / AMD Vega iGPU
 class), not just discrete cards. Findings ordered by expected impact. iGPUs are

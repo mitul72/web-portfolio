@@ -98,20 +98,16 @@ export default function Ocean() {
           "#include <normal_fragment_maps>",
           /* glsl */ `
           #include <normal_fragment_maps>
-          // Ripples: a long stretched swell pattern plus fine chop, as
-          // finite-difference gradients of drifting noise.
+          // Ripples: a long stretched swell pattern plus fine chop, as the
+          // analytic gradients of drifting noise (one noise evaluation per
+          // field; central differences cost four each).
           vec2 rp = vec2(sp.x * 0.5, sp.y) * 0.12 + vec2(uTime * 0.04, uTime * 0.02);
           vec2 fp = sp * 0.7 + vec2(-uTime * 0.25, uTime * 0.18);
-          float e1 = 0.05;
-          vec2 g1 = vec2(vnoise(rp + vec2(e1, 0.0)) - vnoise(rp - vec2(e1, 0.0)),
-                         vnoise(rp + vec2(0.0, e1)) - vnoise(rp - vec2(0.0, e1))) / (2.0 * e1);
-          vec2 g2 = vec2(vnoise(fp + vec2(e1, 0.0)) - vnoise(fp - vec2(e1, 0.0)),
-                         vnoise(fp + vec2(0.0, e1)) - vnoise(fp - vec2(0.0, e1))) / (2.0 * e1);
-          vec2 slope = g1 * 0.06 + g2 * 0.035;
+          vec2 slope = vnoiseGrad(rp) * 0.06 + vnoiseGrad(fp) * 0.035;
           normal = normalize(normal + (viewMatrix * vec4(-slope.x, 0.0, -slope.y, 0.0)).xyz);`,
         );
     };
-    m.customProgramCacheKey = () => "ocean-v2";
+    m.customProgramCacheKey = () => "ocean-v3";
     return m;
   }, [shore]);
 
@@ -121,8 +117,10 @@ export default function Ocean() {
 
   return (
     <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow material={material}>
-      {/* 20 m quads: the swell is long; shore detail lives in the fragment. */}
-      <planeGeometry args={[4000, 4000, 200, 200]} />
+      {/* 25 m quads (51k triangles): the longest swell is ~520 m, and all
+          the shore detail lives in the fragment, so a finer grid only adds
+          vertex work. */}
+      <planeGeometry args={[4000, 4000, 160, 160]} />
     </mesh>
   );
 }
@@ -151,4 +149,18 @@ float vnoise(vec2 p) {
   f = f * f * (3.0 - 2.0 * f);
   return mix(mix(hash21(i), hash21(i + vec2(1.0, 0.0)), f.x),
              mix(hash21(i + vec2(0.0, 1.0)), hash21(i + vec2(1.0, 1.0)), f.x), f.y);
+}
+// d(vnoise)/dp, differentiated by hand: the same four corner hashes and the
+// same cubic fade, so it matches vnoise exactly.
+vec2 vnoiseGrad(vec2 p) {
+  vec2 i = floor(p);
+  vec2 f = fract(p);
+  vec2 u = f * f * (3.0 - 2.0 * f);
+  vec2 du = 6.0 * f * (1.0 - f);
+  float a = hash21(i);
+  float b = hash21(i + vec2(1.0, 0.0));
+  float c = hash21(i + vec2(0.0, 1.0));
+  float d = hash21(i + vec2(1.0, 1.0));
+  float k = a - b - c + d;
+  return vec2((b - a + k * u.y) * du.x, (c - a + k * u.x) * du.y);
 }`;

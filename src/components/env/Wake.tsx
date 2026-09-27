@@ -22,6 +22,10 @@ export default function Wake() {
   );
   const head = useRef(0);
   const dropTimer = useRef(0);
+  // Puffs still fading. Once none are left and the ship is docked there is
+  // nothing to move, so the matrices aren't rebuilt and re-uploaded each frame.
+  const live = useRef(0);
+  const primed = useRef(false); // the first pass hides the identity matrices
 
   const life = 1.6;
 
@@ -29,6 +33,8 @@ export default function Wake() {
     if (!mesh.current) return;
     const v = useVoyage.getState();
     const t = state.clock.elapsedTime;
+    if (primed.current && live.current === 0 && v.phase !== "sailing") return;
+    primed.current = true;
 
     // Drop a new foam puff at the ship's stern while sailing.
     if (v.phase === "sailing") {
@@ -47,9 +53,11 @@ export default function Wake() {
       }
     }
 
+    let alive = 0;
     for (let i = 0; i < TRAIL; i++) {
       ages[i] += delta;
       const a = ages[i];
+      if (a < life) alive++;
       if (a >= life) {
         // Hide dead puffs by scaling to zero.
         dummy.position.set(0, -9999, 0);
@@ -66,6 +74,7 @@ export default function Wake() {
       dummy.updateMatrix();
       mesh.current.setMatrixAt(i, dummy.matrix);
     }
+    live.current = alive;
     mesh.current.instanceMatrix.needsUpdate = true;
   });
 

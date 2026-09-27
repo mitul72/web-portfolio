@@ -63,7 +63,10 @@ export default function Lighting({ shadows = true }: { shadows?: boolean }) {
         color={KEY_LIGHT_COLOR}
         intensity={KEY_LIGHT_INTENSITY}
         castShadow={shadows}
-        shadow-mapSize={[4096, 4096]}
+        // 2048 over a 360 m volume is ~18 cm per texel, plenty at this art
+        // style; 4096 was 4x the depth fill for every frame, and the map is
+        // redrawn every frame because the sea and the ship never stop moving.
+        shadow-mapSize={[2048, 2048]}
         shadow-camera-left={-SHADOW_HALF}
         shadow-camera-right={SHADOW_HALF}
         shadow-camera-top={SHADOW_HALF}
