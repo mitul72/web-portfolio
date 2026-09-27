@@ -49,7 +49,7 @@ designed without faking markers over empty water.
    ```
    For fine mesh/material control, use the gltfjsx-generated component instead.
 4. **Place it precisely.** Set `SHOW_DEV_COORDS = true` in
-   [`src/app/page.tsx`](src/app/page.tsx), run the app, click the scene to log
+   [`src/components/Experience.tsx`](src/components/Experience.tsx), run the app, click the scene to log
    world `(x, y, z)` to the console, press `c` to log the camera. Copy those
    numbers in. Turn the flag back off before shipping.
 5. **Make it a tour stop.** Move the matching entry from `PLANNED_STOPS` into
@@ -83,7 +83,9 @@ Drop your PDF at **`public/resume.pdf`**. The resume stop links to `/resume.pdf`
 
 ```
 src/
-  app/page.tsx                 Scene + overlays wiring; dev-coords flag
+  app/page.tsx                 Thin shell: loads Experience as its own chunk behind LoadingShell
+  components/Experience.tsx    Scene + overlays wiring; dev-coords flag
+  scripts/optimize-assets.mjs  `npm run assets`: idempotent post-processing of the GLBs, shore map, decoders
   data/portfolio.ts            ALL content: live STOPS + PLANNED_STOPS
   components/
     models/pirate-island.tsx   The island GLB (gltfjsx output) + markers

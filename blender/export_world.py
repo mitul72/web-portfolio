@@ -8,6 +8,9 @@ Writes:
   public/world/shore.png         top-down metres-to-shore field for the ocean shader
   src/data/world.ts              sun / fog / shore-map constants shared with the app
 
+After compressing the GLB (CLAUDE.md, "Adding a 3D asset"), run `npm run assets`:
+it converts the albedos to KTX2 and the shore map to a single channel.
+
 How the approved look survives glTF:
   - Rock + ground: procedural materials (strata, moss, wet band, cavity AO)
     baked to base-colour textures. Faceted geometry needs no normal map.
@@ -45,7 +48,7 @@ TEX = {
     "ISL_drift_rock": 2048, "ISL_drift_cap": 1024,
 }
 SHORE_EXTENT = 512.0  # the shore map covers [-E, E] metres in X and Z
-SHORE_N = 2048  # 0.5 m per texel
+SHORE_N = 1024  # 1 m per texel (plenty for 2-9 m foam bands; `npm run assets` keeps it at this)
 SHORE_MAX = 96.0  # metres encoded as 1.0
 # Materials exported as they are (self-lit or flat black), never baked.
 KEEP = ("window_glow", "lantern_glow", "lava_hot", "lava_cool", "void", "bottle_glass")

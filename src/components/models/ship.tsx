@@ -11,6 +11,7 @@ import FloatingVessel from "@/components/env/FloatingVessel";
 import Marker from "@/components/tour/Marker";
 import { useInteract } from "@/components/tour/useInteract";
 import { activate } from "@/components/tour/activate";
+import { DRACO_PATH } from "./loaders";
 
 // The galleon's own frame (blender/lib/ship.py, exported by export_ship.py):
 // bow toward -Z, waterline at y = 0, origin on the mainmast. FloatingVessel
@@ -42,7 +43,7 @@ function waveFlag(mat: MeshStandardMaterial, uTime: { value: number }) {
 }
 
 function Captain() {
-  const { scene, animations } = useGLTF(CaptainGLB);
+  const { scene, animations } = useGLTF(CaptainGLB, DRACO_PATH);
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene]);
   const group = useRef<Group>(null);
   const { actions } = useAnimations(animations, group);
@@ -104,7 +105,7 @@ function Captain() {
  * route; plus each stop's floating tag.
  */
 export default function Ship() {
-  const { scene } = useGLTF(ShipGLB);
+  const { scene } = useGLTF(ShipGLB, DRACO_PATH);
   const uTime = useMemo(() => ({ value: 0 }), []);
 
   const model = useMemo(() => {
@@ -145,5 +146,5 @@ export default function Ship() {
   );
 }
 
-useGLTF.preload(ShipGLB);
-useGLTF.preload(CaptainGLB);
+useGLTF.preload(ShipGLB, DRACO_PATH);
+useGLTF.preload(CaptainGLB, DRACO_PATH);

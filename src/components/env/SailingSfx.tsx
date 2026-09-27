@@ -27,17 +27,27 @@ export default function SailingSfx() {
     arrive.current.volume = 0.6;
 
     const safePlay = (a: HTMLAudioElement | null) => a?.play().catch(() => {});
+    // One fade at a time per element: a new fade (e.g. setting sail again
+    // while the arrival fade-out is running) cancels the old one.
+    const fading = new Map<HTMLAudioElement, number>();
     const fade = (a: HTMLAudioElement | null, to: number, ms = 500) => {
       if (!a) return;
+      const pending = fading.get(a);
+      if (pending !== undefined) cancelAnimationFrame(pending);
       const from = a.volume;
       const start = performance.now();
       const step = (now: number) => {
-        const k = Math.min(1, (now - start) / ms);
-        a.volume = from + (to - from) * k;
-        if (k < 1) requestAnimationFrame(step);
-        else if (to === 0) a.pause();
+        // rAF's timestamp is the frame's start, which can be a hair before
+        // `start`: clamp, or the first step asks for a volume below 0.
+        const k = Math.min(1, Math.max(0, (now - start) / ms));
+        a.volume = Math.min(1, Math.max(0, from + (to - from) * k));
+        if (k < 1) fading.set(a, requestAnimationFrame(step));
+        else {
+          fading.delete(a);
+          if (to === 0) a.pause();
+        }
       };
-      requestAnimationFrame(step);
+      fading.set(a, requestAnimationFrame(step));
     };
 
     let prevPhase = useVoyage.getState().phase;

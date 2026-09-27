@@ -12,6 +12,7 @@ import { NPC_PLACEMENTS } from "@/data/interactables";
 import { NPCS } from "@/data/interact";
 import { useInteract } from "@/components/tour/useInteract";
 import { activate } from "@/components/tour/activate";
+import { DRACO_PATH } from "./loaders";
 
 /** Quaternius "Pirate Kit" characters (CC0), by source file name. */
 const FILES: Record<string, string> = {
@@ -25,12 +26,13 @@ const FILES: Record<string, string> = {
 function Npc({ id }: { id: string }) {
   const place = NPC_PLACEMENTS[id];
   const npc = NPCS[id];
-  const { scene, animations } = useGLTF(FILES[place.file]);
+  const { scene, animations } = useGLTF(FILES[place.file], DRACO_PATH);
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene]);
   const group = useRef<Group>(null);
   const { actions, mixer } = useAnimations(animations, group);
   const hovered = useInteract((s) => s.hovered === npc.key);
   const talking = useInteract((s) => s.dialogue === id);
+  const met = useInteract((s) => s.met.includes(id));
 
   useEffect(() => {
     clone.traverse((o) => {
@@ -107,6 +109,21 @@ function Npc({ id }: { id: string }) {
           </div>
         </Html>
       )}
+      {/* Quest marker: a "!" over every host you haven't talked to yet, a
+          fixed size on screen so it reads from across the sea. Click it to
+          sail over and talk. Gone for good once you've met them. */}
+      {!met && !hovered && !talking && (
+        <Html position={[0, 2.9 / place.scale, 0]} center zIndexRange={[10, 0]}>
+          <button
+            onClick={() => activate(npc)}
+            aria-label={`Talk to ${npc.name}, ${npc.role}`}
+            title={`${npc.name} · ${npc.role}`}
+            className="quest-bob flex h-7 w-7 items-center justify-center rounded-full border-2 border-amber-100/80 bg-amber-400 text-base font-black text-slate-950 shadow-[0_0_14px_rgba(251,191,36,0.75)] transition hover:scale-110"
+          >
+            !
+          </button>
+        </Html>
+      )}
     </group>
   );
 }
@@ -122,4 +139,4 @@ export default function Npcs() {
   );
 }
 
-Object.values(FILES).forEach((f) => useGLTF.preload(f));
+Object.values(FILES).forEach((f) => useGLTF.preload(f, DRACO_PATH));
