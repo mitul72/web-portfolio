@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { ThreeEvent, useFrame } from "@react-three/fiber";
+import { ThreeEvent, useFrame, useThree } from "@react-three/fiber";
 import { Html, useGLTF } from "@react-three/drei";
 import {
   Box3,
@@ -16,6 +16,7 @@ import WorldGLB from "@/assets/world-transformed.glb";
 import { Interactable, propFor } from "@/data/interact";
 import { useInteract } from "@/components/tour/useInteract";
 import { activate } from "@/components/tour/activate";
+import { DRACO_PATH, ktx2Textures } from "./loaders";
 
 /** Materials that light themselves: they neither cast nor receive shadows. */
 const SELF_LIT = new Set(["window_glow", "lantern_glow", "lava_hot", "lava_cool", "void", "bottle_glass"]);
@@ -64,7 +65,8 @@ function findNode(root: Object3D, name: string): Object3D | null {
  * blender/export_world.py, authored in place at world coordinates.
  */
 export default function World() {
-  const { scene } = useGLTF(WorldGLB);
+  const gl = useThree((s) => s.gl);
+  const { scene } = useGLTF(WorldGLB, DRACO_PATH, true, ktx2Textures(gl));
   const hovered = useInteract((s) => s.hovered);
   const setHovered = useInteract((s) => s.setHovered);
 
@@ -219,4 +221,5 @@ export default function World() {
   );
 }
 
-useGLTF.preload(WorldGLB);
+// No `useGLTF.preload` here: the KTX2 textures need the renderer (see
+// loaders.ts), and World mounts with the Canvas anyway, so nothing is lost.

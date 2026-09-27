@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef } from "react";
 import { ThreeEvent, useFrame } from "@react-three/fiber";
 import { Html, useAnimations, useGLTF } from "@react-three/drei";
 import { SkeletonUtils } from "three-stdlib";
-import { AnimationAction, Color, Group, LoopRepeat, Mesh, MeshStandardMaterial } from "three";
+import { AnimationAction, Color, Group, LoopRepeat, Mesh, MeshPhysicalMaterial, MeshStandardMaterial } from "three";
 import ChestGLB from "@/assets/treasure-chest.glb";
 import { CHEST_PLACEMENT } from "@/data/interactables";
 import { PROPS } from "@/data/interact";
@@ -11,6 +11,7 @@ import { useTour } from "@/components/tour/useTour";
 import { useVoyage } from "@/components/tour/useVoyage";
 import { useInteract } from "@/components/tour/useInteract";
 import { activate } from "@/components/tour/activate";
+import { DRACO_PATH } from "./loaders";
 
 // The original portfolio's chest, lifted out of its island by
 // blender/extract_chest.py. Its one clip ("Scene", ~6.67 s) opens the lid,
@@ -26,7 +27,7 @@ type Phase = "closed" | "opening" | "open" | "closing";
  * half when you sail away. Hover glows it, click opens the resume.
  */
 export default function TreasureChest() {
-  const { scene, animations } = useGLTF(ChestGLB);
+  const { scene, animations } = useGLTF(ChestGLB, DRACO_PATH);
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene]);
   const group = useRef<Group>(null);
   const { actions } = useAnimations(animations, group);
@@ -46,6 +47,11 @@ export default function TreasureChest() {
       m.frustumCulled = false; // skinned: the lid leaves its rest bounds
       m.userData.interactKey = prop.key;
       const own = (m.material as MeshStandardMaterial).clone();
+      // Never transmissive: one transmissive material makes three render the
+      // whole opaque scene a second time every frame (full-res, 4x MSAA) as
+      // the refraction source. `npm run assets` strips it from the GLB; this
+      // guards a fresh extract from Blender.
+      if ((own as MeshPhysicalMaterial).isMeshPhysicalMaterial) (own as MeshPhysicalMaterial).transmission = 0;
       own.userData.baseEmissive = own.emissive.clone();
       own.userData.baseIntensity = own.emissiveIntensity;
       m.material = own;
@@ -144,4 +150,4 @@ export default function TreasureChest() {
   );
 }
 
-useGLTF.preload(ChestGLB);
+useGLTF.preload(ChestGLB, DRACO_PATH);

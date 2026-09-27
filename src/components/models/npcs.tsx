@@ -12,6 +12,7 @@ import { NPC_PLACEMENTS } from "@/data/interactables";
 import { NPCS } from "@/data/interact";
 import { useInteract } from "@/components/tour/useInteract";
 import { activate } from "@/components/tour/activate";
+import { DRACO_PATH } from "./loaders";
 
 /** Quaternius "Pirate Kit" characters (CC0), by source file name. */
 const FILES: Record<string, string> = {
@@ -25,7 +26,7 @@ const FILES: Record<string, string> = {
 function Npc({ id }: { id: string }) {
   const place = NPC_PLACEMENTS[id];
   const npc = NPCS[id];
-  const { scene, animations } = useGLTF(FILES[place.file]);
+  const { scene, animations } = useGLTF(FILES[place.file], DRACO_PATH);
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene]);
   const group = useRef<Group>(null);
   const { actions, mixer } = useAnimations(animations, group);
@@ -138,4 +139,4 @@ export default function Npcs() {
   );
 }
 
-Object.values(FILES).forEach((f) => useGLTF.preload(f));
+Object.values(FILES).forEach((f) => useGLTF.preload(f, DRACO_PATH));
